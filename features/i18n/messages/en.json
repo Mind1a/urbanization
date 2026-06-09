@@ -1,0 +1,74 @@
+{
+  "contact": {
+    "title": "Contact Us",
+    "description": "We are always ready to hear your thoughts, questions or suggestions. Fill out the form and our team will contact you soon.",
+
+    "name": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phone": "Phone Number",
+    "message": "Message",
+
+    "namePlaceholder": "First name",
+    "lastNamePlaceholder": "Last name",
+    "emailPlaceholder": "example@example.com",
+    "phonePlaceholder": "595000000",
+    "messagePlaceholder": "How can we help you?",
+
+    "submit": "Send",
+    "sending": "Sending...",
+    "success": "Message sent successfully!",
+    "serverError": "Something went wrong!"
+  },
+
+  "aboutUs": {
+    "title": "About Us"
+  },
+
+  "validation": {
+    "nameRequired": "Name is required",
+    "nameMax": "Maximum of 20 characters",
+
+    "lastNameRequired": "Last name is required",
+    "lastNameMax": "Maximum of 25 characters",
+
+    "emailInvalid": "Invalid email address",
+
+    "phoneInvalid": "Invalid phone number",
+
+    "messageRequired": "Message is required",
+    "messageMax": "Maximum of 1000 characters"
+  },
+
+  "notFound": {
+    "title": "Page not found",
+    "paragraph": "The page that you requested doesn't exist or is temporarily unavailable",
+    "link": "Return to main page"
+  },
+
+  "navigation": {
+    "home": "Home",
+    "verbs": "Verbs",
+    "aboutUs": "About Us",
+    "contact": "Contact"
+  },
+  "footer": {
+    "docs": {
+      "privacy": "Privacy Policy",
+      "terms": "Terms and Conditions",
+      "cookies": "Cookie Policy",
+      "title": "Documentation"
+    },
+    "donor": {
+      "title": "Donor",
+      "content": "Funded by the Shota Rustaveli National Science Foundation"
+    },
+    "contact": {
+      "title": "Contact",
+      "location": "Tbilisi, Georgia"
+    },
+    "partners": {
+      "title": "Partners"
+    }
+  }
+}
