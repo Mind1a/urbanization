@@ -2,7 +2,7 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { routing } from "@/features/i18n/routing";
 import { notFound } from "next/navigation";
-import Footer from "@/features/landing/components/Footer";
+import Footer from "@/app/components/Footer";
 import Header from "../components/Header";
 
 export default async function LocaleLayout({
