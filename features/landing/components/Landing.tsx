@@ -1,9 +1,7 @@
-import Statistic from "./Statistic";
-
 const Landing = () => {
   return (
     <div>
-      <Statistic />
+      <h1>Landing</h1>
     </div>
   );
 };
