@@ -222,10 +222,12 @@ const Header = () => {
          transition-all
           duration-300
            ease-in-out
-            left-0 flex
+            left-0
+            flex flex-col
             h-screen
+            overflow-y-auto
+            justify-start
              items-center
-              justify-center
                 bg-[#ffffff6b]
                  backdrop-blur-2xl
 
