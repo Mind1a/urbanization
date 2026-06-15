@@ -225,10 +225,11 @@ const Header = () => {
             left-0
             flex flex-col
             h-screen
+
             overflow-y-auto
             justify-start
              items-center
-                bg-[#ffffff6b]
+                bg-[#ffffff]/20
                  backdrop-blur-2xl
 
                  `}>
@@ -236,7 +237,7 @@ const Header = () => {
          h-full
           flex
           flex-col
-           mt-22
+           mt-10
             p-6
             gap-2
             ">
@@ -250,8 +251,7 @@ const Header = () => {
                         {link.icon && <Image className={`${isOpenSubLinks === link.id ? "rotate-180" : "rotate-0"} transition-all xl:hidden duration-200 ease`} width={14} height={14} src={link.icon} alt="" />}
                       </button>
                     ) : (
-                      <Link onClick={() => {
-
+                        <Link onClick={() => {
                         setIsOpenSubLinks(null)
                       }} href={link.href || "/"} className={`text-[16px] flex items-center justify-between leading-6 ${cleanPathname === link.href ? "text-[#ED6502] font-bold" : "text-[#1E1E1E] font-normal"}`}>
                         {link.label}
@@ -287,19 +287,28 @@ const Header = () => {
         <nav className="hidden xl:flex items-center justify-between">
           <ul className="flex items-center gap-2">
             {
-              LINKS_DATA.map(link => (
+              LINKS_DATA.map((link) => (
                 <li key={link.label} className="py-3 px-6  ">
                   {
                     link.subLinks ? (
-                      <button onClick={() => toggleSubMenu(link.id)} className={`capitalize ${isOpenSubLinks === link.id ? "text-[#ED6502]" : "text-[#1E1E1E]"}  relative group text-[18px] leading-6  tracking-[4%] cursor-pointer`}>
-                        {link.label}
-
+                      <div className="relative">
+                        <button onClick={() => toggleSubMenu(link.id)} className={`capitalize ${link.subLinks.some(subLink => subLink.href === cleanPathname)
+                          ? "text-[#ED6502] font-bold"
+                          : isOpenSubLinks === link.id
+                            ? "text-[#ED6502]"
+                            : "text-[#1E1E1E] font-normal"
+                          }  text-[18px] leading-6 tracking-[4%] cursor-pointer`}>
+                          {link.label}
+                        </button>
                         <ul className={`absolute
                            left-0
                             shadow-xl
+                            shadow-black/4
+                            text-[18px]
                              duration-200
                              w-58.75
-
+                              leading-6 tracking-[4%]
+                              capitalize
                                top-10
                                    bg-white
                                      rounded-xl
@@ -310,16 +319,17 @@ const Header = () => {
                           {
                             link.subLinks.map(subLink => (
                               <li key={subLink.id} className=" w-full">
-                                <Link  href={subLink.href} className="block w-full text-left p-2.5  hover:bg-[#ED6502] hover:text-white transition-colors text-[16px] leading-5.5">
-                                  {
-                                    subLink.label
-                                  }
-                                </Link>
-                              </li>
-                            ))
+                                  <Link href={subLink.href} className="block w-full text-left p-2.5  hover:text-[#ED6502] transition-colors text-[16px] leading-5.5">
+                                    {
+                                      subLink.label
+                                    }
+                                  </Link>
+                                </li>
+                              ))
                           }
                         </ul>
-                      </button>
+
+                      </div>
                     ) : (
                       <Link onClick={() => {
                         setIsOpenNavMenu(false)

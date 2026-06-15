@@ -83,7 +83,7 @@ const Footer = () => {
         </div>
       </div>
       <div className=' h-0.5 md:h-1 bg-[#6B6B6B52] -mx-6 md:-mx-8 xl:-mx-20' />
-      <div className='max-w-7xl mx-auto  pb-3 md:pb-5  '>
+      <div className='max-w-7xl mx-auto z-50 pb-3 md:pb-5  '>
         <div className='flex flex-col-reverse md:flex-row md:justify-between md:text-[14px] md:leading-5 items-center gap-2 pt-3 md:pt-5  text-[12px] leading-4 text-[#FFFFFF99]'>
           <p className='text-nowrap'>
             &copy; {new Date().getFullYear()} The Architecture and Urban Studies Laboratory
