@@ -33,7 +33,7 @@ export default async function LocaleLayout({
     <NextIntlClientProvider>
       <div className="flex flex-col min-h-screen">
         <Header />
-        <main className="flex-1 pt-[96px] xl:pt-[132px] md:pt-[128px]">
+        <main className="flex-1 px-6 pt-6 md:px-8 md:pt-8 xl:pt-5 xl:px-20">
           {children}
         </main>
         <Footer />
