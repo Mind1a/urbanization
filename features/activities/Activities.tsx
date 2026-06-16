@@ -9,6 +9,7 @@ type SeminarCardProps = {
   title: string;
   date: string;
   description: string;
+  imagePosition?: string;
 };
 
 const seminars = [
@@ -32,10 +33,17 @@ const seminars = [
     date: "12.05.2025",
     description:
       "My Socialist Home (Iulia Statica and Adrian Catu, 2021) is a documentary that captures the lived experiences and memories of five women who lived in Bucharest's socialist housing blocks during the communist era in Romania, and who continue to live in these apartments today.",
+    imagePosition: "object-left",
   },
 ];
 
-const SeminarCard = ({ image, title, date, description }: SeminarCardProps) => {
+const SeminarCard = ({
+  image,
+  title,
+  date,
+  description,
+  imagePosition = "object-center",
+}: SeminarCardProps) => {
   return (
     <div className="flex flex-col md:flex-row gap-[12px] md:gap-[24px] lg:gap-[36px] w-full">
       <div className="relative h-[164px] md:h-[208px] lg:h-[260px] w-[342px] md:w-[240px] lg:w-[260px] overflow-hidden rounded-3xl">
@@ -43,7 +51,7 @@ const SeminarCard = ({ image, title, date, description }: SeminarCardProps) => {
           src={image}
           fill
           alt={title}
-          className="object-cover"
+          className={`object-cover ${imagePosition}`}
           sizes="(max-width: 768px) 342px, (max-width: 1024px) 240px, 260px"
         />
       </div>
@@ -94,6 +102,7 @@ const Activities = () => {
             title={seminar.title}
             date={seminar.date}
             description={seminar.description}
+            imagePosition={seminar.imagePosition}
           />
         ))}
       </div>
