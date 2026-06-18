@@ -18,13 +18,5 @@ export interface Participant {
   name: string;
   role: string;
   imageSrc: string;
-  /** Optional link to a full profile page. The link icon is hidden when this is omitted. */
   profileUrl?: string;
-}
-
-export interface Project {
-  id: string;
-  title: string;
-  description: string;
-  imageSrc: string;
 }

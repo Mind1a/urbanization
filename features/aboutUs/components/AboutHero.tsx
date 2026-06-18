@@ -13,7 +13,7 @@ const AboutHero = () => {
           alt="მთავარი სურათი"
           width={1280}
           height={472}
-          className="max-w-85.5 max-h-47 md:max-w-170 md:max-h-91 lg:max-w-7xl lg:max-h-118"
+          className="max-w-85.5 max-h-47 md:max-w-170 md:max-h-91 lg:max-w-7xl lg:max-h-118 w-full"
         />
 
         {introBlocks.map((block) => (

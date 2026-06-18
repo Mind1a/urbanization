@@ -1,9 +1,4 @@
-import type {
-  IntroBlock,
-  MissionBlockData,
-  Participant,
-  Project,
-} from "../types/type";
+import type { IntroBlock, MissionBlockData, Participant } from "../types/type";
 
 export const introBlocks: IntroBlock[] = [
   {
@@ -25,8 +20,8 @@ export const missionBlocks: MissionBlockData[] = [
     imageAlt: "Archival newspaper clipping from the laboratory's collection",
     imagePosition: "left",
     paragraphs: [
-      "The Architecture and Urban Studies Laboratory (Center) at Ilia State University is dedicated to advancing architectural and urban research while strengthening the integration of research and education. The Center promotes international academic standards and actively involves students in new, ongoing research projects, fostering critical thinking and hands-on engagement with contemporary urban challenges.",
-      "The Center undertakes innovative and interdisciplinary research that explores the relationships between architecture, the city, and society. Its research focus includes complex urban environments, spatial and temporal formations, sustainable urban design strategies, urban history, housing, contemporary architectural practices and processes of reconstruction and rehabilitation.",
+      "The Architecture and Urban Studies Laboratory (Center) at Ilia State University is dedicated to advancing architectural and urban research while strengthening the integration of research and education. The Center promotes international academic standards and actively involves students in real, ongoing research projects, fostering critical thinking and hands-on engagement with contemporary urban challenges.",
+      "The Center undertakes innovative and interdisciplinary research that explores the relationships between architecture, the city, and society. Its research focus includes complex urban environments,spatial and temporal formations, sustainable urban design strategies, urban history, housing, contemporary architectural practices and process of reconstruction and reabilitation.",
     ],
   },
   {
@@ -35,7 +30,7 @@ export const missionBlocks: MissionBlockData[] = [
     imageAlt: "Archival photograph of a historic tram station",
     imagePosition: "right",
     paragraphs: [
-      "Grounded in current academic research, the Center contributes to the development and continuous renewal of academic programs and courses, ensuring their relevance to evolving disciplinary and societal needs.",
+      "Grounded in current academic research, the Center contributes to the development and continuous renewal of academic programs and courses, ensuring their relevance to evolving disciplinary and societal needs. ",
       "In parallel, the Center develops and maintains digital platforms and resources that support research dissemination, teaching and knowledge exchange at both national and international levels.",
     ],
   },
@@ -76,29 +71,5 @@ export const participants: Participant[] = [
     role: "Architectural Researcher",
     imageSrc: "/images/about/png/Participant-Tornike.png",
     profileUrl: "#",
-  },
-];
-
-export const projects: Project[] = [
-  {
-    id: "proj1",
-    title: "First Project Title",
-    description:
-      "This is a sample text for the Projects section of an urban transformation website. It is intended to demonstrate how descriptive content may appear within the final design layout. The text highlights the relationship between architecture, public space, mobility, and sustainable development in contemporary cities.",
-    imageSrc: "/images/about/png/Projects.png",
-  },
-  {
-    id: "proj2",
-    title: "Second Project Title",
-    description:
-      "This is a sample text for the Projects section of an urban transformation website. It is intended to demonstrate how descriptive content may appear within the final design layout. The text highlights the relationship between architecture, public space, mobility, and sustainable development in contemporary cities.",
-    imageSrc: "/images/about/png/Projects.png",
-  },
-  {
-    id: "proj3",
-    title: "Third Project Title",
-    description:
-      "This is a sample text for the Projects section of an urban transformation website. It is intended to demonstrate how descriptive content may appear within the final design layout. The text highlights the relationship between architecture, public space, mobility, and sustainable development in contemporary cities.",
-    imageSrc: "/images/about/png/Projects.png",
   },
 ];
