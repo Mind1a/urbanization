@@ -2,25 +2,12 @@ import Image from "next/image";
 
 export default function AboutSection() {
   return (
-    <div className="mx-auto max-w-7xl">
-      {/* Hero Image */}
-      <div className="rounded-2xl overflow-hidden">
-        <Image
-          src="/images/media/media-hero-img.png"
-          alt="Saburtalo district"
-          width={1200}
-          height={600}
-          className="w-full h-64 md:h-96 object-cover"
-        />
-      </div>
-
-      {/* Headline */}
-      <h1 className="mt-6 text-[20px] md:text-[28px] lg:text-[36px] font-bold text-[#1E1E1E]">
-        Headline
+    <div className="mx-auto max-w-7xl w-full mb-5 md:mb-6 lg:mb-8 ">
+      <h1 className="text-[16px] md:text-[24px] lg:text-[32px] font-bold text-[#1E1E1E] mb-4">
+        Media Headline
       </h1>
 
-      {/* Description */}
-      <p className="mt-4 text-[13px] md:text-[16px] lg:text-[18px] text-[#1E1E1E] leading-relaxed">
+      <p className="text-[14px] md:text-[18px] lg:text-[20px] text-[#1E1E1E] leading-relaxed ">
         Lorem ipsum dolor sit amet consectetur. Ipsum egestas convallis sed
         fusce. Placerat nulla ac nisi eget ante. Eu mattis massa sit ultrices
         urna sapien sodales sit erat. Consectetur odio non potenti pellentesque

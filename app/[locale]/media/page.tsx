@@ -6,11 +6,10 @@ const page = () => {
   return (
     <div
       className="px-6
-      pt-6
+      pt-0
+      lg:pt-8
       md:px-8
-      md:pt-8
-      xl:pt-5
-      xl:px-20"
+      xl:px-20 mb-8 md:mb-10 lg:mb-16"
     >
       <AboutSection />
       <Articles />

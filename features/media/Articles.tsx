@@ -1,130 +1,51 @@
-"use client";
-
-import useEmblaCarousel from "embla-carousel-react";
-import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-
-const articles = [
-  {
-    src: "/images/articles/article-1.jpg",
-    alt: "Article 1",
-    date: "12.05.2025",
-    headline: "Headline",
-  },
-  {
-    src: "/images/articles/article-2.jpg",
-    alt: "Article 2",
-    date: "12.05.2025",
-    headline: "Headline",
-  },
-  {
-    src: "/images/articles/article-1.jpg",
-    alt: "Article 3",
-    date: "12.05.2025",
-    headline: "Headline",
-  },
-  {
-    src: "/images/articles/article-2.jpg",
-    alt: "Article 4",
-    date: "12.05.2025",
-    headline: "Headline",
-  },
-];
+import { mediaArticles } from "./data/mediaData";
+import Link from "next/link";
 
 export default function Articles() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    loop: false,
-    align: "start",
-    slidesToScroll: 1,
-  });
-  const [canPrev, setCanPrev] = useState(false);
-  const [canNext, setCanNext] = useState(false);
-
-  const updateState = useCallback(() => {
-    if (!emblaApi) return;
-    setCanPrev(emblaApi.canScrollPrev());
-    setCanNext(emblaApi.canScrollNext());
-  }, [emblaApi]);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-    emblaApi.on("select", updateState);
-    updateState();
-    return () => {
-      emblaApi.off("select", updateState);
-    };
-  }, [emblaApi, updateState]);
-
   return (
-    <div className="mx-auto max-w-7xl">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-[24px] md:text-[32px] font-bold text-[#1E1E1E]">
-          Articles
-        </h2>
-        <div className="flex gap-3">
-          <button
-            onClick={() => emblaApi?.scrollPrev()}
-            disabled={!canPrev}
-            className="h-10 w-10 rounded-lg flex items-center justify-center hover:bg-gray-100 disabled:opacity-30 transition"
-          >
-            <Image
-              src="/icons/right-arrow.svg"
-              alt="previous"
-              width={44}
-              height={44}
-              className="rotate-180 h-9 w-9"
-            />
-          </button>
-          <button
-            onClick={() => emblaApi?.scrollNext()}
-            disabled={!canNext}
-            className="h-10 w-10 rounded-lg flex items-center justify-center hover:bg-gray-100 disabled:opacity-30 transition"
-          >
-            <Image
-              src="/icons/right-arrow.svg"
-              alt="next"
-              width={44}
-              height={44}
-              className="h-9 w-9"
-            />
-          </button>
-        </div>
-      </div>
-
-      {/* Carousel */}
-      <div className="overflow-hidden" ref={emblaRef}>
-        <div className="flex gap-4">
-          {articles.map((article, i) => (
+    <div className="mx-auto max-w-7xl w-full">
+      <div className="flex flex-col gap-6">
+        {mediaArticles &&
+          mediaArticles.map((article, i) => (
             <div
               key={i}
-              className="flex-none w-[85%] md:w-[47%] lg:w-[31%] min-w-0"
+              className="flex flex-col xs:flex-row gap-6 rounded-2xl transition-all duration-300 hover:ring-2 hover:ring-[#ED6502] group"
             >
               {/* Image */}
-              <div className="rounded-2xl overflow-hidden">
+              <div className="flex-none rounded-2xl overflow-hidden lg:w-[260px] lg:h-[260px] xs:w-[240px] xs:h-[208px] w-full aspect-[342/164]">
                 <Image
                   src={article.src}
                   alt={article.alt}
-                  width={600}
-                  height={400}
-                  className="w-full h-48 md:h-60 object-cover"
+                  width={260}
+                  height={260}
+                  className="w-full h-full object-cover"
                 />
               </div>
 
-              {/* Date */}
-              <p className="mt-3 text-[13px] text-[#888888]">{article.date}</p>
+              {/* Content */}
+              <div className="flex flex-col justify-start md:gap-3 lg:gap-4 flex-1 p-3">
+                <div className="flex items-start justify-between">
+                  <h2 className="text-[15px] md:text-[20px] lg:text-[24px] font-bold text-[#1E1E1E]">
+                    {article.title}
+                  </h2>
+                  <span className="text-[12px] md:text-[15px] lg:text-[20px] text-[#1E1E1E99] whitespace-nowrap">
+                    {article.date}
+                  </span>
+                </div>
+                <p className="text-[14px] md:text-[18px] lg:text-[20px] text-[#1E1E1ECC]">
+                  {article.text}
+                </p>
 
-              {/* Headline */}
-              <h3 className="mt-1 text-[16px] md:text-[18px] font-bold text-[#1E1E1E]">
-                {article.headline}
-              </h3>
-
-              {/* Button */}
-              <button className="mt-4 w-full bg-orange-500 hover:bg-orange-600 transition text-white font-semibold text-[15px] py-3 rounded-full">
-                Read Now
-              </button>
+                <Link
+                  href={`media/${article.id}`}
+                  className="text-left text-[15px] md:text-[18px] lg:text-[20px] font-medium text-[#1E1E1E] hover:underline group-hover:text-[#ED6502] transition-colors duration-300 w-fit"
+                >
+                  Read More
+                </Link>
+              </div>
             </div>
           ))}
-        </div>
       </div>
     </div>
   );
