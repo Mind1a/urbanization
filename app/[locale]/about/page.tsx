@@ -1,9 +1,9 @@
-import AboutUs from "@/features/aboutUs/components/AboutUs";
+import AboutLab from "@/features/aboutUs/components/AboutLab";
 
 const page = () => {
   return (
     <div>
-      <AboutUs />
+      <AboutLab />
     </div>
   );
 };

@@ -13,16 +13,15 @@ const TeamSection = ({ participants }: { participants: Participant[] }) => {
   });
 
   return (
-    <section className="py-12">
-      <h2 className="mb-8 text-3xl font-bold text-gray-900">Team</h2>
+    <section className="overflow-hidden py-12 lg:max-w-7xl md:max-w-178 max-w-91.5 w-full">
+      <h2 className="mb-6 lg:mb-8 lg:text-[32px] text-base md:text-2xl font-bold text-[#1E1E1E]">
+        Team
+      </h2>
 
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex gap-5">
           {participants.map((participant) => (
-            <div
-              key={participant.id}
-              className="w-[163px] flex-[0_0_auto] md:w-[240px] lg:w-[236px]"
-            >
+            <div key={participant.id} className="">
               <TeamCard participant={participant} />
             </div>
           ))}

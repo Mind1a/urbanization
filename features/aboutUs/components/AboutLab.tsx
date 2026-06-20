@@ -4,9 +4,9 @@ import MissionSection from "./MissionSection";
 import { participants } from "../data/data";
 import TeamSection from "./TeamSection";
 
-const AboutUs = () => {
+const AboutLab = () => {
   return (
-    <div className="lg:mt-20 md:mt-15 mt-12 flex flex-col items-center mx-auto">
+    <div className="lg:mt-30 md:mt-15 mt-12 flex flex-col items-center mx-auto">
       <AboutHero />
       <MissionSection />
       <TeamSection participants={participants} />
@@ -14,4 +14,4 @@ const AboutUs = () => {
   );
 };
 
-export default AboutUs;
+export default AboutLab;
