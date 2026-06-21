@@ -1,11 +1,8 @@
-import Statistic from "./Statistic";
+import React from "react";
+import Hero from "./Hero";
 
 const Landing = () => {
-  return (
-    <div>
-      <Statistic />
-    </div>
-  );
+  return <Hero />;
 };
 
 export default Landing;

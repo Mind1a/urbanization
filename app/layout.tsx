@@ -6,29 +6,24 @@ import localFont from "next/font/local"
 import { Toaster } from "react-hot-toast";
 
 
-const noto = localFont({
-  variable: "--font-noto",
+const helvetica = localFont({
+  variable: "--font-helvetica",
   display: "swap",
   src: [
     {
-      path: "../public/font/NotoSansGeorgian-Regular.ttf",
+      path: "../public/font/Helvetica.ttf",
       weight: "400",
+      style: "normal"
+    },
+    {
+      path: "../public/font/Helvetica-Bold.ttf",
+      weight: "700",
       style: "normal"
     },
   ]
 })
 
-const mecomisce = localFont({
-  variable: "--font-mecomisce",
-  display: "swap",
-  src: [
-    {
-      path: "../public/font/TFMecomicse-Regular-59522229166.otf",
-      weight: "400",
-      style: "normal"
-    }
-  ]
-})
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -41,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ka" className={`${noto.variable} ${mecomisce.variable}`}>
+    <html lang="ka" className={`${helvetica.variable}`}>
       <body>
         <QueryProvider>
           {children}
