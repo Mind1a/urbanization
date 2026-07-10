@@ -1,26 +1,24 @@
-import { useTranslations } from "next-intl";
 import Link from "next/link";
 
 const NotFound = () => {
-  const t = useTranslations(`notFound`);
   return (
     <div>
-      <div className="flex flex-col items-center justify-center min-h-dvh text-center font-[Noto bold] ">
-        <span className=" font-bold text-[140px] leading-40 opacity-25 mb-6">
+      <div className="flex flex-col items-center justify-center min-h-dvh text-center">
+        <span className="font-bold text-[48px] md:text-[72px] lg:text-[96px] text-[#1E1E1E] leading-14 md:leading-20 lg:leading-25 mb-6">
           404
         </span>
-        <h1 className="mb-4 text-[32px] font-bold font-[Nato bold] leading-[40px] ">
-          {t(`title`)}
-        </h1>
-        <p className="max-w-120 mb-6 font-[Nato regular] leading-7 text-[#475569]">
-          {t(`paragraph`)}
+        <p className="text-[14px] md:text-[18px] lg:text-[20px] mb-2 leading-5 md:leading-7 lg:leading-8 text-[#1E1E1E]">
+          Oh no! This path goes nowhere...
         </p>
-        <Link
-          href="/"
-          className="text-[#4E876D] underline font-[Nato bold] font-bold leading-7"
-        >
-          {t(`link`)}
-        </Link>
+        <p className="text-[14px] md:text-[18px] lg:text-[20px] leading-5 md:leading-7 lg:leading-8 text-[#1E1E1E]">
+          Feel free to return to{" "}
+          <Link
+            href="/"
+            className="text-[#ED6502] text-[14px] md:text-[18px] lg:text-[20px] font-bold leading-5 md:leading-7 lg:leading-8"
+          >
+            Home
+          </Link>
+        </p>
       </div>
     </div>
   );
