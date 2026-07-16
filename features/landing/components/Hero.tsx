@@ -3,15 +3,10 @@
 import useEmblaCarousel from "embla-carousel-react";
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import { div } from "motion/react-client";
-
-const slides = [
-  { src: "/images/landing/slide-1.jpg", alt: "Saburtalo 1900s map" },
-  { src: "/images/landing/slide-2.jpg", alt: "Saburtalo 1950s" },
-  { src: "/images/landing/slide-3.jpg", alt: "Saburtalo today" },
-];
+import { useSlider } from "../hooks/useSlider";
 
 export default function Hero() {
+  const { data: slides = [], isLoading } = useSlider();
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [canPrev, setCanPrev] = useState(false);
@@ -33,6 +28,13 @@ export default function Hero() {
     };
   }, [emblaApi, updateState]);
 
+  useEffect(() => {
+    if (!emblaApi || slides.length === 0) return;
+
+    emblaApi.reInit();
+    updateState();
+  }, [emblaApi, slides, updateState]);
+
   return (
     <div className="px-6 md:px-8 xl:px-20">
       <div className="mx-auto max-w-7xl">
@@ -45,7 +47,7 @@ export default function Hero() {
             <button
               onClick={() => emblaApi?.scrollPrev()}
               disabled={!canPrev}
-              className="rounded-lg flex items-center justify-center hover:bg-gray-100 disabled:opacity-30 text-[44px] h-11 w-11"
+              className="rounded-lg flex items-center justify-center hover:bg-gray-100 disabled:opacity-30 text-[44px] h-11 w-11 cursor-pointer"
             >
               <Image
                 src={"/icons/right-arrow.svg"}
@@ -58,7 +60,7 @@ export default function Hero() {
             <button
               onClick={() => emblaApi?.scrollNext()}
               disabled={!canNext}
-              className="h-11 w-11 rounded-lg flex items-center justify-center hover:bg-gray-100 disabled:opacity-30 text-[44px]"
+              className="h-11 w-11 rounded-lg flex items-center justify-center hover:bg-gray-100 disabled:opacity-30 text-[44px] cursor-pointer"
             >
               <Image
                 src={"/icons/right-arrow.svg"}
@@ -74,10 +76,10 @@ export default function Hero() {
         {/* Carousel */}
         <div className="overflow-hidden rounded-2xl" ref={emblaRef}>
           <div className="flex">
-            {slides.map((slide, i) => (
-              <div key={i} className="flex-none w-full min-w-0">
+            {slides.map((slide) => (
+              <div key={slide.id} className="flex-none w-full min-w-0">
                 <Image
-                  src={slide.src}
+                  src={`${process.env.NEXT_PUBLIC_GEOVERBS_API_URL}/static/${slide.img}`}
                   alt={slide.alt}
                   width={1000}
                   height={500}
