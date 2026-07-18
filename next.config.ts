@@ -6,11 +6,11 @@ const nextConfig: NextConfig = {
         remotePatterns: [
             {
                 protocol: "https",
-                hostname: "urbantransformation-wzta.onrender.com",
+                hostname: "urbantransformation-cx2n.onrender.com",
             },
         ],
     },
-    
+
     webpack(config) {
         // Grab the existing rule that handles SVG imports
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
