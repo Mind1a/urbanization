@@ -6,9 +6,9 @@ import Image from "next/image";
 import { useSlider } from "../hooks/useSlider";
 
 export default function Hero() {
-  const { data: slides = [], isLoading } = useSlider();
+  const { data: slides = [] } = useSlider();
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [_selectedIndex, setSelectedIndex] = useState(0);
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(false);
 
@@ -79,7 +79,7 @@ export default function Hero() {
             {slides.map((slide) => (
               <div key={slide.id} className="flex-none w-full min-w-0">
                 <Image
-                  src={`${process.env.NEXT_PUBLIC_GEOVERBS_API_URL}/static/${slide.img}`}
+                  src={`${process.env.NEXT_PUBLIC_URBAN_API_URL}/static/${slide.img}`}
                   alt={slide.alt}
                   width={1000}
                   height={500}
