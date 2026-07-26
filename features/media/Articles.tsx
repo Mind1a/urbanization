@@ -1,8 +1,16 @@
+"use client";
 import Image from "next/image";
-import { mediaArticles } from "./data/mediaData";
 import Link from "next/link";
+import { useMedia } from "./hooks/useMedia";
+import { log } from "console";
 
 export default function Articles() {
+  const { data: mediaArticles } = useMedia();
+  const formatter = (date: string) => {
+    const newDate = new Date(date);
+    return newDate.toLocaleDateString().replaceAll("/", ".");
+  };
+
   return (
     <div className="mx-auto max-w-7xl w-full">
       <div className="flex flex-col gap-6">
@@ -15,8 +23,8 @@ export default function Articles() {
               {/* Image */}
               <div className="flex-none rounded-2xl overflow-hidden lg:w-[260px] lg:h-[260px] xs:w-[240px] xs:h-[208px] w-full aspect-[342/164]">
                 <Image
-                  src={article.src}
-                  alt={article.alt}
+                  src={`${process.env.NEXT_PUBLIC_URBAN_API_URL}/static/${article.img}`}
+                  alt={article.title}
                   width={260}
                   height={260}
                   className="w-full h-full object-cover"
@@ -30,11 +38,11 @@ export default function Articles() {
                     {article.title}
                   </h2>
                   <span className="text-[12px] md:text-[15px] lg:text-[20px] text-[#1E1E1E99] whitespace-nowrap">
-                    {article.date}
+                    {formatter(article.datetime)}
                   </span>
                 </div>
-                <p className="text-[14px] md:text-[18px] lg:text-[20px] text-[#1E1E1ECC]">
-                  {article.text}
+                <p className="text-[14px] md:text-[18px] lg:text-[20px] text-[#1E1E1ECC] line-clamp-3">
+                  {article.description}
                 </p>
 
                 <Link
