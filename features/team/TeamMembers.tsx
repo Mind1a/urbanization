@@ -3,7 +3,9 @@
 import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
+
 import { useMembers } from "./hooks/useMembers";
+import TeamMembersSkeleton from "./TeamMembersSkeleton";
 
 const getMemberImageUrl = (img: string) => {
   return `${process.env.NEXT_PUBLIC_URBAN_API_URL}/static/${img}`;
@@ -44,25 +46,21 @@ export default function TeamMembers() {
   );
 
   const handlePrev = useCallback(() => {
-    const prev = Math.max(0, selectedIndex - 1);
-    setSelectedIndex(prev);
-    emblaApi?.scrollTo(prev);
+    const previousIndex = Math.max(0, selectedIndex - 1);
+
+    setSelectedIndex(previousIndex);
+    emblaApi?.scrollTo(previousIndex);
   }, [emblaApi, selectedIndex]);
 
   const handleNext = useCallback(() => {
-    const next = Math.min(teamMembers.length - 1, selectedIndex + 1);
-    setSelectedIndex(next);
-    emblaApi?.scrollTo(next);
+    const nextIndex = Math.min(teamMembers.length - 1, selectedIndex + 1);
+
+    setSelectedIndex(nextIndex);
+    emblaApi?.scrollTo(nextIndex);
   }, [emblaApi, selectedIndex, teamMembers.length]);
 
   if (isLoading) {
-    return (
-      <div className="px-6 md:px-8 xl:px-20">
-        <section className="mx-auto max-w-7xl">
-          <p className="py-10 text-[18px] text-[#1E1E1E]">Loading...</p>
-        </section>
-      </div>
-    );
+    return <TeamMembersSkeleton />;
   }
 
   if (isError) {
@@ -99,13 +97,14 @@ export default function TeamMembers() {
 
           <div className="flex items-center gap-5">
             <button
+              type="button"
               onClick={handlePrev}
               disabled={selectedIndex === 0}
               aria-label="Previous member"
               className="flex items-center justify-center rounded-full transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-30"
             >
               <Image
-                alt="left arrow"
+                alt=""
                 src="/icons/right-arrow.svg"
                 width={40}
                 height={40}
@@ -114,13 +113,14 @@ export default function TeamMembers() {
             </button>
 
             <button
+              type="button"
               onClick={handleNext}
               disabled={selectedIndex === teamMembers.length - 1}
               aria-label="Next member"
               className="flex items-center justify-center rounded-full transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-30"
             >
               <Image
-                alt="right arrow"
+                alt=""
                 src="/icons/right-arrow.svg"
                 width={40}
                 height={40}
@@ -140,7 +140,7 @@ export default function TeamMembers() {
               sizes="(max-width: 640px) 100vw, 416px"
             />
 
-            <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between bg-[#1E1E1E3D] px-5 py-3 backdrop-blur-md">
+            <div className="absolute right-0 bottom-0 left-0 flex items-center justify-between bg-[#1E1E1E3D] px-5 py-3 backdrop-blur-md">
               <div>
                 <p className="font-bold leading-tight text-white lg:text-[20px]">
                   {selected.name} {selected.surname}
@@ -156,12 +156,7 @@ export default function TeamMembers() {
                 aria-label={`Email ${selected.name} ${selected.surname}`}
                 className="text-white transition-colors hover:text-gray-300"
               >
-                <Image
-                  alt="mail"
-                  src="/icons/mail.svg"
-                  width={32}
-                  height={32}
-                />
+                <Image alt="" src="/icons/mail.svg" width={32} height={32} />
               </a>
             </div>
           </div>
@@ -183,18 +178,20 @@ export default function TeamMembers() {
         </div>
 
         <div
-          className="cursor-grab overflow-hidden active:cursor-grabbing"
           ref={emblaRef}
+          className="cursor-grab overflow-hidden active:cursor-grabbing"
         >
           <div className="flex gap-5 lg:justify-between">
             {teamMembers.map((member, index) => (
               <button
                 key={member.id}
+                type="button"
                 onClick={() => handleSelect(index)}
-                className="relative shrink-0 overflow-hidden transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-900"
                 aria-label={`Select ${member.name} ${member.surname}`}
+                aria-pressed={index === selectedIndex}
+                className="relative shrink-0 overflow-hidden transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-900"
                 style={{
-                  filter: `opacity(${index === selectedIndex ? 1 : 0.4})`,
+                  opacity: index === selectedIndex ? 1 : 0.4,
                 }}
               >
                 <Image
@@ -202,7 +199,7 @@ export default function TeamMembers() {
                   alt={`${member.name} ${member.surname}`}
                   width={220}
                   height={220}
-                  className="aspect-1/1 w-[164px] rounded-2xl object-cover sm:w-[152px] lg:w-[236px]"
+                  className="aspect-square w-[164px] rounded-2xl object-cover sm:w-[152px] lg:w-[236px]"
                   sizes="236px"
                 />
 
