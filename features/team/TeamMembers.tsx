@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { teamMembers } from "./data/teamData";
+import Skeleton from "./Skeleton";
 
 export default function TeamMembers() {
   // selectedIndex is pure React state — NOT tied to Embla's snap
@@ -40,6 +41,12 @@ export default function TeamMembers() {
     setSelectedIndex(next);
     emblaApi?.scrollTo(next);
   }, [emblaApi, selectedIndex]);
+
+
+
+
+
+
 
   return (
     <div
