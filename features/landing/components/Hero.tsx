@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useSlider } from "../hooks/useSlider";
 
 export default function Hero() {
-  const { data: slides = [] } = useSlider();
+  const { data: slides = [], isLoading } = useSlider();
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
   const [_selectedIndex, setSelectedIndex] = useState(0);
   const [canPrev, setCanPrev] = useState(false);
@@ -74,21 +74,25 @@ export default function Hero() {
         </div>
 
         {/* Carousel */}
-        <div className="overflow-hidden rounded-2xl" ref={emblaRef}>
-          <div className="flex">
-            {slides.map((slide) => (
-              <div key={slide.id} className="flex-none w-full min-w-0">
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_URBAN_API_URL}/static/${slide.img}`}
-                  alt={slide.alt}
-                  width={1000}
-                  height={500}
-                  className="w-full md:h-118 h-72 object-cover"
-                />
-              </div>
-            ))}
+        {isLoading ? (
+          <div className="w-full md:h-118 h-72 rounded-2xl bg-gray-300 animate-pulse" />
+        ) : (
+          <div className="overflow-hidden rounded-2xl" ref={emblaRef}>
+            <div className="flex">
+              {slides.map((slide) => (
+                <div key={slide.id} className="flex-none w-full min-w-0">
+                  <Image
+                    src={`${process.env.NEXT_PUBLIC_URBAN_API_URL}/static/${slide.img}`}
+                    alt={slide.alt}
+                    width={1000}
+                    height={500}
+                    className="w-full md:h-118 h-72 object-cover"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Description */}
         <p className="mt-6 text-[#1E1E1E] text-[12px] md:text-[18px] lg:text-[20px] leading-relaxed mb-25">
