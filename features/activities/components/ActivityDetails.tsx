@@ -52,7 +52,58 @@ type ActivityDetailsProps = {
 export default function ActivityDetails({ id }: ActivityDetailsProps) {
   const { data: activity, isLoading, isError } = useActivity(id);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) {
+    return (
+      <main className={`${helvetica.className} min-h-screen bg-white`}>
+        <section className="mx-auto w-[343px] py-6 md:w-[680px] xl:w-[1280px]">
+          <div className="mb-3 hidden h-[20px] w-[240px] animate-pulse rounded bg-gray-200 md:block" />
+
+          <div className="h-[188px] w-[343px] animate-pulse rounded-[16px] bg-gray-200 md:h-[364px] md:w-[680px] md:rounded-[24px] xl:h-[472px] xl:w-[1280px]" />
+
+          <div className="mt-[16px] h-[32px] w-[280px] animate-pulse rounded bg-gray-200 md:mt-[20px] md:h-[40px] md:w-[500px] xl:mt-[36px] xl:h-[56px] xl:w-[700px]" />
+
+          <div className="mt-[16px] flex w-[342px] flex-col gap-[8px] md:mt-[20px] md:w-[680px] md:gap-[16px] xl:mt-[36px] xl:w-[1280px]">
+            <div className="h-[20px] w-full animate-pulse rounded bg-gray-200 md:h-[28px] xl:h-[32px]" />
+            <div className="h-[20px] w-full animate-pulse rounded bg-gray-200 md:h-[28px] xl:h-[32px]" />
+            <div className="h-[20px] w-2/3 animate-pulse rounded bg-gray-200 md:h-[28px] xl:h-[32px]" />
+          </div>
+
+          <section className="mt-[80px] w-[342px] md:mt-[88px] md:w-[680px] xl:mt-[96px] xl:w-[1280px]">
+            <div className="h-[24px] w-[220px] animate-pulse rounded bg-gray-200 md:h-[32px] xl:h-[40px]" />
+
+            <div className="mt-[20px] flex flex-col gap-[20px] md:hidden">
+              <div className="h-110 w-[342px] animate-pulse rounded-2xl bg-gray-200" />
+              <div className="space-y-[12px]">
+                <div className="h-[16px] w-full animate-pulse rounded bg-gray-200" />
+                <div className="h-[16px] w-full animate-pulse rounded bg-gray-200" />
+                <div className="h-[16px] w-2/3 animate-pulse rounded bg-gray-200" />
+              </div>
+            </div>
+
+            <div className="mt-[20px] hidden md:block xl:hidden">
+              <div className="grid grid-cols-[240px_416px] gap-x-[24px]">
+                <div className="h-[264px] w-[240px] animate-pulse rounded-[24px] bg-gray-200" />
+                <div className="space-y-[12px]">
+                  <div className="h-[18px] w-full animate-pulse rounded bg-gray-200" />
+                  <div className="h-[18px] w-full animate-pulse rounded bg-gray-200" />
+                  <div className="h-[18px] w-2/3 animate-pulse rounded bg-gray-200" />
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-[36px] hidden xl:flex xl:gap-[36px]">
+              <div className="h-[448px] w-[295px] animate-pulse rounded-[24px] bg-gray-200" />
+              <div className="w-[828px] space-y-[16px]">
+                <div className="h-[20px] w-full animate-pulse rounded bg-gray-200" />
+                <div className="h-[20px] w-full animate-pulse rounded bg-gray-200" />
+                <div className="h-[20px] w-2/3 animate-pulse rounded bg-gray-200" />
+              </div>
+            </div>
+          </section>
+        </section>
+      </main>
+    );
+  }
   if (isError || !activity) return <p>Something went wrong.</p>;
 
   return (
