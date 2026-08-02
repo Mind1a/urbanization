@@ -10,10 +10,11 @@ import { Usable, use } from "react";
 export default function ArticlePage() {
   const params = useParams();
   const id = params.id;
-  const { data: article } = useEachMedia(Number(id));
+  const { data: article, isLoading, isError } = useEachMedia(Number(id));
   console.log(article);
 
-  // if (!article) notFound();
+  if (isLoading) return <ArticlePageSkeleton />;
+  if (isError || !article) notFound();
 
   return (
     <main
@@ -52,6 +53,34 @@ export default function ArticlePage() {
         {article?.[1].recents && (
           <ArticlesCarousel articles={article?.[1].recents} />
         )}
+      </div>
+    </main>
+  );
+}
+
+function ArticlePageSkeleton() {
+  return (
+    <main className="px-6 md:px-8 xl:px-20 pb-30">
+      <div className="mx-auto max-w-7xl animate-pulse">
+        {/* Breadcrumb */}
+        <div className="mb-3 md:flex gap-2 hidden">
+          <div className="h-[20px] w-16 bg-gray-200 rounded" />
+          <div className="h-[20px] w-2 bg-gray-200 rounded" />
+          <div className="h-[20px] w-40 bg-gray-200 rounded" />
+        </div>
+
+        {/* Hero image */}
+        <div className="h-[188px] xs:h-[364px] md:h-[472px] w-full rounded-[18px] bg-gray-200" />
+
+        {/* Title */}
+        <div className="my-4 md:my-5 lg:my-7.25 h-[24px] md:h-[32px] lg:h-[40px] w-2/3 bg-gray-200 rounded" />
+
+        {/* Description */}
+        <div className="flex flex-col gap-2">
+          <div className="h-[16px] md:h-[20px] w-full bg-gray-200 rounded" />
+          <div className="h-[16px] md:h-[20px] w-full bg-gray-200 rounded" />
+          <div className="h-[16px] md:h-[20px] w-3/4 bg-gray-200 rounded" />
+        </div>
       </div>
     </main>
   );
