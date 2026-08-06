@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import ArrowIcon from "@/icons/arrow.svg";
 
 type SubLinks = {
   id: string;
@@ -44,14 +43,14 @@ const LINKS_DATA: LinkDataType[] = [
     href: "/team",
   },
   {
-    id: "result",
+    id: "results",
     label: "results",
     icon: "/icons/arrow.svg",
     subLinks: [
       {
         id: "r-grouth",
         label: "urban growth",
-        href: "/result/growth",
+        href: "/results/growth",
       },
       {
         id: "r-block",
@@ -61,7 +60,7 @@ const LINKS_DATA: LinkDataType[] = [
       {
         id: "r-housing",
         label: "housing typologies",
-        href: "/result/typologies",
+        href: "/results/typologies",
       },
     ],
   },
@@ -313,6 +312,7 @@ const Header = () => {
                         <li key={subLink.id} className=" w-full">
                           <Link
                             href={subLink.href}
+                            onClick={() => setIsOpenSubLinks(null)}
                             className="block w-full text-left p-2.5  hover:text-[#ED6502] transition-colors text-[16px] leading-5.5"
                           >
                             {subLink.label}
