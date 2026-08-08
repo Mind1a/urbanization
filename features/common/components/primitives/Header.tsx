@@ -27,12 +27,6 @@ const LINKS_DATA: LinkDataType[] = [
   },
 
   {
-    id: "about",
-    label: "about us",
-    href: "/about",
-  },
-
-  {
     id: "project",
     label: "about project",
     href: "/aboutProject",
