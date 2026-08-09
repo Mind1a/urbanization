@@ -13,19 +13,21 @@ export default function Page() {
   }, [])
 
   return (
-    <div className="px-6 pt-6 md:px-8 md:pt-8 xl:pt-5 xl:px-20">
-      <div className='max-w-7xl mx-auto md:py-5 lg:py-9'>
+    <div className="px-6 pt-6 md:px-8 md:pt-8 xl:pt-0 xl:px-20">
+      <div className='max-w-7xl mx-auto '>
+
+        <div className="pt-9 pb-12">
+          {isLoading ? (
+            <div className="h-5 md:h-11 lg:h-10 max-w-105 lg:max-w-2xl bg-gray-200 rounded-2xl animate-pulse" />
+          ) : (
+            <h2 className='font-bold text-left text-[16px] leading-5 max-w-105 lg:max-w-full md:text-[24px] md:leading-11 lg:text-[32px] lg:leading-10'>
+              Transformation of Saburtalo District from 1950s till today
+            </h2>
+          )}
+        </div>
 
         {isLoading ? (
-          <div className="h-5 md:h-11 lg:h-10 max-w-105 lg:max-w-2xl bg-gray-200 rounded-2xl animate-pulse mb-1" />
-        ) : (
-          <h2 className='font-bold text-left text-[16px] leading-5 max-w-105 lg:max-w-full md:text-[24px] md:leading-11 lg:text-[32px] lg:leading-10'>
-            Transformation of Saburtalo District from 1950s till today
-          </h2>
-        )}
-
-        {isLoading ? (
-          <div className="w-full lg:h-165 md:h-72 h-47 bg-gray-200 rounded-2xl animate-pulse mt-4" />
+          <div className="w-full lg:h-165 md:h-72 h-47 bg-gray-200 rounded-2xl animate-pulse" />
         ) : (
           <Image width={100} height={100} src={'/images/results/growth.svg'} alt="Saburtalo district growth chart" priority className="w-full lg:h-165 md:h-72 h-47 object-contain" />
         )}

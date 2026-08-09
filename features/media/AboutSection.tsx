@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function AboutSection() {
   return (
-    <div className="mx-auto max-w-7xl w-full mb-5 md:mb-6 lg:mb-8 ">
+    <div className="mx-auto max-w-7xl w-full my-9 md:mb-6 lg:mb-8 ">
       <h1 className="text-[16px] md:text-[24px] lg:text-[32px] font-bold text-[#1E1E1E] mb-4">
         Media Headline
       </h1>

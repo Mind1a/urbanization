@@ -55,8 +55,8 @@ export default function Activities() {
   if (isError) return <p>Something went wrong.</p>;
 
   return (
-    <section className="mx-auto max-w-7xl py-20">
-      <h1 className="mb-4 text-4xl font-bold">Seminars</h1>
+    <section className="mx-auto max-w-7xl">
+      <h1 className="py-9 text-4xl font-bold">Seminars</h1>
 
       <p className="mb-10 max-w-4xl text-[#1E1E1E]">
         This series of seminars aims to explore architectural transformation and
@@ -68,7 +68,7 @@ export default function Activities() {
       <div className="flex flex-col gap-10">
         {activities?.map((activity) => (
           <div key={activity.id} className="flex gap-6">
-            <div className="relative h-[200px] w-[200px] shrink-0 overflow-hidden rounded-md">
+            <div className="relative h-50 w-50 shrink-0 overflow-hidden rounded-md">
               <Image
                 src={getAssetUrl(activity.img)}
                 alt={activity.title}
