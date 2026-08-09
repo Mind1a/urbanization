@@ -3,8 +3,6 @@
 import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
-import { teamMembers } from "./data/teamData";
-import Skeleton from "./Skeleton";
 
 import { useMembers } from "./hooks/useMembers";
 import TeamMembersSkeleton from "./TeamMembersSkeleton";
@@ -88,12 +86,6 @@ export default function TeamMembers() {
       </div>
     );
   }
-
-
-
-
-
-
 
   return (
     <div className="px-6 md:px-8 xl:px-20">
