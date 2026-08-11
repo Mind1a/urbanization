@@ -1,7 +1,8 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+// import Link from "next/link";
+// import { usePathname } from "next/navigation";
+import { Link, usePathname, } from "@/features/i18n/routing";
 import { useEffect, useRef, useState } from "react";
 
 type SubLinks = {
