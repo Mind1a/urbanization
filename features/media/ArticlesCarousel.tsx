@@ -4,20 +4,12 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-
-type Article = {
-  id: number;
-  src: string;
-  alt: string;
-  date: string;
-  title: string;
-  text: string;
-};
+import { IMediaItem } from "./types/mediaTypes";
 
 export default function ArticlesCarousel({
   articles,
 }: {
-  articles: Article[];
+  articles: IMediaItem[];
 }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
@@ -84,15 +76,15 @@ export default function ArticlesCarousel({
               className="min-w-0 sm:flex-[0_0_calc(50%-8px)] flex-[0_0_calc(100%-8px)] flex flex-col"
             >
               <Image
-                src={article.src}
-                alt={article.alt}
+                src={`${process.env.NEXT_PUBLIC_URBAN_API_URL}/static/${article.img}`}
+                alt={article.title}
                 width={520}
                 height={250}
                 className="aspect-342/164 sm:aspect-340/220 lg:aspect-632/300 w-full rounded-[14px] object-cover"
               />
 
               <p className="mt-1 sm:mt-5 text-sm text-[#1E1E1E99] self-end sm:self-start">
-                {article.date}
+                {/* {article.date} */}
               </p>
 
               <h3 className="mt-1 sm:mt-2 text-lg text-[#1f1f1f]">
