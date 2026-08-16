@@ -1,7 +1,8 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+// import Link from "next/link";
+// import { usePathname } from "next/navigation";
+import { Link, usePathname, } from "@/features/i18n/routing";
 import { useEffect, useRef, useState } from "react";
 
 type SubLinks = {
@@ -49,7 +50,7 @@ const LINKS_DATA: LinkDataType[] = [
       {
         id: "r-block",
         label: "block transformation",
-        href: "/resut/block-transformation",
+        href: "/results/block-transformation",
       },
       {
         id: "r-housing",
@@ -176,9 +177,8 @@ const Header = () => {
 
         {/* Mobile nav bar  */}
         <nav
-          className={`fixed xl:hidden w-full top-0 ${
-            isOpenNavMenu ? "translate-x-0" : "translate-x-full"
-          }
+          className={`fixed xl:hidden w-full top-0 ${isOpenNavMenu ? "translate-x-0" : "translate-x-full"
+            }
          transition-all
           duration-300
            ease-in-out
@@ -212,18 +212,16 @@ const Header = () => {
                 {link.subLinks ? (
                   <button
                     onClick={() => toggleSubMenu(link.id)}
-                    className={`text-[16px] w-full flex items-center justify-between leading-6 capitalize cursor-pointer ${
-                      isOpenSubLinks === link.id
-                        ? "text-[#ED6502]"
-                        : "text-[#1E1E1E]"
-                    }`}
+                    className={`text-[16px] w-full flex items-center justify-between leading-6 capitalize cursor-pointer ${isOpenSubLinks === link.id
+                      ? "text-[#ED6502]"
+                      : "text-[#1E1E1E]"
+                      }`}
                   >
                     {link.label}
                     {link.icon && (
                       <Image
-                        className={`${
-                          isOpenSubLinks === link.id ? "rotate-180" : "rotate-0"
-                        } transition-all xl:hidden duration-200 ease`}
+                        className={`${isOpenSubLinks === link.id ? "rotate-180" : "rotate-0"
+                          } transition-all xl:hidden duration-200 ease`}
                         width={14}
                         height={14}
                         src={link.icon}
@@ -237,28 +235,26 @@ const Header = () => {
                       setIsOpenSubLinks(null);
                     }}
                     href={link.href || "/"}
-                    className={`text-[16px] flex items-center justify-between leading-6 ${
-                      cleanPathname === link.href
-                        ? "text-[#ED6502] font-bold"
-                        : "text-[#1E1E1E] font-normal"
-                    }`}
+                    className={`text-[16px] flex items-center justify-between leading-6 ${cleanPathname === link.href
+                      ? "text-[#ED6502] font-bold"
+                      : "text-[#1E1E1E] font-normal"
+                      }`}
                   >
                     {link.label}
                   </Link>
                 )}
                 {link.subLinks && (
                   <div
-                    className={`grid transition-all w-full  duration-300 ease-in-out ${
-                      isOpenSubLinks === link.id
-                        ? "grid-rows-[1fr]"
-                        : "grid-rows-[0fr]"
-                    }`}
+                    className={`grid transition-all w-full duration-300 ease-in-out ${isOpenSubLinks === link.id
+                      ? "grid-rows-[1fr]"
+                      : "grid-rows-[0fr]"
+                      }`}
                   >
                     <ul className="overflow-hidden w-full pl-3">
                       {link.subLinks.map((subLink) => (
                         <li
                           key={subLink.id}
-                          className="py-2.5 w-full  pr-6 text-black capitalize"
+                          className="py-2.5 w-full pr-6 text-black capitalize"
                         >
                           <Link
                             onClick={() => {
@@ -266,11 +262,10 @@ const Header = () => {
                               setIsOpenSubLinks(null);
                             }}
                             href={subLink.href}
-                            className={`w-full ${
-                              cleanPathname === subLink.href
-                                ? "text-[#ED6502] font-bold"
-                                : "text-[#1E1E1E] font-normal"
-                            }`}
+                            className={`w-full ${cleanPathname === subLink.href
+                              ? "text-[#ED6502] font-bold"
+                              : "text-[#1E1E1E] font-normal"
+                              }`}
                           >
                             {subLink.label}
                           </Link>
@@ -287,22 +282,38 @@ const Header = () => {
         <nav className="hidden xl:flex items-center justify-between">
           <ul className="flex items-center gap-2">
             {LINKS_DATA.map((link) => (
-              <li key={link.label} className="py-3 px-6  ">
+              <li key={link.label} className="py-3 px-6">
                 {link.subLinks ? (
                   <div className="relative">
                     <button
                       onClick={() => toggleSubMenu(link.id)}
-                      className={`capitalize ${
-                        link.subLinks.some(
-                          (subLink) => subLink.href === cleanPathname
-                        )
-                          ? "text-[#ED6502] font-bold"
-                          : isOpenSubLinks === link.id
+                      className={`capitalize ${link.subLinks.some(
+                        (subLink) => subLink.href === cleanPathname
+                      )
+                        ? "text-[#ED6502]"
+                        : isOpenSubLinks === link.id
                           ? "text-[#ED6502]"
-                          : "text-[#1E1E1E] font-normal"
-                      }  text-[18px] leading-6 tracking-[4%] cursor-pointer`}
+                          : "text-[#1E1E1E]"
+                        }  text-[18px] leading-6 tracking-[4%] cursor-pointer`}
                     >
-                      {link.label}
+                      <span className="inline-grid">
+                        <span
+                          className={`[grid-area:1/1] ${link.subLinks.some(
+                            (subLink) => subLink.href === cleanPathname
+                          )
+                            ? "font-bold"
+                            : "font-normal"
+                            }`}
+                        >
+                          {link.label}
+                        </span>
+                        <span
+                          aria-hidden="true"
+                          className="invisible font-bold [grid-area:1/1]"
+                        >
+                          {link.label}
+                        </span>
+                      </span>
                     </button>
                     <ul
                       className={`absolute
@@ -319,11 +330,10 @@ const Header = () => {
                                      rounded-xl
                                      text-[#1E1E1E]
                                       overflow-hidden
-                                      ${
-                                        isOpenSubLinks === link.id
-                                          ? "opacity-100 pointer-events-auto translate-y-0"
-                                          : "opacity-0 pointer-events-none translate-y-2"
-                                      }
+                                      ${isOpenSubLinks === link.id
+                          ? "opacity-100 pointer-events-auto translate-y-0"
+                          : "opacity-0 pointer-events-none translate-y-2"
+                        }
                                       `}
                     >
                       {link.subLinks.map((subLink) => (
@@ -346,13 +356,19 @@ const Header = () => {
                       setIsOpenSubLinks(null);
                     }}
                     href={link.href || "/"}
-                    className={`capitalize text-[18px] leading-6 tracking-[4%] ${
-                      cleanPathname === link.href
-                        ? "text-[#ED6502] font-bold"
-                        : "text-[#1E1E1E] font-normal"
-                    }`}
+                    className={`capitalize text-[18px] leading-6 tracking-[4%] ${cleanPathname === link.href
+                      ? "text-[#ED6502]"
+                      : "text-[#1E1E1E]"
+                      }`}
                   >
-                    {link.label}
+                    <span className="inline-grid">
+                      <span className={`[grid-area:1/1] ${cleanPathname === link.href ? "font-bold" : "font-normal"}`}>
+                        {link.label}
+                      </span>
+                      <span aria-hidden="true" className="invisible font-bold [grid-area:1/1]">
+                        {link.label}
+                      </span>
+                    </span>
                   </Link>
                 )}
               </li>
