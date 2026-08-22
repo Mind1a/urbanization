@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { getMembers } from "../api/membersApi";
 import type { TeamMember } from "../types/memberTypes";
 
-export const useMembers = () => {
+export const useMembers = (locale: string) => {
   return useQuery<TeamMember[], Error>({
-    queryKey: ["members"],
-    queryFn: getMembers,
+    queryKey: ["members", locale],
+    queryFn: () => getMembers(locale),
   });
 };

@@ -2,6 +2,7 @@
 import ArticlesCarousel from "@/features/media/ArticlesCarousel";
 import { mediaArticles } from "@/features/media/data/mediaData";
 import { useEachMedia } from "@/features/media/hooks/useMedia";
+import { useLocale } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
@@ -10,7 +11,12 @@ import { Usable, use } from "react";
 export default function ArticlePage() {
   const params = useParams();
   const id = params.id;
-  const { data: article, isLoading, isError } = useEachMedia(Number(id));
+  const locale = useLocale();
+  const {
+    data: article,
+    isLoading,
+    isError,
+  } = useEachMedia(locale, Number(id));
   console.log(article);
 
   if (isLoading) return <ArticlePageSkeleton />;

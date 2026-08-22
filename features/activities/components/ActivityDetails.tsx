@@ -4,6 +4,7 @@ import Image from "next/image";
 import localFont from "next/font/local";
 import { useActivity } from "../hooks/useActivity";
 import { getAssetUrl } from "../api/activity.api";
+import { useLocale, useTranslations } from "next-intl";
 
 const helvetica = localFont({
   src: "../../../public/font/Helvetica.ttf",
@@ -50,8 +51,9 @@ type ActivityDetailsProps = {
 };
 
 export default function ActivityDetails({ id }: ActivityDetailsProps) {
-  const { data: activity, isLoading, isError } = useActivity(id);
-
+  const locale = useLocale();
+  const { data: activity, isLoading, isError } = useActivity(locale, id);
+  const t = useTranslations("activity");
   if (isLoading) {
     return (
       <main className={`${helvetica.className} min-h-screen bg-white`}>
@@ -104,7 +106,7 @@ export default function ActivityDetails({ id }: ActivityDetailsProps) {
       </main>
     );
   }
-  if (isError || !activity) return <p>Something went wrong.</p>;
+  if (isError || !activity) return <p>{t("somethingWrong")}</p>;
 
   return (
     <main className={`${helvetica.className} min-h-screen bg-white`}>
@@ -140,7 +142,7 @@ export default function ActivityDetails({ id }: ActivityDetailsProps) {
 
         <section className="mt-[80px] w-[342px] md:mt-[88px] md:w-[680px] xl:mt-[96px] xl:w-[1280px]">
           <h2 className="text-[20px] font-bold leading-[24px] text-[#1E1E1E] md:text-[24px] md:leading-[32px] xl:text-[32px] xl:leading-[40px]">
-            Biography of an Author
+            {t("biography")}
           </h2>
 
           <div className="mt-[20px] flex flex-col gap-[20px] md:hidden">
