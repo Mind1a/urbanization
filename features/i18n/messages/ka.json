@@ -20,9 +20,43 @@
     "success": "შეტყობინება წარმატებით გაიგზავნა!",
     "serverError": "დაფიქსირდა შეცდომა!"
   },
+  "slider": {
+    "title": "საბურთალოს რაიონის ურბანული ტრანსფორმაციები",
+    "description": "ეს პროექტი იკვლევს თბილისის ერთ-ერთ რაიონს, საბურთალოს, ურბანული, გეოგრაფიული და არქიტექტურული პერსპექტივიდან, ფოკუსირებულია მის ტრანსფორმაციაზე პერიფერიული დასახლებიდან ცენტრალურ რაიონად მე-19 საუკუნის ბოლოს და 1990-იან წლებამდე და მის მიმდინარე ევოლუციაზე დღემდე.",
+    "noArticles": "სტატიები ჯერ არ არის ხელმისაწვდომი",
+    "checkSoon": "მალე დაბრუნდით — ახალი სტატიები მალე იქნება ხელმისაწვდომი."
+  },
+  "media": {
+    "title": "მედიის სათაური",
+    "description": "Lorem ipsum dolor sit amet consectetur. Ipsum egestas convallis sed fusce. Placerat nulla ac nisi eget ante. Eu mattis massa sit ultrices urna sapien sodales sit erat. Consectetur odio non potenti pellentesque vulputate semper. Dis libero nisi sollicitudin pellentesque cum lectus. Fermentum amet bibendum dictumst aliquet nulla a hendrerit in odio. In eget orci lacinia sed leo neque at sit. Dictum varius sed sagittis integer laoreet. Vitae cras id eget dui at amet sagittis. Facilisis id sapien ullamcorper eu faucibus diam quam. Lacus lorem vulputate in cras placerat sit scelerisque lobortis aenean.",
+    "readMoreBtn": "გაიგეთ მეტი",
+    "eachTitle": "სტატიები",
+    "readNowBtn": "ახლავე წაკითხვა"
+  },
+  "team": {
+    "title": "გუნდის წევრები",
+    "role": "როლი",
+    "academicRank": "აკადემიური წოდება",
+
+    "iliaStateUni": "ილიას სახელმწიფო უნივერსიტეტი",
+    "iliaDescription": "ილიას სახელმწიფო უნივერსიტეტი (ISU) მდებარეობს საქართველოში, თბილისში და სამხრეთ კავკასიის ერთ-ერთი წამყვანი საჯარო კვლევითი და უმაღლესი საგანმანათლებლო დაწესებულებაა. დაარსებული 2006 წელს ექვსი სხვადასხვა აკადემიური დაწესებულების გაერთიანების შედეგად, ის სწრაფად გადაიქცა სამეცნიერო წინსვლისა და თანამედროვე განათლების ფლაგმანად.",
+    "visitWebsite": "ეწვიეთ ვებსაიტს",
+    "failedToFindTeam": "გუნდის წევრების ჩატვირთვა ვერ მოხერხდა.",
+    "notFoundTeam": "გუნდის წევრები ვერ მოიძებნა."
+  },
 
   "aboutUs": {
     "title": "ჩვენ შესახებ"
+  },
+
+  "activities": {
+    "seminars": "სემინარები",
+    "seminarInfo": "სემინარების ეს სერია მიზნად ისახავს არქიტექტურული ტრანსფორმაციისა და საცხოვრებელი გარემოს ევოლუციის შესწავლას. ჩვენ განვიხილავთ, თუ როგორ იცვლება ურბანული ქსოვილი დროთა განმავლობაში და რა გავლენას ახდენს ისტორიული ცვლილებები ადამიანების ყოველდღიურ ცხოვრებაზე.",
+    "readMoreBtn": "გაიგეთ მეტი"
+  },
+  "activity": {
+    "biography": "ავტორის ბიოგრაფია",
+    "somethingWrong": "რაღაც არასწორად წარიმართა."
   },
 
   "validation": {

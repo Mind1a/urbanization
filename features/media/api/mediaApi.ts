@@ -1,10 +1,13 @@
 import { safeFetch } from "@/lib/apiClient";
 import { IMedia, IMediaItemResponse } from "../types/mediaTypes";
 
-export const getMedia = async (): Promise<IMedia[]> => {
-  return safeFetch<IMedia[]>("/api/media/");
+export const getMedia = async (locale: string): Promise<IMedia[]> => {
+  return safeFetch<IMedia[]>(`/${locale}/api/media/`);
 };
 
-export const getEachMedia = async (id: number): Promise<IMediaItemResponse> => {
-  return safeFetch<IMediaItemResponse>(`/api/media/${id}`);
+export const getEachMedia = async (
+  locale: string,
+  id: number,
+): Promise<IMediaItemResponse> => {
+  return safeFetch<IMediaItemResponse>(`/${locale}/api/media/${id}`);
 };
