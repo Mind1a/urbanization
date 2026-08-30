@@ -12,7 +12,7 @@ export default async function ActivityPage({ params }: Props) {
   const { id } = await params;
 
   try {
-    await getActivityById(id);
+    await getActivityById("en", id);
   } catch {
     notFound();
   }

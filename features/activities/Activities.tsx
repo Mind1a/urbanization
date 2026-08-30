@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useActivities } from "./hooks/useActivities";
 import { getAssetUrl } from "./api/activity.api";
+import { useLocale, useTranslations } from "next-intl";
 
 function formatDate(datetime: string) {
   const date = new Date(datetime);
@@ -14,19 +15,16 @@ function formatDate(datetime: string) {
 }
 
 export default function Activities() {
-  const { data: activities, isLoading, isError } = useActivities();
+  const locale = useLocale();
+  const t = useTranslations("activities");
+  const { data: activities, isLoading, isError } = useActivities(locale);
 
   if (isLoading) {
     return (
       <section className="mx-auto max-w-7xl py-20">
-        <h1 className="mb-4 text-4xl font-bold">Seminars</h1>
+        <h1 className="mb-4 text-4xl font-bold">{t("seminars")}</h1>
 
-        <p className="mb-10 max-w-4xl text-[#1E1E1E]">
-          This series of seminars aims to explore architectural transformation
-          and the evolution of the living environment. We will examine how the
-          urban fabric transforms over time and the impact historical changes
-          leave on people's daily lives.
-        </p>
+        <p className="mb-10 max-w-4xl text-[#1E1E1E]">{t("seminarInfo")}</p>
 
         <div className="flex flex-col gap-10">
           {[1, 2, 3].map((i) => (
@@ -56,14 +54,9 @@ export default function Activities() {
 
   return (
     <section className="mx-auto max-w-7xl">
-      <h1 className="py-9 text-4xl font-bold">Seminars</h1>
+      <h1 className="py-9 text-4xl font-bold">{t("seminars")}</h1>
 
-      <p className="mb-10 max-w-4xl text-[#1E1E1E]">
-        This series of seminars aims to explore architectural transformation and
-        the evolution of the living environment. We will examine how the urban
-        fabric transforms over time and the impact historical changes leave on
-        people's daily lives.
-      </p>
+      <p className="mb-10 max-w-4xl text-[#1E1E1E]">{t("seminarInfo")}</p>
 
       <div className="flex flex-col gap-10">
         {activities?.map((activity) => (
@@ -93,7 +86,7 @@ export default function Activities() {
                 href={`/activities/${activity.id}`}
                 className="mt-2 w-fit underline"
               >
-                Read More
+                {t("readMoreBtn")}
               </Link>
             </div>
           </div>

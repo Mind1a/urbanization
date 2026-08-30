@@ -20,9 +20,43 @@
     "success": "Message sent successfully!",
     "serverError": "Something went wrong!"
   },
+  "slider": {
+    "title": "Saburtalo District Urban Transformations",
+    "description": "This project examines one of Tbilisi’s districts, Saburtalo, from urban, geographical, and architectural perspectives, focusing on its transformation from a peripheral settlement to a central district during the late 19th century through the 1990s, and its ongoing evolution today.",
+    "noArticles": "No articles available yet",
+    "checkSoon": "Check back soon — new articles are on the way."
+  },
+  "media": {
+    "title": "Media Headline",
+    "description": "Lorem ipsum dolor sit amet consectetur. Ipsum egestas convallis sed fusce. Placerat nulla ac nisi eget ante. Eu mattis massa sit ultrices urna sapien sodales sit erat. Consectetur odio non potenti pellentesque vulputate semper. Dis libero nisi sollicitudin pellentesque cum lectus. Fermentum amet bibendum dictumst aliquet nulla a hendrerit in odio. In eget orci lacinia sed leo neque at sit. Dictum varius sed sagittis integer laoreet. Vitae cras id eget dui at amet sagittis. Facilisis id sapien ullamcorper eu faucibus diam quam. Lacus lorem vulputate in cras placerat sit scelerisque lobortis aenean.",
+    "readMoreBtn": "Read More",
+    "eachTitle": "Articles",
+    "readNowBtn": "Read Now"
+  },
+  "team": {
+    "title": "Team Members",
+    "role": "Role",
+    "academicRank": "Academic rank",
+
+    "iliaStateUni": "Ilia State University",
+    "iliaDescription": "Located in Tbilisi, Georgia, Ilia State University (ISU) is one of the leading public research and higher education institutions in the South Caucasus. Established in 2006 through the merger of six different academic institutions, it has quickly grown into a flagship for scientific advancement and modern education.",
+    "visitWebsite": "Visit Website",
+    "failedToFindTeam": "Failed to load team members.",
+    "notFoundTeam": "No team members found."
+  },
 
   "aboutUs": {
     "title": "About Us"
+  },
+
+  "activities": {
+    "seminars": "Seminars",
+    "seminarInfo": "This series of seminars aims to explore architectural transformation and the evolution of the living environment. We will examine how the urban fabric transforms over time and the impact historical changes leave on people's daily lives.",
+    "readMoreBtn": "Read More"
+  },
+  "activity": {
+    "biography": "Biography of an Author",
+    "somethingWrong": "Something went wrong."
   },
 
   "validation": {

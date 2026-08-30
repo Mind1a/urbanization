@@ -4,9 +4,12 @@ import useEmblaCarousel from "embla-carousel-react";
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { useSlider } from "../hooks/useSlider";
+import { useLocale, useTranslations } from "next-intl";
 
 export default function Hero() {
-  const { data: slides = [], isLoading } = useSlider();
+  const t = useTranslations("slider");
+  const locale = useLocale();
+  const { data: slides = [], isLoading } = useSlider(locale);
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
   const [_selectedIndex, setSelectedIndex] = useState(0);
   const [canPrev, setCanPrev] = useState(false);
@@ -41,7 +44,7 @@ export default function Hero() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <h2 className="text-[16px] md:text-[24px] lg:text-[32px] my-9 font-bold text-[#1E1E1E]">
-            Saburtalo District Urban Transformations
+            {t("title")}
           </h2>
           <div className="flex gap-5">
             <button
@@ -96,11 +99,7 @@ export default function Hero() {
 
         {/* Description */}
         <p className="mt-6 text-[#1E1E1E] text-[12px] md:text-[18px] lg:text-[20px] leading-relaxed mb-25">
-          This project examines one of Tbilisi’s districts, Saburtalo, from
-          urban, geographical, and architectural perspectives, focusing on its
-          transformation from a peripheral settlement to a central district
-          during the late 19th century through the 1990s, and its ongoing
-          evolution today.
+          {t("description")}
         </p>
       </div>
     </div>
