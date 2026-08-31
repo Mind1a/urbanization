@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Link, usePathname, } from "@/features/i18n/routing";
 import { useEffect, useRef, useState } from "react";
 import { useLocale } from "next-intl";
-import { useResults } from "@/features/common/hooks/useResults";
+import { useResultsMenu } from "@/features/results/hooks/useResultsMenu";
 
 type SubLinks = {
   id: string;
@@ -85,7 +85,7 @@ const Header = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
 
   const locale = useLocale();
-  const { data: results = [] } = useResults(locale);
+  const { data: results = [] } = useResultsMenu(locale);
 
   const resultSubLinks: SubLinks[] = results.map((result) => ({
     id: String(result.id),
