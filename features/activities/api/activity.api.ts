@@ -6,8 +6,8 @@ export function getAssetUrl(path: string) {
   return `${API_BASE_URL}/static/${path}`;
 }
 
-export async function getActivities(): Promise<Activity[]> {
-  const res = await fetch(`${API_BASE_URL}/api/activities`);
+export async function getActivities(locale: string): Promise<Activity[]> {
+  const res = await fetch(`${API_BASE_URL}/${locale}/api/activities`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch activities");
@@ -17,9 +17,10 @@ export async function getActivities(): Promise<Activity[]> {
 }
 
 export async function getActivityById(
+  locale: string,
   id: string | number,
 ): Promise<ActivityDetail> {
-  const res = await fetch(`${API_BASE_URL}/api/activities/${id}`);
+  const res = await fetch(`${API_BASE_URL}/${locale}/api/activities/${id}`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch activity");

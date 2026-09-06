@@ -1,6 +1,8 @@
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 export default function IliaState() {
+  const t = useTranslations("team");
   return (
     <div
       className="px-6
@@ -9,7 +11,7 @@ export default function IliaState() {
     >
       <section className="max-w-7xl mx-auto pt-[44px] pb-[44px] sm:pt-[56px] sm:pb-[60px] lg:pt-[32px] lg:pb-[100px]">
         <h2 className="py-[16px] sm:py-[20px] lg:py-[36px] text-[16px] md:text-[24px] lg:text-[32px] font-bold tracking-tight text-[#1E1E1E]">
-          Ilia State University
+          {t("iliaStateUni")}
         </h2>
 
         {/* University Photo */}
@@ -26,11 +28,7 @@ export default function IliaState() {
 
         {/* Description */}
         <p className="text-[14px] sm:text-[18px] lg:text-[20px] text-[#1E1E1E] leading-relaxed mb-4 lg:mb-9">
-          Located in Tbilisi, Georgia, Ilia State University (ISU) is one of the
-          leading public research and higher education institutions in the South
-          Caucasus. Established in 2006 through the merger of six different
-          academic institutions, it has quickly grown into a flagship for
-          scientific advancement and modern education.
+          {t("iliaDescription")}
         </p>
 
         {/* Visit Website link */}
@@ -40,7 +38,7 @@ export default function IliaState() {
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1.5 sm:gap-2 text-[14px] sm:text-[18px] lg:text-[20px] text-[#1E1E1E] hover:text-[#ED6502] transition-all duration-300 group"
         >
-          Visit Website
+          {t("visitWebsite")}
           <svg
             width="32"
             height="32"

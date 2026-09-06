@@ -3,15 +3,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMedia } from "./hooks/useMedia";
 import { log } from "console";
+import { useLocale, useTranslations } from "next-intl";
 
 export default function Articles() {
-  const { data: mediaArticles, isLoading } = useMedia();
+  const locale = useLocale();
+  const { data: mediaArticles, isLoading } = useMedia(locale);
   // const mediaArticles = [];
   // const isLoading = false;
   const formatter = (date: string) => {
     const newDate = new Date(date);
     return newDate.toLocaleDateString().replaceAll("/", ".");
   };
+  const t = useTranslations("media");
 
   return (
     <div className="mx-auto max-w-7xl w-full">
@@ -21,10 +24,10 @@ export default function Articles() {
         {!isLoading && mediaArticles?.length === 0 && (
           <div className="flex flex-col items-center justify-center gap-2 py-16 text-center">
             <p className="text-[18px] md:text-[20px] font-medium text-[#1E1E1E]">
-              No articles available yet
+              {t("noArticles")}
             </p>
             <p className="text-[14px] md:text-[16px] text-[#1E1E1E99]">
-              Check back soon — new articles are on the way.
+              {t("checkSoon")}
             </p>
           </div>
         )}
@@ -63,7 +66,7 @@ export default function Articles() {
                   href={`media/${article.id}`}
                   className="text-left text-[15px] md:text-[18px] lg:text-[20px] font-medium text-[#1E1E1E] hover:underline group-hover:text-[#ED6502] transition-colors duration-300 w-fit"
                 >
-                  Read More
+                  {t("readMoreBtn")}
                 </Link>
               </div>
             </div>

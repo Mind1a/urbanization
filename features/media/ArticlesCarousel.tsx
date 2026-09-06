@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { IMediaItem } from "./types/mediaTypes";
+import { useTranslations } from "next-intl";
 
 export default function ArticlesCarousel({
   articles,
@@ -31,11 +32,13 @@ export default function ArticlesCarousel({
     updateButtons();
   }, [emblaApi, updateButtons]);
 
+  const t = useTranslations("media");
+
   return (
     <section className="mt-20">
       <div className="my-4 md:my-5 lg:my-7.25 flex items-center justify-between">
         <h2 className="text-[16px] md:text-[24px] lg:text-[32px] font-bold text-[#1f1f1f]">
-          Articles
+          {t("eachTitle")}
         </h2>
 
         <div className="flex gap-5">
@@ -95,7 +98,7 @@ export default function ArticlesCarousel({
                 href={`/media/${article.id}`}
                 className="mt-8 sm:mt-6 lg:mt-11 py-4 flex w-full items-center justify-center rounded-full bg-[#ED6502] text-[15px] sm:text-[18px] lg:text-[20px] font-bold text-white"
               >
-                Read Now
+                {t("readNowBtn")}
               </Link>
             </div>
           ))}

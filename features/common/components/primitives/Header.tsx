@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
-// import Link from "next/link";
-// import { usePathname } from "next/navigation";
 import { Link, usePathname, } from "@/features/i18n/routing";
 import { useEffect, useRef, useState } from "react";
+import { useLocale } from "next-intl";
+import { useResultsMenu } from "@/features/results/hooks/useResultsMenu";
 
 type SubLinks = {
   id: string;
@@ -25,13 +25,11 @@ const LINKS_DATA: LinkDataType[] = [
     label: "home",
     href: "/",
   },
-
   {
     id: "project",
     label: "about project",
     href: "/aboutProject",
   },
-
   {
     id: "team",
     label: "team",
@@ -41,23 +39,7 @@ const LINKS_DATA: LinkDataType[] = [
     id: "results",
     label: "results",
     icon: "/icons/arrow.svg",
-    subLinks: [
-      {
-        id: "r-grouth",
-        label: "urban growth",
-        href: "/results/growth",
-      },
-      {
-        id: "r-block",
-        label: "block transformation",
-        href: "/results/block-transformation",
-      },
-      {
-        id: "r-housing",
-        label: "housing typologies",
-        href: "/results/typologies",
-      },
-    ],
+    subLinks: [],
   },
   {
     id: "activities",
@@ -101,6 +83,26 @@ const Header = () => {
   const boxRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+
+  const locale = useLocale();
+  const { data: results = [] } = useResultsMenu(locale);
+
+  const resultSubLinks: SubLinks[] = results.map((result) => ({
+    id: String(result.id),
+    label: result.title.length > 10
+      ? `${result.title.slice(0, 10)}...`
+      : result.title,
+    href: `/results/${result.id}`,
+  }));
+
+  const linksData = LINKS_DATA.map((link) =>
+    link.id === "results"
+      ? {
+        ...link,
+        subLinks: resultSubLinks
+      }
+      : link,
+  );
 
   const getCleanPathname = (path: string) => {
     if (!path) return "/";
@@ -204,7 +206,7 @@ const Header = () => {
             gap-2
             "
           >
-            {LINKS_DATA.map((link) => (
+            {linksData.map((link) => (
               <li
                 key={link.id}
                 className="py-2.5 w-full pr-6 text-black capitalize"
@@ -281,7 +283,7 @@ const Header = () => {
         {/* Desktop navbar */}
         <nav className="hidden xl:flex items-center justify-between">
           <ul className="flex items-center gap-2">
-            {LINKS_DATA.map((link) => (
+            {linksData.map((link) => (
               <li key={link.label} className="py-3 px-6">
                 {link.subLinks ? (
                   <div className="relative">

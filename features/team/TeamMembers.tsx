@@ -6,13 +6,16 @@ import Image from "next/image";
 
 import { useMembers } from "./hooks/useMembers";
 import TeamMembersSkeleton from "./TeamMembersSkeleton";
+import { useLocale, useTranslations } from "next-intl";
 
 const getMemberImageUrl = (img: string) => {
   return `${process.env.NEXT_PUBLIC_URBAN_API_URL}/static/${img}`;
 };
 
 export default function TeamMembers() {
-  const { data: teamMembers = [], isLoading, isError } = useMembers();
+  const t = useTranslations("team");
+  const locale = useLocale();
+  const { data: teamMembers = [], isLoading, isError } = useMembers(locale);
 
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -68,7 +71,7 @@ export default function TeamMembers() {
       <div className="px-6 md:px-8 xl:px-20">
         <section className="mx-auto max-w-7xl">
           <p className="py-10 text-[18px] text-red-500">
-            Failed to load team members.
+            {t("failedToFindTeam")}
           </p>
         </section>
       </div>
@@ -80,7 +83,7 @@ export default function TeamMembers() {
       <div className="px-6 md:px-8 xl:px-20">
         <section className="mx-auto max-w-7xl">
           <p className="py-10 text-[18px] text-[#1E1E1E]">
-            No team members found.
+            {t("notFoundTeam")}
           </p>
         </section>
       </div>
@@ -92,7 +95,7 @@ export default function TeamMembers() {
       <section className="mx-auto max-w-7xl">
         <div className="my-3 flex items-center justify-between sm:my-4 lg:my-9">
           <h2 className="text-[16px] font-bold tracking-tight text-[#1E1E1E] md:text-[24px] lg:text-[32px]">
-            Team Members
+            {t("title")}
           </h2>
 
           <div className="flex items-center gap-5">
@@ -163,11 +166,12 @@ export default function TeamMembers() {
 
           <div className="flex flex-col gap-3">
             <p className="text-[14px] text-[#1E1E1E] sm:text-[18px] lg:text-[20px]">
-              <span className="text-[#1E1E1E]">Role:</span> {selected.role}
+              <span className="text-[#1E1E1E]">{t("role")}</span>{" "}
+              {selected.role}
             </p>
 
             <p className="mt-3 text-[14px] text-[#1E1E1E] sm:text-[18px] lg:text-[20px]">
-              <span className="text-[#1E1E1E]">Academic rank:</span>{" "}
+              <span className="text-[#1E1E1E]">{t("academicRank")}</span>{" "}
               {selected.academic_rank}
             </p>
 
@@ -177,10 +181,7 @@ export default function TeamMembers() {
           </div>
         </div>
 
-        <div
-          ref={emblaRef}
-          className="cursor-grab overflow-hidden active:cursor-grabbing"
-        >
+        <div ref={emblaRef} className="overflow-hidden active:cursor-grabbing">
           <div className="flex gap-5 lg:justify-between">
             {teamMembers.map((member, index) => (
               <button
@@ -189,7 +190,7 @@ export default function TeamMembers() {
                 onClick={() => handleSelect(index)}
                 aria-label={`Select ${member.name} ${member.surname}`}
                 aria-pressed={index === selectedIndex}
-                className="relative shrink-0 overflow-hidden transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-900"
+                className="relative shrink-0 overflow-hidden transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 cursor-pointer"
                 style={{
                   opacity: index === selectedIndex ? 1 : 0.4,
                 }}

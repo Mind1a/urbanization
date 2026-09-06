@@ -4,6 +4,7 @@ import Image from "next/image";
 import localFont from "next/font/local";
 import { useActivity } from "../hooks/useActivity";
 import { getAssetUrl } from "../api/activity.api";
+import { useLocale, useTranslations } from "next-intl";
 
 const helvetica = localFont({
   src: "../../../public/font/Helvetica.ttf",
@@ -50,12 +51,13 @@ type ActivityDetailsProps = {
 };
 
 export default function ActivityDetails({ id }: ActivityDetailsProps) {
-  const { data: activity, isLoading, isError } = useActivity(id);
-
+  const locale = useLocale();
+  const { data: activity, isLoading, isError } = useActivity(locale, id);
+  const t = useTranslations("activity");
   if (isLoading) {
     return (
       <main className={`${helvetica.className} min-h-screen bg-white`}>
-        <section className="mx-auto w-[343px] py-6 md:w-[680px] xl:w-[1280px]">
+        <section className="mx-auto w-[343px] pt-6 md:w-[680px] xl:w-[1280px] mb-[100px]">
           <div className="mb-3 hidden h-[20px] w-[240px] animate-pulse rounded bg-gray-200 md:block" />
 
           <div className="h-[188px] w-[343px] animate-pulse rounded-[16px] bg-gray-200 md:h-[364px] md:w-[680px] md:rounded-[24px] xl:h-[472px] xl:w-[1280px]" />
@@ -104,11 +106,11 @@ export default function ActivityDetails({ id }: ActivityDetailsProps) {
       </main>
     );
   }
-  if (isError || !activity) return <p>Something went wrong.</p>;
+  if (isError || !activity) return <p>{t("somethingWrong")}</p>;
 
   return (
     <main className={`${helvetica.className} min-h-screen bg-white`}>
-      <section className="mx-auto w-[343px] py-6 md:w-[680px] xl:w-[1280px]">
+      <section className="mx-auto w-[343px] pt-6 md:w-[680px] xl:w-[1280px] mb-[100px]">
         <p className="mb-3 hidden text-[14px] leading-[20px] text-[#1E1E1E99] md:block">
           Activities
           <span className="mx-2">/</span>
@@ -140,7 +142,7 @@ export default function ActivityDetails({ id }: ActivityDetailsProps) {
 
         <section className="mt-[80px] w-[342px] md:mt-[88px] md:w-[680px] xl:mt-[96px] xl:w-[1280px]">
           <h2 className="text-[20px] font-bold leading-[24px] text-[#1E1E1E] md:text-[24px] md:leading-[32px] xl:text-[32px] xl:leading-[40px]">
-            Biography of an Author
+            {t("biography")}
           </h2>
 
           <div className="mt-[20px] flex flex-col gap-[20px] md:hidden">
