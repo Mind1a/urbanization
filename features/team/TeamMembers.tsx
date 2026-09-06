@@ -181,10 +181,7 @@ export default function TeamMembers() {
           </div>
         </div>
 
-        <div
-          ref={emblaRef}
-          className="cursor-grab overflow-hidden active:cursor-grabbing"
-        >
+        <div ref={emblaRef} className="overflow-hidden active:cursor-grabbing">
           <div className="flex gap-5 lg:justify-between">
             {teamMembers.map((member, index) => (
               <button
@@ -193,7 +190,7 @@ export default function TeamMembers() {
                 onClick={() => handleSelect(index)}
                 aria-label={`Select ${member.name} ${member.surname}`}
                 aria-pressed={index === selectedIndex}
-                className="relative shrink-0 overflow-hidden transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-900"
+                className="relative shrink-0 overflow-hidden transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 cursor-pointer"
                 style={{
                   opacity: index === selectedIndex ? 1 : 0.4,
                 }}

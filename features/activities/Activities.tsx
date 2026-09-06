@@ -53,7 +53,7 @@ export default function Activities() {
   if (isError) return <p>Something went wrong.</p>;
 
   return (
-    <section className="mx-auto max-w-7xl">
+    <section className="mx-auto max-w-7xl mb-[100px]">
       <h1 className="py-9 text-4xl font-bold">{t("seminars")}</h1>
 
       <p className="mb-10 max-w-4xl text-[#1E1E1E]">{t("seminarInfo")}</p>

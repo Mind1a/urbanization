@@ -57,7 +57,7 @@ export default function ActivityDetails({ id }: ActivityDetailsProps) {
   if (isLoading) {
     return (
       <main className={`${helvetica.className} min-h-screen bg-white`}>
-        <section className="mx-auto w-[343px] py-6 md:w-[680px] xl:w-[1280px]">
+        <section className="mx-auto w-[343px] pt-6 md:w-[680px] xl:w-[1280px] mb-[100px]">
           <div className="mb-3 hidden h-[20px] w-[240px] animate-pulse rounded bg-gray-200 md:block" />
 
           <div className="h-[188px] w-[343px] animate-pulse rounded-[16px] bg-gray-200 md:h-[364px] md:w-[680px] md:rounded-[24px] xl:h-[472px] xl:w-[1280px]" />
@@ -110,7 +110,7 @@ export default function ActivityDetails({ id }: ActivityDetailsProps) {
 
   return (
     <main className={`${helvetica.className} min-h-screen bg-white`}>
-      <section className="mx-auto w-[343px] py-6 md:w-[680px] xl:w-[1280px]">
+      <section className="mx-auto w-[343px] pt-6 md:w-[680px] xl:w-[1280px] mb-[100px]">
         <p className="mb-3 hidden text-[14px] leading-[20px] text-[#1E1E1E99] md:block">
           Activities
           <span className="mx-2">/</span>
