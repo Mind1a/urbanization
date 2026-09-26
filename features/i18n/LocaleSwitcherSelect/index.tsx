@@ -1,7 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
-import { Locale, routing, usePathname, useRouter } from "@/features/i18n/routing";
+import { Locale, usePathname, useRouter } from "@/features/i18n/routing";
 
 type Props = {
   defaultValue: string;
@@ -12,11 +11,6 @@ export default function LocaleSwitcherSelect({ defaultValue, label }: Props) {
   const router = useRouter();
   const pathname = usePathname();
 
-  const variants = {
-    [routing.locales[0]]: { x: "0%" },
-    [routing.locales[1]]: { x: "100%" },
-  };
-
   function changeLocale(nextLocale: Locale) {
     if (nextLocale === defaultValue) return;
 
@@ -24,31 +18,13 @@ export default function LocaleSwitcherSelect({ defaultValue, label }: Props) {
   }
 
   return (
-    <div
-      role="group"
+    <button
+      type="button"
       aria-label={label}
-      className="relative flex min-h-10 w-[92px] rounded-full border border-[#64748B] bg-[#F1F5F9] p-1 sm:w-[104px]"
+      onClick={() => changeLocale(defaultValue === "en" ? "ka" : "en")}
+      className="w-12.75 h-11 md:w-14.75 md:h-12 xl:w-16.25 xl:h-20 capitalize xl:font-medium xl:text-[18px] xl:leading-6 xl:px-4 xl:py-7 cursor-pointer"
     >
-      <motion.div
-        className="absolute top-1 left-1 h-[calc(100%-8px)] w-[calc(50%-4px)] rounded-full border border-[#CBD5E1] bg-white shadow-sm"
-        variants={variants}
-        initial={false}
-        animate={defaultValue}
-        transition={{ ease: "easeInOut", duration: 0.15 }}
-      />
-
-      {routing.locales.map((locale) => (
-        <button
-          key={locale}
-          type="button"
-          onClick={() => changeLocale(locale)}
-          lang={locale}
-          aria-pressed={locale === defaultValue}
-          className={`relative z-10 flex min-h-8 w-1/2 cursor-pointer items-center justify-center rounded-full text-sm text-[#1E293B] ${locale === defaultValue ? "font-bold" : "font-normal"}`}
-        >
-          {locale.toUpperCase()}
-        </button>
-      ))}
-    </div>
+      {defaultValue === "en" ? "eng" : "geo"}
+    </button>
   );
 }
