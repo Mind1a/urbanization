@@ -4,14 +4,14 @@ import { IMedia, IMediaItemResponse } from "../types/mediaTypes";
 
 export const useMedia = (locale: string) => {
   return useQuery<IMedia[], Error>({
-    queryKey: ["media"],
+    queryKey: ["media", locale],
     queryFn: () => getMedia(locale),
   });
 };
 
 export const useEachMedia = (locale: string, id: number) => {
   return useQuery<IMediaItemResponse, Error>({
-    queryKey: ["media", `${id}`],
+    queryKey: ["media", locale, id],
     queryFn: () => getEachMedia(locale, id),
   });
 };

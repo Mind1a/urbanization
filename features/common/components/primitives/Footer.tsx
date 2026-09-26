@@ -1,110 +1,55 @@
-import Link from "next/link";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
+import { Link } from "@/features/i18n/routing";
 
-type CategoriesType = {
-  label: string;
-  href: string;
-};
+export default function Footer() {
+  const t = useTranslations("footer");
+  const tHeader = useTranslations("header");
 
-type FooterNavType = {
-  title: string;
-  categories: CategoriesType[];
-};
-
-const FOOTER_NAV: FooterNavType[] = [
-  {
-    title: "explore",
-    categories: [
-      {
-        label: "Project",
-        href: "/",
-      },
-      {
-        label: "team",
-        href: "/team",
-      },
-      {
-        label: "results",
-        href: "/result",
-      },
-    ],
-  },
-  {
-    title: "contact",
-    categories: [
-      {
-        label: "(+995 32) 222 00 09",
-        href: "tel:+995322220009",
-      },
-      {
-        label: "info@iliauni.edu.ge",
-        href: "mailto:info@iliauni.edu.ge",
-      },
-    ],
-  },
-];
-
-const Footer = () => {
   return (
-    <footer
-      className="bg-[#535353] w-full  px-6
-      pt-6
-      md:px-8
-      md:pt-8
-      xl:pt-5
-      xl:px-20"
-    >
-      <div className="max-w-7xl mx-auto pt-5 pb-3 ">
-        <div className="flex justify-between pb-3.5 md:pb-11 xl:pb-16">
-          <Link href={"/"}>
+    <footer className="bg-[#535353] px-6 pt-6 md:px-8 md:pt-8 xl:px-20 xl:pt-5">
+      <div className="mx-auto max-w-7xl pb-3 pt-5">
+        <div className="flex flex-col gap-8 pb-8 sm:flex-row sm:justify-between md:pb-11 xl:pb-16">
+          <Link href="/" className="w-fit" aria-label={tHeader("home")}>
             <Image
               width={100}
               height={100}
-              src={"/images/logo/logo_light.svg"}
-              alt="Website logo"
-              className="w-18 h-18 md:w-25 md:h-25 xl:w-30 xl:h-30"
+              src="/images/logo/logo_light.svg"
+              alt=""
+              className="h-18 w-18 md:h-25 md:w-25 xl:h-30 xl:w-30"
             />
           </Link>
 
-          <ul className="flex gap-10 capitalize xl:gap-45">
-            {FOOTER_NAV.map((item) => (
-              <li
-                key={item.title}
-                className="text-[12px] leading-5  font-bold text-[#FFFFFF] md:text-[16px] md:leading-6 xl:text-[20px] "
-              >
-                {item.title}
-
-                <ul className="flex flex-col gap-2 pt-3">
-                  {item.categories.map((category) => (
-                    <li
-                      key={category.label}
-                      className="font-normal normal-case text-[12px] md:text-[16px] md:leading-5 leading-4 xl:text-[18px]"
-                    >
-                      <Link href={category}>{category.label}</Link>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            ))}
-          </ul>
+          <nav aria-label={t("explore")} className="flex flex-wrap gap-x-12 gap-y-6 text-white md:gap-x-24 xl:gap-x-40">
+            <div>
+              <h2 className="text-sm font-bold md:text-base xl:text-xl">{t("explore")}</h2>
+              <ul className="mt-3 flex flex-col gap-2 text-sm md:text-base xl:text-lg">
+                <li><Link href="/aboutProject">{tHeader("project")}</Link></li>
+                <li><Link href="/team">{tHeader("team")}</Link></li>
+                <li><Link href="/activities">{tHeader("activities")}</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h2 className="text-sm font-bold md:text-base xl:text-xl">{t("contact.title")}</h2>
+              <ul className="mt-3 flex flex-col gap-2 text-sm md:text-base xl:text-lg">
+                <li><a href="tel:+995322220009">(+995 32) 222 00 09</a></li>
+                <li><a href="mailto:info@iliauni.edu.ge">info@iliauni.edu.ge</a></li>
+              </ul>
+            </div>
+          </nav>
         </div>
       </div>
-      <div className=" h-0.5 md:h-1 bg-[#6B6B6B52] -mx-6 md:-mx-8 xl:-mx-20" />
-      <div className="max-w-7xl mx-auto z-50 pb-3 md:pb-5  ">
-        <div className="flex flex-col-reverse md:flex-row md:justify-between md:text-[14px] md:leading-5 items-center gap-2 pt-3 md:pt-5  text-[12px] leading-4 text-[#FFFFFF99]">
-          <p className="text-nowrap">
-            &copy; {new Date().getFullYear()} The Architecture and Urban Studies
-            Laboratory
-          </p>
-          <div className="flex items-center gap-4 md:gap-7">
-            <Link href={"/privacy-policy"}>Privacy</Link>
-            <Link href={"/cookies"}>Cookies</Link>
-            <Link href={"/terms-of-use"}>Terms</Link>
+      <div className="-mx-6 h-0.5 bg-[#6B6B6B52] md:-mx-8 md:h-1 xl:-mx-20" />
+      <div className="mx-auto max-w-7xl pb-3 md:pb-5">
+        <div className="flex flex-col-reverse items-center gap-2 pt-3 text-center text-xs leading-4 text-[#FFFFFF99] md:flex-row md:justify-between md:pt-5 md:text-left md:text-sm md:leading-5">
+          <p>© {new Date().getFullYear()} {t("copyright")}</p>
+          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-7">
+            <Link href="/privacy-policy">{t("docs.privacy")}</Link>
+            <Link href="/cookies">{t("docs.cookies")}</Link>
+            <Link href="/terms-of-use">{t("docs.terms")}</Link>
           </div>
         </div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

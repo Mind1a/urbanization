@@ -2,14 +2,19 @@
 
 import Image from "next/image";
 import localFont from "next/font/local";
-import { useActivity } from "../hooks/useActivity";
-import { getAssetUrl } from "../api/activity.api";
 import { useLocale, useTranslations } from "next-intl";
+import { Link } from "@/features/i18n/routing";
+import { getAssetUrl } from "../api/activity.api";
+import { useActivity } from "../hooks/useActivity";
 
 const helvetica = localFont({
   src: "../../../public/font/Helvetica.ttf",
   display: "swap",
 });
+
+const pageContainer = "mx-auto w-full max-w-[1344px] px-4 pb-16 pt-6 sm:px-6 md:pb-20 md:pt-8 lg:px-8 xl:pb-24";
+const heroShape = "relative aspect-[343/188] w-full overflow-hidden rounded-2xl bg-gray-100 sm:aspect-[16/9] lg:aspect-[1280/472] lg:rounded-3xl";
+const authorLayout = "mt-5 grid min-w-0 gap-6 md:grid-cols-[minmax(200px,280px)_minmax(0,1fr)] md:items-start xl:grid-cols-[minmax(240px,295px)_minmax(0,1fr)] xl:gap-9";
 
 function AuthorCard({
   name,
@@ -20,31 +25,65 @@ function AuthorCard({
   profession: string;
   image: string | null;
 }) {
+  if (!image) {
+    return (
+      <div className="w-full max-w-[360px] rounded-2xl bg-[#F3F3F3] p-5 md:max-w-none md:rounded-3xl md:p-6">
+        <h3 className="text-lg font-bold leading-6 break-words text-[#1E1E1E] xl:text-xl">
+          {name}
+        </h3>
+        <p className="mt-2 text-sm leading-5 break-words text-[#1E1E1E] xl:text-base">
+          {profession}
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <div className="relative h-110 w-[342px] overflow-hidden rounded-2xl bg-gray-200 md:h-auto md:w-[240px] md:rounded-[24px] xl:w-[295px]">
-      {image && (
-        <Image
-          src={image}
-          alt={name}
-          width={416}
-          height={360}
-          priority
-          className="h-[392px] w-full object-cover object-[center_10%] md:h-[264px] md:object-top xl:h-[448px] xl:object-center"
-        />
-      )}
-
-      <div className="absolute bottom-0 left-0 w-full bg-[linear-gradient(180deg,#4A4A4A_0%,#1E1E1E_100%)] px-[20px] py-[12px] md:static md:h-[72px] md:py-0 xl:absolute xl:h-[88px] xl:py-0">
-        <div className="flex h-full flex-col justify-center">
-          <h3 className="text-[20px] font-bold leading-[24px] text-white md:text-[16px] md:leading-[20px] xl:text-[20px] xl:leading-[24px]">
-            {name}
-          </h3>
-
-          <p className="mt-[4px] text-[16px] leading-[20px] text-white/80 md:text-[12px] md:leading-[16px] xl:text-[18px] xl:leading-[20px]">
-            {profession}
-          </p>
-        </div>
+    <div className="relative aspect-[4/5] w-full max-w-[360px] overflow-hidden rounded-2xl bg-gray-200 md:max-w-none md:rounded-3xl">
+      <Image
+        src={image}
+        alt={name}
+        fill
+        sizes="(max-width: 767px) 360px, (max-width: 1279px) 280px, 295px"
+        className="object-cover"
+      />
+      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#1E1E1E] via-[#1E1E1E]/85 to-transparent px-5 pb-5 pt-12 text-white">
+        <h3 className="text-lg font-bold leading-6 break-words xl:text-xl">
+          {name}
+        </h3>
+        <p className="mt-1 text-sm leading-5 break-words text-white/85 xl:text-base">
+          {profession}
+        </p>
       </div>
     </div>
+  );
+}
+
+function ActivityDetailsSkeleton() {
+  return (
+    <main className={`${helvetica.className} min-h-screen bg-white`}>
+      <section className={`${pageContainer} animate-pulse`}>
+        <div className="mb-4 h-5 w-1/2 max-w-64 rounded bg-gray-200" />
+        <div className={heroShape} />
+        <div className="mt-6 h-8 w-3/4 rounded bg-gray-200 md:h-12" />
+        <div className="mt-6 max-w-5xl space-y-3">
+          <div className="h-5 w-full rounded bg-gray-200" />
+          <div className="h-5 w-full rounded bg-gray-200" />
+          <div className="h-5 w-2/3 rounded bg-gray-200" />
+        </div>
+        <div className="mt-16 md:mt-20 xl:mt-24">
+          <div className="h-8 w-56 max-w-full rounded bg-gray-200" />
+          <div className={authorLayout}>
+            <div className="aspect-[4/5] w-full max-w-[360px] rounded-2xl bg-gray-200 md:max-w-none md:rounded-3xl" />
+            <div className="min-w-0 space-y-3">
+              <div className="h-5 w-full rounded bg-gray-200" />
+              <div className="h-5 w-full rounded bg-gray-200" />
+              <div className="h-5 w-3/4 rounded bg-gray-200" />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
 
@@ -56,136 +95,67 @@ export default function ActivityDetails({ id }: ActivityDetailsProps) {
   const locale = useLocale();
   const { data: activity, isLoading, isError } = useActivity(locale, id);
   const t = useTranslations("activity");
-  if (isLoading) {
+  const tActivities = useTranslations("activities");
+
+  if (isLoading) return <ActivityDetailsSkeleton />;
+
+  if (isError || !activity) {
     return (
       <main className={`${helvetica.className} min-h-screen bg-white`}>
-        <section className="mx-auto w-[343px] pt-6 md:w-[680px] xl:w-[1280px] mb-[100px]">
-          <div className="mb-3 hidden h-[20px] w-[240px] animate-pulse rounded bg-gray-200 md:block" />
-
-          <div className="h-[188px] w-[343px] animate-pulse rounded-[16px] bg-gray-200 md:h-[364px] md:w-[680px] md:rounded-[24px] xl:h-[472px] xl:w-[1280px]" />
-
-          <div className="mt-[16px] h-[32px] w-[280px] animate-pulse rounded bg-gray-200 md:mt-[20px] md:h-[40px] md:w-[500px] xl:mt-[36px] xl:h-[56px] xl:w-[700px]" />
-
-          <div className="mt-[16px] flex w-[342px] flex-col gap-[8px] md:mt-[20px] md:w-[680px] md:gap-[16px] xl:mt-[36px] xl:w-[1280px]">
-            <div className="h-[20px] w-full animate-pulse rounded bg-gray-200 md:h-[28px] xl:h-[32px]" />
-            <div className="h-[20px] w-full animate-pulse rounded bg-gray-200 md:h-[28px] xl:h-[32px]" />
-            <div className="h-[20px] w-2/3 animate-pulse rounded bg-gray-200 md:h-[28px] xl:h-[32px]" />
-          </div>
-
-          <section className="mt-[80px] w-[342px] md:mt-[88px] md:w-[680px] xl:mt-[96px] xl:w-[1280px]">
-            <div className="h-[24px] w-[220px] animate-pulse rounded bg-gray-200 md:h-[32px] xl:h-[40px]" />
-
-            <div className="mt-[20px] flex flex-col gap-[20px] md:hidden">
-              <div className="h-110 w-[342px] animate-pulse rounded-2xl bg-gray-200" />
-              <div className="space-y-[12px]">
-                <div className="h-[16px] w-full animate-pulse rounded bg-gray-200" />
-                <div className="h-[16px] w-full animate-pulse rounded bg-gray-200" />
-                <div className="h-[16px] w-2/3 animate-pulse rounded bg-gray-200" />
-              </div>
-            </div>
-
-            <div className="mt-[20px] hidden md:block xl:hidden">
-              <div className="grid grid-cols-[240px_416px] gap-x-[24px]">
-                <div className="h-[264px] w-[240px] animate-pulse rounded-[24px] bg-gray-200" />
-                <div className="space-y-[12px]">
-                  <div className="h-[18px] w-full animate-pulse rounded bg-gray-200" />
-                  <div className="h-[18px] w-full animate-pulse rounded bg-gray-200" />
-                  <div className="h-[18px] w-2/3 animate-pulse rounded bg-gray-200" />
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-[36px] hidden xl:flex xl:gap-[36px]">
-              <div className="h-[448px] w-[295px] animate-pulse rounded-[24px] bg-gray-200" />
-              <div className="w-[828px] space-y-[16px]">
-                <div className="h-[20px] w-full animate-pulse rounded bg-gray-200" />
-                <div className="h-[20px] w-full animate-pulse rounded bg-gray-200" />
-                <div className="h-[20px] w-2/3 animate-pulse rounded bg-gray-200" />
-              </div>
-            </div>
-          </section>
-        </section>
+        <div className={pageContainer} role="alert">{t("somethingWrong")}</div>
       </main>
     );
   }
-  if (isError || !activity) return <p>{t("somethingWrong")}</p>;
 
   return (
     <main className={`${helvetica.className} min-h-screen bg-white`}>
-      <section className="mx-auto w-[343px] pt-6 md:w-[680px] xl:w-[1280px] mb-[100px]">
-        <p className="mb-3 hidden text-[14px] leading-[20px] text-[#1E1E1E99] md:block">
-          Activities
-          <span className="mx-2">/</span>
-          <span className="text-[#1E1E1E]">{activity.title}</span>
-        </p>
+      <article className={pageContainer}>
+        <nav aria-label="Breadcrumb" className="mb-4 flex min-w-0 items-center gap-2 text-sm leading-5 text-[#1E1E1E99]">
+          <Link href="/activities" className="shrink-0 underline-offset-2 hover:underline">
+            {tActivities("allActivities")}
+          </Link>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page" className="min-w-0 truncate text-[#1E1E1E]">
+            {activity.title}
+          </span>
+        </nav>
 
-        <picture>
-          <source media="(min-width: 1280px)" srcSet="/Rectangledesktop.svg" />
-
+        <div className={heroShape}>
           <Image
             src={getAssetUrl(activity.img)}
             alt={activity.title}
-            width={1280}
-            height={472}
+            fill
             priority
-            className="block h-[188px] w-[343px] rounded-[16px] object-cover md:h-[364px] md:w-[680px] md:rounded-[24px] xl:h-[472px] xl:w-[1280px]"
+            sizes="(max-width: 639px) 100vw, (max-width: 1023px) 90vw, 1280px"
+            className="object-cover"
           />
-        </picture>
+        </div>
 
-        <h1 className="mt-[16px] w-[342px] text-[24px] leading-[32px] text-[#1E1E1E] md:mt-[20px] md:w-[680px] md:text-[32px] md:leading-[40px] xl:mt-[36px] xl:w-[1280px] xl:text-[48px] xl:leading-[56px]">
+        <h1 className="mt-6 text-2xl leading-8 break-words text-[#1E1E1E] md:mt-8 md:text-4xl md:leading-tight xl:text-5xl">
           {activity.title}
         </h1>
 
-        <div className="mt-[16px] flex w-[342px] flex-col gap-[8px] md:mt-[20px] md:w-[680px] md:gap-[16px] xl:mt-[36px] xl:w-[1280px]">
-          <p className="text-[14px] leading-[20px] text-[#1E1E1E] md:text-[16px] md:leading-[28px] xl:text-[20px] xl:leading-[32px]">
-            {activity.description}
-          </p>
-        </div>
+        <p className="mt-5 max-w-[1208px] whitespace-pre-line text-sm leading-6 break-words text-[#1E1E1E] md:mt-8 md:text-lg md:leading-8 xl:text-xl">
+          {activity.description}
+        </p>
 
-        <section className="mt-[80px] w-[342px] md:mt-[88px] md:w-[680px] xl:mt-[96px] xl:w-[1280px]">
-          <h2 className="text-[20px] font-bold leading-[24px] text-[#1E1E1E] md:text-[24px] md:leading-[32px] xl:text-[32px] xl:leading-[40px]">
+        <section className="mt-16 md:mt-20 xl:mt-24">
+          <h2 className="text-xl font-bold leading-7 text-[#1E1E1E] md:text-2xl md:leading-8 xl:text-3xl">
             {t("biography")}
           </h2>
 
-          <div className="mt-[20px] flex flex-col gap-[20px] md:hidden">
+          <div className={authorLayout}>
             <AuthorCard
               name={activity.author_name}
               profession={activity.author_profession}
               image={activity.author_image ? getAssetUrl(activity.author_image) : null}
             />
-
-            <div className="space-y-[24px] text-[16px] leading-[26px] text-[#1E1E1E]">
-              <p>{activity.author_biography}</p>
-            </div>
-          </div>
-
-          <div className="mt-[20px] hidden md:block xl:hidden">
-            <div className="grid grid-cols-[240px_416px] gap-x-[24px]">
-              <AuthorCard
-                name={activity.author_name}
-                profession={activity.author_profession}
-                image={activity.author_image ? getAssetUrl(activity.author_image) : null}
-              />
-
-              <div className="space-y-[24px] text-[18px] leading-[28px] text-[#1E1E1E]">
-                <p>{activity.author_biography}</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-[36px] hidden xl:flex xl:gap-[36px]">
-            <AuthorCard
-              name={activity.author_name}
-              profession={activity.author_profession}
-              image={activity.author_image ? getAssetUrl(activity.author_image) : null}
-            />
-
-            <div className="w-[828px] space-y-[32px] text-[20px] leading-[32px] text-[#1E1E1E]">
-              <p>{activity.author_biography}</p>
-            </div>
+            <p className="min-w-0 whitespace-pre-line text-base leading-7 break-words text-[#1E1E1E] md:text-lg md:leading-8 xl:text-xl">
+              {activity.author_biography}
+            </p>
           </div>
         </section>
-      </section>
+      </article>
     </main>
   );
 }

@@ -1,10 +1,11 @@
 "use client";
 import Image from "next/image";
-import { Link, usePathname, } from "@/features/i18n/routing";
+import { Link, usePathname } from "@/features/i18n/routing";
 import { useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useResultsMenu } from "@/features/results/hooks/useResultsMenu";
 import { useActivityCategories } from "@/features/activities/hooks/useActivityCategories";
+import LocaleSwitcher from "@/features/i18n/LocaleSwitcher";
 
 type SubLinks = {
   id: string;
@@ -13,8 +14,7 @@ type SubLinks = {
 };
 
 type LinkDataType = {
-  id: string;
-  label: string;
+  id: "home" | "project" | "team" | "results" | "activities" | "media";
   href?: string;
   icon?: string;
   subLinks?: SubLinks[];
@@ -23,41 +23,34 @@ type LinkDataType = {
 const LINKS_DATA: LinkDataType[] = [
   {
     id: "home",
-    label: "home",
     href: "/",
   },
   {
     id: "project",
-    label: "about project",
     href: "/aboutProject",
   },
   {
     id: "team",
-    label: "team",
     href: "/team",
   },
   {
     id: "results",
-    label: "results",
     icon: "/icons/arrow.svg",
     subLinks: [],
   },
   {
     id: "activities",
-    label: "activities",
     icon: "/icons/arrow.svg",
     subLinks: [],
   },
   {
     id: "media",
-    label: "media",
     href: "/media",
   },
 ];
 
 const Header = () => {
   const pathname = usePathname();
-  const [lang, setLang] = useState("eng");
   const [isOpenSubLinks, setIsOpenSubLinks] = useState<string | null>(null);
   const [isOpenNavMenu, setIsOpenNavMenu] = useState(false);
   const boxRef = useRef<HTMLDivElement>(null);
@@ -65,6 +58,7 @@ const Header = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
 
   const locale = useLocale();
+  const tHeader = useTranslations("header");
   const tActivities = useTranslations("activities");
   const { data: results = [] } = useResultsMenu(locale);
   const { data: activityCategories = [] } = useActivityCategories(locale);
@@ -165,7 +159,7 @@ const Header = () => {
             width={100}
             height={100}
             src={"/images/logo/logo.svg"}
-            alt="Website logo"
+            alt={tHeader("home")}
             className="w-11 h-11 md:w-18 md:h-18 xl:w-20 xl:h-20"
           />
         </Link>
@@ -212,7 +206,7 @@ const Header = () => {
                       : "text-[#1E1E1E]"
                       }`}
                   >
-                    {link.label}
+                    {tHeader(link.id)}
                     {link.icon && (
                       <Image
                         className={`${isOpenSubLinks === link.id ? "rotate-180" : "rotate-0"
@@ -235,7 +229,7 @@ const Header = () => {
                       : "text-[#1E1E1E] font-normal"
                       }`}
                   >
-                    {link.label}
+                    {tHeader(link.id)}
                   </Link>
                 )}
                 {link.subLinks && (
@@ -277,7 +271,7 @@ const Header = () => {
         <nav className="hidden xl:flex items-center justify-between">
           <ul className="flex items-center gap-2">
             {linksData.map((link) => (
-              <li key={link.label} className="py-3 px-6">
+              <li key={link.id} className="py-3 px-6">
                 {link.subLinks ? (
                   <div className="relative">
                     <button
@@ -300,13 +294,13 @@ const Header = () => {
                             : "font-normal"
                             }`}
                         >
-                          {link.label}
+                          {tHeader(link.id)}
                         </span>
                         <span
                           aria-hidden="true"
                           className="invisible font-bold [grid-area:1/1]"
                         >
-                          {link.label}
+                          {tHeader(link.id)}
                         </span>
                       </span>
                     </button>
@@ -358,10 +352,10 @@ const Header = () => {
                   >
                     <span className="inline-grid">
                       <span className={`[grid-area:1/1] ${cleanPathname === link.href ? "font-bold" : "font-normal"}`}>
-                        {link.label}
+                        {tHeader(link.id)}
                       </span>
                       <span aria-hidden="true" className="invisible font-bold [grid-area:1/1]">
-                        {link.label}
+                        {tHeader(link.id)}
                       </span>
                     </span>
                   </Link>
@@ -373,12 +367,7 @@ const Header = () => {
 
         {/* Change Lang & Nav drop menu */}
         <div className="flex items-center">
-          <button
-            onClick={() => setLang((prev) => (prev === "eng" ? "geo" : "eng"))}
-            className="w-12.75 h-11 md:w-14.75 md:h-12 xl:w-16.25 xl:h-20 capitalize xl:font-medium xl:text-[18px] xl:leading-6 xl:px-4 xl:py-7 cursor-pointer"
-          >
-            {lang}
-          </button>
+          <LocaleSwitcher />
           <button
             onClick={() => setIsOpenNavMenu((prev) => !prev)}
             className="relative w-11 h-11 md:w-12 md:h-12 flex items-center justify-center z-50 xl:hidden"

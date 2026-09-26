@@ -1,8 +1,7 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/features/i18n/routing";
 import { useMedia } from "./hooks/useMedia";
-import { log } from "console";
 import { useLocale, useTranslations } from "next-intl";
 
 export default function Articles() {
@@ -63,7 +62,7 @@ export default function Articles() {
                 </p>
 
                 <Link
-                  href={`media/${article.id}`}
+                  href={`/media/${article.id}`}
                   className="text-left text-[15px] md:text-[18px] lg:text-[20px] font-medium text-[#1E1E1E] hover:underline group-hover:text-[#ED6502] transition-colors duration-300 w-fit"
                 >
                   {t("readMoreBtn")}

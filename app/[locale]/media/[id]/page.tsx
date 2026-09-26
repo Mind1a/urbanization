@@ -1,23 +1,22 @@
 "use client";
 import ArticlesCarousel from "@/features/media/ArticlesCarousel";
-import { mediaArticles } from "@/features/media/data/mediaData";
 import { useEachMedia } from "@/features/media/hooks/useMedia";
 import { useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/features/i18n/routing";
 import { notFound, useParams } from "next/navigation";
-import { Usable, use } from "react";
 
 export default function ArticlePage() {
   const params = useParams();
   const id = params.id;
   const locale = useLocale();
+  const t = useTranslations("media");
   const {
     data: article,
     isLoading,
     isError,
   } = useEachMedia(locale, Number(id));
-  console.log(article);
 
   if (isLoading) return <ArticlePageSkeleton />;
   if (isError || !article) notFound();
@@ -31,7 +30,7 @@ export default function ArticlePage() {
       <div className="mx-auto max-w-7xl">
         <div className="mb-3 md:flex gap-2 text-sm hidden text-[14px] lg:text-[20px]">
           <Link href={"/media"} className="text-[#1E1E1E99]">
-            Media
+            {t("breadcrumb")}
           </Link>
           <span className="text-[#1E1E1E99]">/</span>
           <span className="text-[#1E1E1E]">{article?.[0].title}</span>

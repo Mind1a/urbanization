@@ -32,13 +32,8 @@ export default function TeamMembers() {
     emblaApi.reInit();
   }, [emblaApi, teamMembers]);
 
-  useEffect(() => {
-    if (selectedIndex > teamMembers.length - 1) {
-      setSelectedIndex(0);
-    }
-  }, [selectedIndex, teamMembers.length]);
-
-  const selected = teamMembers[selectedIndex];
+  const currentIndex = Math.min(selectedIndex, Math.max(0, teamMembers.length - 1));
+  const selected = teamMembers[currentIndex];
 
   const handleSelect = useCallback(
     (index: number) => {
@@ -49,18 +44,18 @@ export default function TeamMembers() {
   );
 
   const handlePrev = useCallback(() => {
-    const previousIndex = Math.max(0, selectedIndex - 1);
+    const previousIndex = Math.max(0, currentIndex - 1);
 
     setSelectedIndex(previousIndex);
     emblaApi?.scrollTo(previousIndex);
-  }, [emblaApi, selectedIndex]);
+  }, [emblaApi, currentIndex]);
 
   const handleNext = useCallback(() => {
-    const nextIndex = Math.min(teamMembers.length - 1, selectedIndex + 1);
+    const nextIndex = Math.min(teamMembers.length - 1, currentIndex + 1);
 
     setSelectedIndex(nextIndex);
     emblaApi?.scrollTo(nextIndex);
-  }, [emblaApi, selectedIndex, teamMembers.length]);
+  }, [emblaApi, currentIndex, teamMembers.length]);
 
   if (isLoading) {
     return <TeamMembersSkeleton />;
@@ -102,8 +97,8 @@ export default function TeamMembers() {
             <button
               type="button"
               onClick={handlePrev}
-              disabled={selectedIndex === 0}
-              aria-label="Previous member"
+              disabled={currentIndex === 0}
+              aria-label={t("previousMember")}
               className="flex items-center justify-center rounded-full transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-30"
             >
               <Image
@@ -118,8 +113,8 @@ export default function TeamMembers() {
             <button
               type="button"
               onClick={handleNext}
-              disabled={selectedIndex === teamMembers.length - 1}
-              aria-label="Next member"
+              disabled={currentIndex === teamMembers.length - 1}
+              aria-label={t("nextMember")}
               className="flex items-center justify-center rounded-full transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-30"
             >
               <Image
@@ -156,7 +151,7 @@ export default function TeamMembers() {
 
               <a
                 href={`mailto:${selected.email}`}
-                aria-label={`Email ${selected.name} ${selected.surname}`}
+                aria-label={t("emailMember", { name: `${selected.name} ${selected.surname}` })}
                 className="text-white transition-colors hover:text-gray-300"
               >
                 <Image alt="" src="/icons/mail.svg" width={32} height={32} />
@@ -188,11 +183,11 @@ export default function TeamMembers() {
                 key={member.id}
                 type="button"
                 onClick={() => handleSelect(index)}
-                aria-label={`Select ${member.name} ${member.surname}`}
-                aria-pressed={index === selectedIndex}
+                aria-label={t("selectMember", { name: `${member.name} ${member.surname}` })}
+                aria-pressed={index === currentIndex}
                 className="relative shrink-0 overflow-hidden transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 cursor-pointer"
                 style={{
-                  opacity: index === selectedIndex ? 1 : 0.4,
+                  opacity: index === currentIndex ? 1 : 0.4,
                 }}
               >
                 <Image

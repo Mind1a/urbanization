@@ -2,8 +2,11 @@
 import Image from "next/image";
 import { Participant } from "../types/type";
 import { useCopyEmail } from "../hooks/useCopyEmail";
+import { useTranslations } from "next-intl";
 const TeamCard = ({ participant }: { participant: Participant }) => {
   const { copied, handleCopy } = useCopyEmail();
+  const t = useTranslations("aboutLab");
+  const roleKey = `role${participant.id}` as "role1" | "role2" | "role3" | "role4" | "role5";
 
   return (
     <article className="flex flex-col">
@@ -22,7 +25,7 @@ const TeamCard = ({ participant }: { participant: Participant }) => {
             {participant.name}
           </h3>
           <p className="lg:text-sm text-[12px] md:text-base text-[#1E1E1E99]">
-            {participant.role}
+            {t(roleKey)}
           </p>
         </div>
         <div className="relative">
@@ -30,21 +33,21 @@ const TeamCard = ({ participant }: { participant: Participant }) => {
             onClick={() =>
               participant.profileUrl && handleCopy(participant.profileUrl)
             }
-            aria-label={`Copy ${participant.name}'s email`}
+            aria-label={t("copyEmail", { name: participant.name })}
             className="shrink-0 text-gray-900"
           >
             <Image
               src={"/images/about/svg/Mail.svg"}
               width={22}
               height={18}
-              alt="მაილის ფოტო"
+              alt=""
               className="w-5 h-4 md:w-6.25 md:h-5 lg:w-5.5 lg:h-4.5"
             />
           </button>
 
           {copied && (
             <div className="absolute lg:bottom-7 lg:-right-2 md:bottom-10 md:-right-2 bottom-7 -right-1 mb-2 lg:w-[150px] md:w-[210px] w-[110px] rounded-lg px-4 py-2 z-50 text-xs leading-4 text-white bg-gradient-to-r from-[rgba(30,30,30,0.95)] to-[rgba(180,180,180,0.85)] ">
-              Email copied successfully
+              {t("emailCopied")}
               <div className="absolute md:right-2.5 right-1.5 top-full ">
                 <Image
                   src={"/images/about/svg/DownArrow.svg"}

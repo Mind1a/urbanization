@@ -1,14 +1,7 @@
-'use client';
+"use client";
 
-import { motion } from 'motion/react';
-import {
-  Locale,
-  routing,
-  usePathname,
-  useRouter,
-} from '@/features/i18n/routing';
-import { useParams } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
+import { motion } from "motion/react";
+import { Locale, routing, usePathname, useRouter } from "@/features/i18n/routing";
 
 type Props = {
   defaultValue: string;
@@ -18,55 +11,30 @@ type Props = {
 export default function LocaleSwitcherSelect({ defaultValue, label }: Props) {
   const router = useRouter();
   const pathname = usePathname();
-  const params = useParams();
-
-  const [active, setActive] = useState(defaultValue);
-  const [isSwitching, setIsSwitching] = useState(false);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    setActive(defaultValue);
-  }, [defaultValue]);
-
-  useEffect(() => {
-    return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
-  }, []);
 
   const variants = {
-    [routing.locales[0]]: { x: '0%' },
-    [routing.locales[1]]: { x: '100%' },
+    [routing.locales[0]]: { x: "0%" },
+    [routing.locales[1]]: { x: "100%" },
   };
 
-  function changeLocale(nextLocale: string) {
-    if (isSwitching || nextLocale === defaultValue) return;
+  function changeLocale(nextLocale: Locale) {
+    if (nextLocale === defaultValue) return;
 
-    setIsSwitching(true);
-    setActive(nextLocale);
-
-    timeoutRef.current = setTimeout(() => {
-      router.replace(
-        { pathname, query: params as Record<string, string> },
-        { locale: nextLocale as Locale }
-      );
-    }, 150);
+    router.replace(`${pathname}${window.location.search}`, { locale: nextLocale });
   }
 
   return (
     <div
+      role="group"
       aria-label={label}
-      className="relative flex bg-[#F1F5F9] p-[4px] border-[#64748B] border-[0.5px] rounded-full w-[144px] min-h-[44px]"
+      className="relative flex min-h-10 w-[92px] rounded-full border border-[#64748B] bg-[#F1F5F9] p-1 sm:w-[104px]"
     >
       <motion.div
-        className="top-[4px] left-[4px] absolute bg-[#FFFFFF] shadow-[0px_0px_4px_0px_#00000040] border-[#CBD5E1] border-[0.5px] rounded-full w-[calc(50%-4px)] h-[calc(100%-8px)]"
+        className="absolute top-1 left-1 h-[calc(100%-8px)] w-[calc(50%-4px)] rounded-full border border-[#CBD5E1] bg-white shadow-sm"
         variants={variants}
         initial={false}
-        animate={active}
-        transition={{
-          ease: 'easeInOut',
-          duration: 0.15,
-        }}
+        animate={defaultValue}
+        transition={{ ease: "easeInOut", duration: 0.15 }}
       />
 
       {routing.locales.map((locale) => (
@@ -74,12 +42,9 @@ export default function LocaleSwitcherSelect({ defaultValue, label }: Props) {
           key={locale}
           type="button"
           onClick={() => changeLocale(locale)}
-          disabled={isSwitching}
-          className={`z-[10] cursor-pointer w-1/2 rounded-full flex items-center justify-center ${
-            locale === active
-              ? 'text-[#1E293B] font-bold text-[14px]'
-              : 'text-[#1E293B] text-[14px]'
-          }`}
+          lang={locale}
+          aria-pressed={locale === defaultValue}
+          className={`relative z-10 flex min-h-8 w-1/2 cursor-pointer items-center justify-center rounded-full text-sm text-[#1E293B] ${locale === defaultValue ? "font-bold" : "font-normal"}`}
         >
           {locale.toUpperCase()}
         </button>

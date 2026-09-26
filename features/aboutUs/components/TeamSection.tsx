@@ -4,8 +4,10 @@ import useEmblaCarousel from "embla-carousel-react";
 
 import { Participant } from "../types/type";
 import TeamCard from "./TeamCard";
+import { useTranslations } from "next-intl";
 
 const TeamSection = ({ participants }: { participants: Participant[] }) => {
+  const t = useTranslations("aboutLab");
   const [emblaRef] = useEmblaCarousel({
     align: "start",
     dragFree: true,
@@ -15,7 +17,7 @@ const TeamSection = ({ participants }: { participants: Participant[] }) => {
   return (
     <section className="overflow-hidden py-12 lg:max-w-7xl md:max-w-178 max-w-91.5 w-full">
       <h2 className="mb-6 lg:mb-8 lg:text-[32px] text-base md:text-2xl font-bold text-[#1E1E1E]">
-        Team
+        {t("teamTitle")}
       </h2>
 
       <div className="overflow-hidden" ref={emblaRef}>
