@@ -12,14 +12,7 @@ export async function safeFetch<T>(
   endpoint: string,
   options: RequestInit = {},
 ): Promise<T> {
-  const res = await fetch(`${getBaseUrl()}${endpoint}`, {
-    credentials: "include",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...(options.headers || {}),
-    },
-  });
+  const res = await fetch(`${getBaseUrl()}${endpoint}`, options);
 
   const data = await res.json();
 
