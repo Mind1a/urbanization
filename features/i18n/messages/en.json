@@ -50,6 +50,10 @@
   },
 
   "activities": {
+    "allActivities": "All activities",
+    "categories": "Activity categories",
+    "empty": "No activities yet.",
+    "loadError": "Failed to load activities.",
     "seminars": "Seminars",
     "seminarInfo": "This series of seminars aims to explore architectural transformation and the evolution of the living environment. We will examine how the urban fabric transforms over time and the impact historical changes leave on people's daily lives.",
     "readMoreBtn": "Read More"

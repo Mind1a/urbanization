@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/features/i18n/routing";
 import { useActivities } from "./hooks/useActivities";
+import { useActivityCategories } from "./hooks/useActivityCategories";
 import { getAssetUrl } from "./api/activity.api";
 import { useLocale, useTranslations } from "next-intl";
 
@@ -14,17 +15,22 @@ function formatDate(datetime: string) {
   return `${day}.${month}.${year}`;
 }
 
-export default function Activities() {
+type ActivitiesProps = {
+  categoryId?: number;
+  categoryName?: string;
+};
+
+export default function Activities({ categoryId, categoryName }: ActivitiesProps) {
   const locale = useLocale();
   const t = useTranslations("activities");
-  const { data: activities, isLoading, isError } = useActivities(locale);
+  const { data: activities, isLoading, isError } = useActivities(locale, categoryId);
+  const { data: categories = [] } = useActivityCategories(locale);
+  const title = categoryName ?? t("allActivities");
 
   if (isLoading) {
     return (
       <section className="mx-auto max-w-7xl py-20">
-        <h1 className="mb-4 text-4xl font-bold">{t("seminars")}</h1>
-
-        <p className="mb-10 max-w-4xl text-[#1E1E1E]">{t("seminarInfo")}</p>
+        <h1 className="mb-10 text-4xl font-bold">{title}</h1>
 
         <div className="flex flex-col gap-10">
           {[1, 2, 3].map((i) => (
@@ -50,15 +56,34 @@ export default function Activities() {
       </section>
     );
   }
-  if (isError) return <p>Something went wrong.</p>;
+  if (isError) return <p>{t("loadError")}</p>;
 
   return (
     <section className="mx-auto max-w-7xl mb-[100px]">
-      <h1 className="py-9 text-4xl font-bold">{t("seminars")}</h1>
+      <h1 className="py-9 text-4xl font-bold">{title}</h1>
 
-      <p className="mb-10 max-w-4xl text-[#1E1E1E]">{t("seminarInfo")}</p>
+      <nav aria-label={t("categories")} className="mb-10 flex flex-wrap gap-3">
+        <Link
+          href="/activities"
+          aria-current={categoryId === undefined ? "page" : undefined}
+          className={`rounded-full px-5 py-2 ${categoryId === undefined ? "bg-[#ED6502] text-white" : "border border-[#1E1E1E]"}`}
+        >
+          {t("allActivities")}
+        </Link>
+        {categories.map((category) => (
+          <Link
+            key={category.id}
+            href={`/activities/category/${category.id}`}
+            aria-current={categoryId === category.id ? "page" : undefined}
+            className={`rounded-full px-5 py-2 ${categoryId === category.id ? "bg-[#ED6502] text-white" : "border border-[#1E1E1E]"}`}
+          >
+            {category.category_name}
+          </Link>
+        ))}
+      </nav>
 
       <div className="flex flex-col gap-10">
+        {activities?.length === 0 && <p>{t("empty")}</p>}
         {activities?.map((activity) => (
           <div key={activity.id} className="flex gap-6">
             <div className="relative h-50 w-50 shrink-0 overflow-hidden rounded-md">

@@ -2,8 +2,9 @@
 import Image from "next/image";
 import { Link, usePathname, } from "@/features/i18n/routing";
 import { useEffect, useRef, useState } from "react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useResultsMenu } from "@/features/results/hooks/useResultsMenu";
+import { useActivityCategories } from "@/features/activities/hooks/useActivityCategories";
 
 type SubLinks = {
   id: string;
@@ -45,28 +46,7 @@ const LINKS_DATA: LinkDataType[] = [
     id: "activities",
     label: "activities",
     icon: "/icons/arrow.svg",
-    subLinks: [
-      {
-        id: "a-seminars",
-        label: "seminars",
-        href: "/activities",
-      },
-      {
-        id: "a-discussions",
-        label: "discussions",
-        href: "/activities/2",
-      },
-      {
-        id: "a-exhibitions",
-        label: "exhibitions",
-        href: "/activities/3",
-      },
-      {
-        id: "a-presentations",
-        label: "presentations",
-        href: "/activities/4",
-      },
-    ],
+    subLinks: [],
   },
   {
     id: "media",
@@ -85,7 +65,9 @@ const Header = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
 
   const locale = useLocale();
+  const tActivities = useTranslations("activities");
   const { data: results = [] } = useResultsMenu(locale);
+  const { data: activityCategories = [] } = useActivityCategories(locale);
 
   const resultSubLinks: SubLinks[] = results.map((result) => ({
     id: String(result.id),
@@ -95,12 +77,23 @@ const Header = () => {
     href: `/results/${result.id}`,
   }));
 
+  const activitySubLinks: SubLinks[] = [
+    { id: "all-activities", label: tActivities("allActivities"), href: "/activities" },
+    ...activityCategories.map((category) => ({
+      id: `activity-category-${category.id}`,
+      label: category.category_name,
+      href: `/activities/category/${category.id}`,
+    })),
+  ];
+
   const linksData = LINKS_DATA.map((link) =>
     link.id === "results"
       ? {
         ...link,
         subLinks: resultSubLinks
       }
+      : link.id === "activities"
+        ? { ...link, subLinks: activitySubLinks }
       : link,
   );
 

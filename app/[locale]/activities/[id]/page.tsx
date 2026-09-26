@@ -5,14 +5,15 @@ import { getActivityById } from "@/features/activities/api/activity.api";
 type Props = {
   params: Promise<{
     id: string;
+    locale: string;
   }>;
 };
 
 export default async function ActivityPage({ params }: Props) {
-  const { id } = await params;
+  const { id, locale } = await params;
 
   try {
-    await getActivityById("en", id);
+    await getActivityById(locale, id);
   } catch {
     notFound();
   }

@@ -2,7 +2,6 @@
 import { useResultDetails } from "@/features/results/hooks/useResultDetails";
 import { useLocale } from "next-intl";
 import Image from "next/image";
-import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 
@@ -48,9 +47,16 @@ export default function Page() {
           ))}
         </div>
 
-        <Link href="/" className="underline text-[14px] leading-5 md:text-[16px] md:leading-6 lg:leading-8 text-[#1E1E1E99]">
-          Download PDF
-        </Link>
+        {result.pdf && (
+          <a
+            href={`${process.env.NEXT_PUBLIC_URBAN_API_URL}/static/${result.pdf}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline text-[14px] leading-5 md:text-[16px] md:leading-6 lg:leading-8 text-[#1E1E1E99]"
+          >
+            Download PDF
+          </a>
+        )}
 
         {activeTimeline && (
           <p className="text-[14px] md:text-[18px] md:leading-7 leading-5 lg:text-[20px] lg:leading-8 text-[#1E1E1E] mt-9 mb-11 lg:mt-9 max-w-302">

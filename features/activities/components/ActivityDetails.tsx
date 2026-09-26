@@ -18,18 +18,20 @@ function AuthorCard({
 }: {
   name: string;
   profession: string;
-  image: string;
+  image: string | null;
 }) {
   return (
-    <div className="relative h-110 w-[342px] overflow-hidden rounded-2xl md:h-auto md:w-[240px] md:rounded-[24px] xl:w-[295px]">
-      <Image
-        src={image}
-        alt={name}
-        width={416}
-        height={360}
-        priority
-        className="h-[392px] w-full object-cover object-[center_10%] md:h-[264px] md:object-top xl:h-[448px] xl:object-center"
-      />
+    <div className="relative h-110 w-[342px] overflow-hidden rounded-2xl bg-gray-200 md:h-auto md:w-[240px] md:rounded-[24px] xl:w-[295px]">
+      {image && (
+        <Image
+          src={image}
+          alt={name}
+          width={416}
+          height={360}
+          priority
+          className="h-[392px] w-full object-cover object-[center_10%] md:h-[264px] md:object-top xl:h-[448px] xl:object-center"
+        />
+      )}
 
       <div className="absolute bottom-0 left-0 w-full bg-[linear-gradient(180deg,#4A4A4A_0%,#1E1E1E_100%)] px-[20px] py-[12px] md:static md:h-[72px] md:py-0 xl:absolute xl:h-[88px] xl:py-0">
         <div className="flex h-full flex-col justify-center">
@@ -149,7 +151,7 @@ export default function ActivityDetails({ id }: ActivityDetailsProps) {
             <AuthorCard
               name={activity.author_name}
               profession={activity.author_profession}
-              image={getAssetUrl(activity.author_image)}
+              image={activity.author_image ? getAssetUrl(activity.author_image) : null}
             />
 
             <div className="space-y-[24px] text-[16px] leading-[26px] text-[#1E1E1E]">
@@ -162,7 +164,7 @@ export default function ActivityDetails({ id }: ActivityDetailsProps) {
               <AuthorCard
                 name={activity.author_name}
                 profession={activity.author_profession}
-                image={getAssetUrl(activity.author_image)}
+                image={activity.author_image ? getAssetUrl(activity.author_image) : null}
               />
 
               <div className="space-y-[24px] text-[18px] leading-[28px] text-[#1E1E1E]">
@@ -175,7 +177,7 @@ export default function ActivityDetails({ id }: ActivityDetailsProps) {
             <AuthorCard
               name={activity.author_name}
               profession={activity.author_profession}
-              image={getAssetUrl(activity.author_image)}
+              image={activity.author_image ? getAssetUrl(activity.author_image) : null}
             />
 
             <div className="w-[828px] space-y-[32px] text-[20px] leading-[32px] text-[#1E1E1E]">
