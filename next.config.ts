@@ -1,12 +1,26 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
+const apiBaseUrl = process.env.NEXT_PUBLIC_URBAN_API_URL?.trim();
+
+if (!apiBaseUrl) {
+  throw new Error("NEXT_PUBLIC_URBAN_API_URL is not configured.");
+}
+
+const apiUrl = new URL(apiBaseUrl);
+
+if (apiUrl.protocol !== "http:" && apiUrl.protocol !== "https:") {
+  throw new Error("NEXT_PUBLIC_URBAN_API_URL must use HTTP or HTTPS.");
+}
+
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "urbantransformation.onrender.com",
+        protocol: apiUrl.protocol.slice(0, -1) as "http" | "https",
+        hostname: apiUrl.hostname,
+        port: apiUrl.port,
+        pathname: `${apiUrl.pathname.replace(/\/+$/, "")}/static/**`,
       },
     ],
   },
