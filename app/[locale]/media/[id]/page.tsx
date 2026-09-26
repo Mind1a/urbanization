@@ -33,13 +33,13 @@ export default function ArticlePage() {
             {t("breadcrumb")}
           </Link>
           <span className="text-[#1E1E1E99]">/</span>
-          <span className="text-[#1E1E1E]">{article?.[0].title}</span>
+          <span className="text-[#1E1E1E]">{article.title}</span>
         </div>
 
-        {article?.[0].img && (
+        {article.img && (
           <Image
-            src={`${process.env.NEXT_PUBLIC_URBAN_API_URL}/static/${article?.[0].img}`}
-            alt={article?.[0].title}
+            src={`${process.env.NEXT_PUBLIC_URBAN_API_URL}/static/${article.img}`}
+            alt={article.title}
             width={1200}
             height={420}
             priority
@@ -48,15 +48,15 @@ export default function ArticlePage() {
         )}
 
         <h1 className="my-4 md:my-5 lg:my-7.25 text-[16px] md:text-[24px] lg:text-[32px] font-semibold text-[#1E1E1E]">
-          {article?.[0].title}
+          {article.title}
         </h1>
 
         <p className="text-[14px] md:text-[18px] lg:text-[20px] leading-[20px] md:leading-[28px] lg:leading-[32px] text-[#333]">
-          {article?.[0].description}
+          {article.description}
         </p>
 
-        {article?.[1].recents && (
-          <ArticlesCarousel articles={article?.[1].recents} />
+        {article.recent?.length > 0 && (
+          <ArticlesCarousel articles={article.recent} />
         )}
       </div>
     </main>

@@ -65,14 +65,16 @@ const Header = () => {
 
   const resultSubLinks: SubLinks[] = results.map((result) => ({
     id: String(result.id),
-    label: result.title.length > 10
-      ? `${result.title.slice(0, 10)}...`
-      : result.title,
+    label: result.title,
     href: `/results/${result.id}`,
   }));
 
   const activitySubLinks: SubLinks[] = [
-    { id: "all-activities", label: tActivities("allActivities"), href: "/activities" },
+    {
+      id: "all-activities",
+      label: tActivities("allActivities"),
+      href: "/activities",
+    },
     ...activityCategories.map((category) => ({
       id: `activity-category-${category.id}`,
       label: category.category_name,
@@ -83,12 +85,12 @@ const Header = () => {
   const linksData = LINKS_DATA.map((link) =>
     link.id === "results"
       ? {
-        ...link,
-        subLinks: resultSubLinks
-      }
+          ...link,
+          subLinks: resultSubLinks,
+        }
       : link.id === "activities"
         ? { ...link, subLinks: activitySubLinks }
-      : link,
+        : link,
   );
 
   const getCleanPathname = (path: string) => {
@@ -166,8 +168,9 @@ const Header = () => {
 
         {/* Mobile nav bar  */}
         <nav
-          className={`fixed xl:hidden w-full top-0 ${isOpenNavMenu ? "translate-x-0" : "translate-x-full"
-            }
+          className={`fixed xl:hidden w-full top-0 ${
+            isOpenNavMenu ? "translate-x-0" : "translate-x-full"
+          }
          transition-all
           duration-300
            ease-in-out
@@ -201,16 +204,18 @@ const Header = () => {
                 {link.subLinks ? (
                   <button
                     onClick={() => toggleSubMenu(link.id)}
-                    className={`text-[16px] w-full flex items-center justify-between leading-6 capitalize cursor-pointer ${isOpenSubLinks === link.id
-                      ? "text-[#ED6502]"
-                      : "text-[#1E1E1E]"
-                      }`}
+                    className={`text-[16px] w-full flex items-center justify-between leading-6 capitalize cursor-pointer ${
+                      isOpenSubLinks === link.id
+                        ? "text-[#ED6502]"
+                        : "text-[#1E1E1E]"
+                    }`}
                   >
                     {tHeader(link.id)}
                     {link.icon && (
                       <Image
-                        className={`${isOpenSubLinks === link.id ? "rotate-180" : "rotate-0"
-                          } transition-all xl:hidden duration-200 ease`}
+                        className={`${
+                          isOpenSubLinks === link.id ? "rotate-180" : "rotate-0"
+                        } transition-all xl:hidden duration-200 ease`}
                         width={14}
                         height={14}
                         src={link.icon}
@@ -224,20 +229,22 @@ const Header = () => {
                       setIsOpenSubLinks(null);
                     }}
                     href={link.href || "/"}
-                    className={`text-[16px] flex items-center justify-between leading-6 ${cleanPathname === link.href
-                      ? "text-[#ED6502] font-bold"
-                      : "text-[#1E1E1E] font-normal"
-                      }`}
+                    className={`text-[16px] flex items-center justify-between leading-6 ${
+                      cleanPathname === link.href
+                        ? "text-[#ED6502] font-bold"
+                        : "text-[#1E1E1E] font-normal"
+                    }`}
                   >
                     {tHeader(link.id)}
                   </Link>
                 )}
                 {link.subLinks && (
                   <div
-                    className={`grid transition-all w-full duration-300 ease-in-out ${isOpenSubLinks === link.id
-                      ? "grid-rows-[1fr]"
-                      : "grid-rows-[0fr]"
-                      }`}
+                    className={`grid transition-all w-full duration-300 ease-in-out ${
+                      isOpenSubLinks === link.id
+                        ? "grid-rows-[1fr]"
+                        : "grid-rows-[0fr]"
+                    }`}
                   >
                     <ul className="overflow-hidden w-full pl-3">
                       {link.subLinks.map((subLink) => (
@@ -251,10 +258,11 @@ const Header = () => {
                               setIsOpenSubLinks(null);
                             }}
                             href={subLink.href}
-                            className={`w-full ${cleanPathname === subLink.href
-                              ? "text-[#ED6502] font-bold"
-                              : "text-[#1E1E1E] font-normal"
-                              }`}
+                            className={`block w-full break-words whitespace-normal ${
+                              cleanPathname === subLink.href
+                                ? "text-[#ED6502] font-bold"
+                                : "text-[#1E1E1E] font-normal"
+                            }`}
                           >
                             {subLink.label}
                           </Link>
@@ -276,23 +284,25 @@ const Header = () => {
                   <div className="relative">
                     <button
                       onClick={() => toggleSubMenu(link.id)}
-                      className={`capitalize ${link.subLinks.some(
-                        (subLink) => subLink.href === cleanPathname
-                      )
-                        ? "text-[#ED6502]"
-                        : isOpenSubLinks === link.id
+                      className={`capitalize ${
+                        link.subLinks.some(
+                          (subLink) => subLink.href === cleanPathname,
+                        )
                           ? "text-[#ED6502]"
-                          : "text-[#1E1E1E]"
-                        }  text-[18px] leading-6 tracking-[4%] cursor-pointer`}
+                          : isOpenSubLinks === link.id
+                            ? "text-[#ED6502]"
+                            : "text-[#1E1E1E]"
+                      }  text-[18px] leading-6 tracking-[4%] cursor-pointer`}
                     >
                       <span className="inline-grid">
                         <span
-                          className={`[grid-area:1/1] ${link.subLinks.some(
-                            (subLink) => subLink.href === cleanPathname
-                          )
-                            ? "font-bold"
-                            : "font-normal"
-                            }`}
+                          className={`[grid-area:1/1] ${
+                            link.subLinks.some(
+                              (subLink) => subLink.href === cleanPathname,
+                            )
+                              ? "font-bold"
+                              : "font-normal"
+                          }`}
                         >
                           {tHeader(link.id)}
                         </span>
@@ -311,18 +321,19 @@ const Header = () => {
                             shadow-black/4
                             text-[18px]
                              duration-200
-                             w-58.75
+                             w-[360px] max-w-[calc(100vw-2rem)]
                               leading-6 tracking-[4%]
                               capitalize
                                top-10
                                    bg-white
                                      rounded-xl
                                      text-[#1E1E1E]
-                                      overflow-hidden
-                                      ${isOpenSubLinks === link.id
-                          ? "opacity-100 pointer-events-auto translate-y-0"
-                          : "opacity-0 pointer-events-none translate-y-2"
-                        }
+                                      max-h-[min(70vh,400px)] overflow-y-auto
+                                      ${
+                                        isOpenSubLinks === link.id
+                                          ? "opacity-100 pointer-events-auto translate-y-0"
+                                          : "opacity-0 pointer-events-none translate-y-2"
+                                      }
                                       `}
                     >
                       {link.subLinks.map((subLink) => (
@@ -330,7 +341,7 @@ const Header = () => {
                           <Link
                             href={subLink.href}
                             onClick={() => setIsOpenSubLinks(null)}
-                            className="block w-full text-left p-2.5  hover:text-[#ED6502] transition-colors text-[16px] leading-5.5"
+                            className="block w-full break-words whitespace-normal text-left p-2.5 hover:text-[#ED6502] transition-colors text-[16px] leading-5.5"
                           >
                             {subLink.label}
                           </Link>
@@ -345,16 +356,22 @@ const Header = () => {
                       setIsOpenSubLinks(null);
                     }}
                     href={link.href || "/"}
-                    className={`capitalize text-[18px] leading-6 tracking-[4%] ${cleanPathname === link.href
-                      ? "text-[#ED6502]"
-                      : "text-[#1E1E1E]"
-                      }`}
+                    className={`capitalize text-[18px] leading-6 tracking-[4%] ${
+                      cleanPathname === link.href
+                        ? "text-[#ED6502]"
+                        : "text-[#1E1E1E]"
+                    }`}
                   >
                     <span className="inline-grid">
-                      <span className={`[grid-area:1/1] ${cleanPathname === link.href ? "font-bold" : "font-normal"}`}>
+                      <span
+                        className={`[grid-area:1/1] ${cleanPathname === link.href ? "font-bold" : "font-normal"}`}
+                      >
                         {tHeader(link.id)}
                       </span>
-                      <span aria-hidden="true" className="invisible font-bold [grid-area:1/1]">
+                      <span
+                        aria-hidden="true"
+                        className="invisible font-bold [grid-area:1/1]"
+                      >
                         {tHeader(link.id)}
                       </span>
                     </span>

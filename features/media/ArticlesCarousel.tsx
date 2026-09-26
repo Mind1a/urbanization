@@ -4,13 +4,13 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { Link } from "@/features/i18n/routing";
 import { useCallback, useEffect, useState } from "react";
-import { IMediaItem } from "./types/mediaTypes";
+import { IMedia } from "./types/mediaTypes";
 import { useTranslations } from "next-intl";
 
 export default function ArticlesCarousel({
   articles,
 }: {
-  articles: IMediaItem[];
+  articles: IMedia[];
 }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",

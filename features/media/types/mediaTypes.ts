@@ -7,16 +7,6 @@ export interface IMedia {
   link: string | null;
 }
 
-export interface IMediaItem {
-  id: number;
-  title: string;
-  description: string;
-  link: string | null;
-  img: string;
+export interface IMediaItemResponse extends IMedia {
+  recent: IMedia[];
 }
-
-export interface IMediaRecentResponse {
-  recents: IMediaItem[];
-}
-
-export type IMediaItemResponse = [IMediaItem, IMediaRecentResponse];
