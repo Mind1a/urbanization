@@ -1,4 +1,98 @@
 {
+  "metadata": {
+    "title": "Urban Transformation",
+    "description": "Research on Saburtalo's urban and architectural transformation."
+  },
+  "header": {
+    "home": "Home",
+    "project": "About project",
+    "team": "Team",
+    "results": "Results",
+    "activities": "Activities",
+    "media": "Media",
+    "switchLanguage": "Change language"
+  },
+  "aboutProject": {
+    "title": "About the Project",
+    "imageAlt": "Saburtalo district",
+    "projectName": "“Urban transformation of the Saburtalo district”",
+    "subtitle": "Urban Transformation of Tbilisi through the Lens of Saburtalo",
+    "intro1": "This project examines one of Tbilisi’s districts, Saburtalo, from urban, geographical, and architectural perspectives, focusing on its transformation from a peripheral settlement to a central district during the late 19th century through the 1990s, and its ongoing evolution today.",
+    "intro2": "The urban development of Saburtalo reflects the broader political and socio-economic transformations of the country. Key stages in the district’s formation coincide with the Soviet period, during which shifting approaches shaped urban, architectural, and housing policies. These include the implementation of individual reconstruction projects in the 1920s; the development of Tbilisi’s first General Plan in the 1930s–40s, within the broader context of the socialist reconstruction of Soviet cities and early attempts to articulate a systematic vision for the area’s transformation into a residential district; and, from the 1950s onward, the expansion of mass housing construction.",
+    "intro3": "Scholars of Tbilisi and Georgian Soviet architecture (L. Sumbadze and B. Lortkipanidze 1936; V. Beridze 1960; N. Janberidze 1971; T. Beridze 1977; T. Kintsurashvili 1978; N. Jashi 1983; T. Kvirkvelia 1985; V. Jaoshvili 1989; N. Asatiani 1989, 1992; I. Tsitsishvili; V. Vardosanidze 2009; Chanashvili 2019; Claire Kaiser 2024) provide valuable insights into the architectural and urban development of Tbilisi. However, their works do not focus in depth on individual city districts, and many aspects of Saburtalo’s formation process therefore remain insufficiently explored.",
+    "intro4": "The project developed by our research team seeks to address this gap by examining: (1) the process of Saburtalo’s urban transformation from the late nineteenth century to the 1990s, and (2) the architectural characteristics and specificities of residential construction in the district.",
+    "missionTitle": "Our Mission",
+    "missionBody": "This project examines the urban development of Saburtalo, one of Tbilisi’s central districts, through spatial analysis, fieldwork, and archival research — including official resolutions, cartographic materials, aerial photographs, plans, and photo and video documents. By constructing a chronological narrative of the district’s growth, the study aims to reveal how Saburtalo’s structure and urban fabric have evolved over time. A particular focus is placed on the architectural characteristics of residential construction, exploring how residential typologies have both responded to and shaped the district’s broader spatial transformation. The central research questions are: How did the urban structure of Saburtalo as a residential district evolve from the late nineteenth century to the 1990s? How did housing typologies change during that period? Which political and socio-economic processes shaped these transformations? Within which urban planning and architectural discourses did this transformation occur?",
+    "methodologyTitle": "Methodology",
+    "methodImageAlt": "Archival research material",
+    "method1": "At the initial stage of the research, a desk study and literature review will be conducted to examine professional literature. Simultaneously, archival work will involve collecting materials from various sources, such as the National Archives of Georgia.",
+    "method2": "The Archive of the Union of Georgian Architects and private family archives of architects will also be consulted. This includes documents, maps, aerial photos, urban development plans, and photo and video materials. By organizing these materials, a spatial development analysis of the area will be performed.",
+    "method3": "Graphical representations illustrating the chronological growth of the Saburtalo territory will be created. Building types will be identified through spatial development analysis and fieldwork. Relevant archival architectural projects will be retrieved, digitized using appropriate software, and systematically organized and analyzed."
+  },
+  "aboutLab": {
+    "title": "The Architecture and Urban Studies Laboratory",
+    "heroImageAlt": "Archival view of the city",
+    "introAboutTitle": "About the Laboratory",
+    "introAboutBody": "The Architecture and Urban Studies Laboratory (Center) at Ilia State University is dedicated to advancing architectural and urban research while strengthening the integration of research and education.",
+    "introCollectionTitle": "Our Collection",
+    "introCollectionBody": "The Center is a collective of researchers and professors whose activities are guided by the mission, principles, goals, and areas of focus defined in its governing statutes.",
+    "missionTitle": "Our Mission",
+    "missionImageAlt1": "Archival newspaper clipping from the laboratory collection",
+    "missionImageAlt2": "Archival photograph of a historic tram station",
+    "mission1p1": "The Architecture and Urban Studies Laboratory (Center) at Ilia State University is dedicated to advancing architectural and urban research while strengthening the integration of research and education. The Center promotes international academic standards and actively involves students in real, ongoing research projects, fostering critical thinking and hands-on engagement with contemporary urban challenges.",
+    "mission1p2": "The Center undertakes innovative and interdisciplinary research that explores the relationships between architecture, the city, and society. Its research focus includes complex urban environments, spatial and temporal formations, sustainable urban design strategies, urban history, housing, contemporary architectural practices and processes of reconstruction and rehabilitation.",
+    "mission2p1": "Grounded in current academic research, the Center contributes to the development and continuous renewal of academic programs and courses, ensuring their relevance to evolving disciplinary and societal needs.",
+    "mission2p2": "In parallel, the Center develops and maintains digital platforms and resources that support research dissemination, teaching and knowledge exchange at both national and international levels.",
+    "teamTitle": "Team",
+    "role1": "Research Analysis",
+    "role2": "Head of the Lab",
+    "role3": "Technical & GIS Specialist",
+    "role4": "Architectural Researcher",
+    "role5": "Architectural Researcher",
+    "copyEmail": "Copy {name}'s email",
+    "emailCopied": "Email copied successfully"
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy",
+    "lastUpdate": "Last update:",
+    "date": "March 2026",
+    "intro": "This Privacy Policy outlines how the Urban Development and Architecture Department at Ilia State University handles data for this research archive.",
+    "collectionTitle": "Data Collection",
+    "collectionIntro": "Because this is a public-facing research repository, we prioritize your privacy:",
+    "noAccountsLabel": "No Accounts:",
+    "noAccountsBody": "We do not require registration or personal accounts.",
+    "downloadsLabel": "Direct Downloads:",
+    "downloadsBody": "When you download research PDFs, we do not collect your personal identity.",
+    "logsLabel": "Server Logs:",
+    "logsBody": "Like all websites, our hosting server may log basic technical data (IP address, browser type) for security purposes and to count total visitors to the research project.",
+    "sharingTitle": "Data Sharing",
+    "sharingBody": "We do not sell, trade, or share any visitor data with third parties. This data is used exclusively to demonstrate the reach and impact of the Saburtalo research project to the University."
+  },
+  "termsOfUse": {
+    "title": "Terms of Use & Academic Disclaimer",
+    "ownershipTitle": "Ownership of Research",
+    "ownershipBody": "All materials—including text, archival photography, data visualizations, and PDF reports—are the intellectual property of Ilia State University (Urban Development and Architecture Department) and the respective researchers involved, unless otherwise cited.",
+    "permittedTitle": "Permitted Use (Academic License)",
+    "permittedBody": "Users are encouraged to use this information for educational and research purposes. You may download and print the provided PDF files under the following conditions:",
+    "attribution": "Attribution: Any use of the data or imagery in external work must properly cite the Ilia State University research lab.",
+    "nonCommercial": "Non-Commercial: The contents of this site may not be sold or used for commercial real estate, marketing, or development purposes without written consent from the Department.",
+    "natureTitle": "Nature of Information",
+    "natureBody": "This website represents a specific architectural and urban study of Saburtalo.",
+    "historicalAccuracy": "Historical Accuracy: While every effort is made to ensure the accuracy of the urban transformations documented, the University is not liable for minor historical discrepancies.",
+    "noLegalStanding": "No Legal Standing: The maps and data provided are for academic and illustrative purposes only. They do not constitute official cadastral data, legal property boundaries, or government zoning documents.",
+    "contactTitle": "Contact Information",
+    "contactBody": "For inquiries regarding the reuse of research data or specific questions about the urban lab’s methodology, please contact the Urban Development and Architecture Department at Ilia State University."
+  },
+  "cookiesPolicy": {
+    "title": "We are using Cookies!",
+    "intro": "This website uses “Essential Cookies” only.",
+    "useLabel": "What we use:",
+    "useBody": "We use minimal, first-party session cookies to ensure the website loads correctly and that PDF downloads function as intended.",
+    "trackingLabel": "Third-party tracking:",
+    "trackingBody": "This website does not use third-party tracking, advertising, or marketing cookies. We do not track your activity across other websites.",
+    "choiceLabel": "Your choice:",
+    "choiceBody": "Since we only use cookies necessary for the basic functioning of this academic archive, by using this site, you agree to these technical requirements."
+  },
   "contact": {
     "title": "Contact Us",
     "description": "We are always ready to hear your thoughts, questions or suggestions. Fill out the form and our team will contact you soon.",
@@ -27,6 +121,9 @@
     "checkSoon": "Check back soon — new articles are on the way."
   },
   "media": {
+    "breadcrumb": "Media",
+    "noArticles": "No articles available yet",
+    "checkSoon": "Check back soon — new articles are on the way.",
     "title": "Media Headline",
     "description": "Lorem ipsum dolor sit amet consectetur. Ipsum egestas convallis sed fusce. Placerat nulla ac nisi eget ante. Eu mattis massa sit ultrices urna sapien sodales sit erat. Consectetur odio non potenti pellentesque vulputate semper. Dis libero nisi sollicitudin pellentesque cum lectus. Fermentum amet bibendum dictumst aliquet nulla a hendrerit in odio. In eget orci lacinia sed leo neque at sit. Dictum varius sed sagittis integer laoreet. Vitae cras id eget dui at amet sagittis. Facilisis id sapien ullamcorper eu faucibus diam quam. Lacus lorem vulputate in cras placerat sit scelerisque lobortis aenean.",
     "readMoreBtn": "Read More",
@@ -34,6 +131,10 @@
     "readNowBtn": "Read Now"
   },
   "team": {
+    "previousMember": "Previous member",
+    "nextMember": "Next member",
+    "emailMember": "Email {name}",
+    "selectMember": "Select {name}",
     "title": "Team Members",
     "role": "Role",
     "academicRank": "Academic rank",
@@ -50,6 +151,10 @@
   },
 
   "activities": {
+    "allActivities": "All activities",
+    "categories": "Activity categories",
+    "empty": "No activities yet.",
+    "loadError": "Failed to load activities.",
     "seminars": "Seminars",
     "seminarInfo": "This series of seminars aims to explore architectural transformation and the evolution of the living environment. We will examine how the urban fabric transforms over time and the impact historical changes leave on people's daily lives.",
     "readMoreBtn": "Read More"
@@ -57,6 +162,10 @@
   "activity": {
     "biography": "Biography of an Author",
     "somethingWrong": "Something went wrong."
+  },
+  "results": {
+    "downloadPdf": "Download PDF",
+    "loadError": "Failed to load result"
   },
 
   "validation": {
@@ -87,6 +196,8 @@
     "contact": "Contact"
   },
   "footer": {
+    "explore": "Explore",
+    "copyright": "The Architecture and Urban Studies Laboratory",
     "docs": {
       "privacy": "Privacy Policy",
       "terms": "Terms and Conditions",

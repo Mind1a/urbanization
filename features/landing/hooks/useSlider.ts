@@ -4,7 +4,7 @@ import { Slider } from "../types/sliderTypes";
 
 export const useSlider = (locale: string) => {
   return useQuery<Slider[], Error>({
-    queryKey: ["slider"],
+    queryKey: ["slider", locale],
     queryFn: () => getSlider(locale),
   });
 };

@@ -11,5 +11,6 @@ export type ResultTimeline = {
 };
 
 export type ResultDetails = ResultMenuItem & {
+    pdf: string | null;
     timelines: ResultTimeline[];
 };
