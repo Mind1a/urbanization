@@ -1,5 +1,8 @@
 "use client";
+
+import ResultImage from "@/features/results/components/ResultImage";
 import { useResultDetails } from "@/features/results/hooks/useResultDetails";
+import type { ResultDetails } from "@/features/results/types/resultTypes";
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -10,7 +13,6 @@ export default function Page() {
   const locale = useLocale();
   const t = useTranslations("results");
   const { data: result, isLoading, isError } = useResultDetails(locale, id);
-  const [selectedTimelineId, setSelectedTimelineId] = useState<number | null>(null);
 
   if (isLoading) return <ResultPageSkeleton />;
 
@@ -18,79 +20,142 @@ export default function Page() {
     return <p className="px-6 py-10 text-center">{t("loadError")}</p>;
   }
 
-  const activeTimeline = result.timelines.find((timeline) => timeline.id === selectedTimelineId) ?? result.timelines[0];
+  return <ResultContent key={`${locale}-${result.id}`} result={result} />;
+}
+
+function ResultContent({ result }: { result: ResultDetails }) {
+  const t = useTranslations("results");
+  const [selectedTimelineId, setSelectedTimelineId] = useState<number | null>(null);
+  const activeTimeline =
+    result.timelines.find((timeline) => timeline.id === selectedTimelineId) ??
+    result.timelines[0];
+  const imageSrc = activeTimeline?.img ? getAssetUrl(activeTimeline.img) : null;
+  const imageAlt = activeTimeline ? `${result.title} — ${activeTimeline.year}` : "";
+  const paragraphs =
+    activeTimeline?.description
+      .split(/\r?\n\s*\r?\n/)
+      .map((paragraph) => paragraph.trim())
+      .filter(Boolean) ?? [];
 
   return (
-    <div className="px-6 pt-6 md:px-8 md:pt-8 xl:pt-0 xl:px-20">
-      <div className="max-w-7xl mx-auto">
-        <div className="pt-9 pb-12">
-          <h2 className="font-bold text-left text-[16px] leading-5 max-w-105 lg:max-w-full md:text-[24px] md:leading-11 lg:text-[32px] lg:leading-10">
-            {result.title}
-          </h2>
-        </div>
+    <article className="px-6 pb-16 pt-6 text-[#1E1E1E] md:px-8 md:pb-24 md:pt-8 xl:px-20 xl:pt-0">
+      <div className="mx-auto max-w-7xl">
+        <h1 className="mb-8 pt-4 text-left text-xl font-bold leading-8 md:mb-12 md:pt-6 md:text-2xl md:leading-9 lg:mb-14 lg:pt-9 lg:text-[32px] lg:leading-10">
+          {result.title}
+        </h1>
 
-        {activeTimeline && (
-          <Image width={1280} height={660}
-            src={`${process.env.NEXT_PUBLIC_URBAN_API_URL}/static/${activeTimeline.img}`}
-            alt={`${result.title} - ${activeTimeline.year}`}
-            className="w-full lg:h-165 md:h-72 h-47 object-cover" />)}
+        {imageSrc && (
+          <div
+            key={`map-${activeTimeline.id}`}
+            className="relative aspect-[1280/660] w-full overflow-hidden rounded-xl bg-white md:rounded-3xl"
+          >
+            <Image
+              src={imageSrc}
+              alt={imageAlt}
+              fill
+              sizes="(min-width: 1440px) 1280px, (min-width: 1280px) calc(100vw - 160px), (min-width: 768px) calc(100vw - 64px), calc(100vw - 48px)"
+              className="object-contain"
+            />
+          </div>
+        )}
 
-        <div className="flex items-center w-full mb-9 mt-9 justify-between sm:justify-start gap-3">
-          {result.timelines.map((timeline) => (
-            <button
-              aria-pressed={activeTimeline?.id === timeline.id}
-              key={timeline.id}
-              onClick={() => setSelectedTimelineId(timeline.id)}
-              className={`lg:px-5.25 lg:py-3 md:py-2.5 md:px-5.75 px-5.5 py-3.5 ${activeTimeline?.id === timeline.id ? "bg-[#ED6502] text-white" : "border text-[#1E1E1E] border-[#1E1E1E]"} rounded-full cursor-pointer text-[14px] leading-5 md:text-[18px] md:leading-7 lg:text-[20px] lg:leading-6`}
-            >
-              {timeline.year}
-            </button>
-          ))}
-        </div>
+        {result.timelines.length > 0 && (
+          <div
+            role="group"
+            aria-label={t("timelineYears")}
+            className="mt-6 flex flex-wrap items-center gap-3 md:mt-8 lg:mt-10"
+          >
+            {result.timelines.map((timeline) => (
+              <button
+                type="button"
+                aria-pressed={activeTimeline?.id === timeline.id}
+                key={timeline.id}
+                onClick={() => setSelectedTimelineId(timeline.id)}
+                className={`min-h-11 rounded-full border px-5 py-2.5 text-sm leading-5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ED6502] md:px-6 md:text-lg md:leading-7 lg:px-7 lg:text-xl ${
+                  activeTimeline?.id === timeline.id
+                    ? "border-[#ED6502] bg-[#ED6502] text-white"
+                    : "cursor-pointer border-[#1E1E1E] bg-white hover:border-[#ED6502] hover:text-[#ED6502]"
+                }`}
+              >
+                {timeline.year}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {activeTimeline && (imageSrc || paragraphs.length > 0) && (
+          <div
+            key={`content-${activeTimeline.id}`}
+            className="mt-8 flow-root text-sm leading-6 md:mt-10 md:text-lg md:leading-7 lg:mt-12 lg:text-xl lg:leading-8"
+          >
+            {imageSrc && (
+              <div className="mb-6 w-full md:float-left md:mb-5 md:mr-7 md:w-2/5 lg:mr-8">
+                <ResultImage
+                  src={imageSrc}
+                  alt={imageAlt}
+                  sizes="(min-width: 1440px) 512px, (min-width: 1280px) calc((100vw - 160px) * 0.4), (min-width: 768px) calc((100vw - 64px) * 0.4), calc(100vw - 48px)"
+                />
+              </div>
+            )}
+            {paragraphs.map((paragraph, index) => (
+              <p
+                key={index}
+                className="mb-5 whitespace-pre-line break-words last:mb-0 md:mb-6"
+              >
+                {paragraph}
+              </p>
+            ))}
+          </div>
+        )}
 
         {result.pdf && (
           <a
-            href={`${process.env.NEXT_PUBLIC_URBAN_API_URL}/static/${result.pdf}`}
+            href={getAssetUrl(result.pdf)}
             target="_blank"
             rel="noopener noreferrer"
-            className="underline text-[14px] leading-5 md:text-[16px] md:leading-6 lg:leading-8 text-[#1E1E1E99]"
+            className="mt-8 inline-block text-sm leading-6 text-[#1E1E1E99] underline underline-offset-4 transition-colors hover:text-[#ED6502] md:text-base lg:mt-10"
           >
             {t("downloadPdf")}
           </a>
         )}
-
-        {activeTimeline && (
-          <p className="text-[14px] md:text-[18px] md:leading-7 leading-5 lg:text-[20px] lg:leading-8 text-[#1E1E1E] mt-9 mb-11 lg:mt-9 max-w-302">
-            {activeTimeline.description}
-          </p>
-        )}
       </div>
-    </div>
+    </article>
   );
+}
+
+function getAssetUrl(path: string) {
+  const baseUrl = process.env.NEXT_PUBLIC_URBAN_API_URL?.trim().replace(/\/+$/, "");
+  return `${baseUrl}/static/${path.replace(/^\/+/, "")}`;
 }
 
 function ResultPageSkeleton() {
   return (
-    <div className="px-6 pt-6 md:px-8 md:pt-8 xl:pt-0 xl:px-20">
-      <div className="max-w-7xl mx-auto animate-pulse">
-        <div className="pt-9 pb-12">
-          <div className="h-5 md:h-11 lg:h-10 max-w-105 lg:max-w-2xl bg-gray-200 rounded-2xl" /></div>
-        <div className="w-full lg:h-165 md:h-72 h-47 bg-gray-200 rounded-2xl" />
-
-        <div className="flex items-center w-full mb-9 mt-6 justify-start gap-3">
+    <div
+      aria-hidden="true"
+      className="px-6 pb-16 pt-6 md:px-8 md:pb-24 md:pt-8 xl:px-20 xl:pt-0"
+    >
+      <div className="mx-auto max-w-7xl animate-pulse motion-reduce:animate-none">
+        <div className="pb-8 pt-4 md:pb-12 md:pt-6 lg:pb-14 lg:pt-9">
+          <div className="h-8 w-4/5 rounded-xl bg-gray-200 lg:h-10" />
+        </div>
+        <div className="aspect-[1280/660] w-full rounded-3xl bg-gray-200" />
+        <div className="mt-6 flex gap-3 md:mt-8 lg:mt-10">
           {[1, 2].map((item) => (
-            <div key={item} className="rounded-full bg-gray-200 w-16 h-11" />
+            <div
+              key={item}
+              className="h-11 w-20 rounded-full bg-gray-200 md:h-12 md:w-24"
+            />
           ))}
         </div>
-
-        <div className="h-5 w-24 bg-gray-200 rounded-2xl" />
-
-        <div className="mt-6 mb-11 lg:mt-9 max-w-302 space-y-2">
-          <div className="h-4 bg-gray-200 rounded-2xl w-full" />
-          <div className="h-4 bg-gray-200 rounded-2xl w-full" />
-          <div className="h-4 bg-gray-200 rounded-2xl w-5/6" />
-          <div className="h-4 bg-gray-200 rounded-2xl w-3/4" />
+        <div className="mt-8 md:mt-10 md:flex md:gap-7 lg:mt-12 lg:gap-8">
+          <div className="mb-6 aspect-[1.55] w-full shrink-0 rounded-3xl bg-gray-200 md:mb-0 md:w-2/5" />
+          <div className="w-full space-y-3">
+            {[1, 2, 3, 4, 5, 6].map((line) => (
+              <div key={line} className="h-4 w-full rounded bg-gray-200 md:h-5" />
+            ))}
+          </div>
         </div>
+        <div className="mt-8 h-5 w-28 rounded bg-gray-200 lg:mt-10" />
       </div>
     </div>
   );

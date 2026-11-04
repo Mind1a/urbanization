@@ -65,7 +65,7 @@ const Header = () => {
 
   const resultSubLinks: SubLinks[] = results.map((result) => ({
     id: String(result.id),
-    label: result.title,
+    label: result.nav_title,
     href: `/results/${result.id}`,
   }));
 

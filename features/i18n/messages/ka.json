@@ -165,6 +165,9 @@
   },
   "results": {
     "downloadPdf": "PDF-ის ჩამოტვირთვა",
+    "enlargeImage": "სურათის გადიდება: {label}",
+    "closeImage": "სურათის დახურვა",
+    "timelineYears": "წლის არჩევა",
     "loadError": "შედეგის ჩატვირთვა ვერ მოხერხდა"
   },
 

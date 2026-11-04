@@ -1,6 +1,7 @@
 export type ResultMenuItem = {
     id: number;
     title: string;
+    nav_title: string;
 };
 
 export type ResultTimeline = {
@@ -10,7 +11,7 @@ export type ResultTimeline = {
     description: string;
 };
 
-export type ResultDetails = ResultMenuItem & {
+export type ResultDetails = Pick<ResultMenuItem, "id" | "title"> & {
     pdf: string | null;
     timelines: ResultTimeline[];
 };

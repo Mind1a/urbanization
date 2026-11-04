@@ -165,6 +165,9 @@
   },
   "results": {
     "downloadPdf": "Download PDF",
+    "enlargeImage": "Enlarge image: {label}",
+    "closeImage": "Close image",
+    "timelineYears": "Select a year",
     "loadError": "Failed to load result"
   },
 
