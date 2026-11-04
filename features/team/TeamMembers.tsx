@@ -89,9 +89,9 @@ export default function TeamMembers() {
     <div className="px-6 md:px-8 xl:px-20">
       <section className="mx-auto max-w-7xl">
         <div className="my-3 flex items-center justify-between sm:my-4 lg:my-9">
-          <h2 className="text-[16px] font-bold tracking-tight text-[#1E1E1E] md:text-[24px] lg:text-[32px]">
+          <h1 className="text-[16px] font-bold tracking-tight text-[#1E1E1E] md:text-[24px] lg:text-[32px]">
             {t("title")}
-          </h2>
+          </h1>
 
           <div className="flex items-center gap-5">
             <button
@@ -134,6 +134,7 @@ export default function TeamMembers() {
               src={getMemberImageUrl(selected.img)}
               alt={`${selected.name} ${selected.surname}`}
               fill
+              preload={selectedIndex === 0}
               className="object-cover grayscale"
               sizes="(max-width: 640px) 100vw, 416px"
             />

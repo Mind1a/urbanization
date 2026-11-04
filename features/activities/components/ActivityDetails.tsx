@@ -61,7 +61,7 @@ function AuthorCard({
 
 function ActivityDetailsSkeleton() {
   return (
-    <main className={`${helvetica.className} min-h-screen bg-white`}>
+    <div className={`${helvetica.className} min-h-screen bg-white`}>
       <section className={`${pageContainer} animate-pulse`}>
         <div className="mb-4 h-5 w-1/2 max-w-64 rounded bg-gray-200" />
         <div className={heroShape} />
@@ -83,7 +83,7 @@ function ActivityDetailsSkeleton() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
 
@@ -101,14 +101,14 @@ export default function ActivityDetails({ id }: ActivityDetailsProps) {
 
   if (isError || !activity) {
     return (
-      <main className={`${helvetica.className} min-h-screen bg-white`}>
+      <div className={`${helvetica.className} min-h-screen bg-white`}>
         <div className={pageContainer} role="alert">{t("somethingWrong")}</div>
-      </main>
+      </div>
     );
   }
 
   return (
-    <main className={`${helvetica.className} min-h-screen bg-white`}>
+    <div className={`${helvetica.className} min-h-screen bg-white`}>
       <article className={pageContainer}>
         <nav aria-label="Breadcrumb" className="mb-4 flex min-w-0 items-center gap-2 text-sm leading-5 text-[#1E1E1E99]">
           <Link href="/activities" className="shrink-0 underline-offset-2 hover:underline">
@@ -156,6 +156,6 @@ export default function ActivityDetails({ id }: ActivityDetailsProps) {
           </div>
         </section>
       </article>
-    </main>
+    </div>
   );
 }

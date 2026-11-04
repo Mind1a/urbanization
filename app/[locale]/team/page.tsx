@@ -1,26 +1,20 @@
-"use client"
 import IliaState from "@/features/team/IliaState";
-import Skeleton from "@/features/team/Skeleton";
 import TeamMembers from "@/features/team/TeamMembers";
-import React, { useEffect, useState } from "react";
+import ServerHydration from "@/features/query/ServerHydration";
+import { loadMembers, requireLocale } from "@/lib/server-data";
+import { staticPageMetadata, type LocalePageProps } from "@/lib/seo";
 
-const Page = () => {
-  const [isLoading, setIsLoading] = useState(true)
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 1000)
-  }, [])
+export async function generateMetadata({ params }: LocalePageProps) {
+  return staticPageMetadata(requireLocale((await params).locale), "team");
+}
 
-  if (isLoading) {
-    return <Skeleton />
-  }
+export default async function TeamPage({ params }: LocalePageProps) {
+  const locale = requireLocale((await params).locale);
+  const members = await loadMembers(locale);
   return (
-    <>
+    <ServerHydration queries={[{ queryKey: ["members", locale], data: members }]}>
       <TeamMembers />
       <IliaState />
-    </>
+    </ServerHydration>
   );
-};
-
-export default Page;
+}

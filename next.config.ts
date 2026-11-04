@@ -14,6 +14,7 @@ if (apiUrl.protocol !== "http:" && apiUrl.protocol !== "https:") {
 }
 
 const nextConfig: NextConfig = {
+  poweredByHeader: false,
   images: {
     remotePatterns: [
       {

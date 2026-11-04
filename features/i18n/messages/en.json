@@ -1,7 +1,18 @@
 {
   "metadata": {
     "title": "Urban Transformation",
-    "description": "Research on Saburtalo's urban and architectural transformation."
+    "description": "Explore Saburtalo’s urban and architectural transformation through historical maps, housing typologies and research at Ilia State University.",
+    "pages": {
+      "home": { "title": "Saburtalo Urban Transformation | Ilia State University", "description": "Discover how Saburtalo became a central district of Tbilisi. Explore historical maps, architectural research, housing typologies and project results." },
+      "about": { "title": "Architecture and Urban Studies Laboratory", "description": "Meet the Architecture and Urban Studies Laboratory, its research mission, archival collection and team studying the transformation of Tbilisi." },
+      "project": { "title": "About the Saburtalo Research Project", "description": "Learn about the aims and methodology of the Ilia State University project investigating urban growth and residential architecture in Saburtalo, Tbilisi." },
+      "team": { "title": "Research Team", "description": "Meet the researchers studying Saburtalo’s urban development, architectural heritage and housing typologies at Ilia State University." },
+      "activities": { "title": "Research Activities and Seminars", "description": "Explore seminars, presentations and research activities on Saburtalo’s urban transformation, architecture and historical development." },
+      "media": { "title": "News and Media", "description": "Read news, articles and media coverage about the Saburtalo urban transformation research project and its findings at Ilia State University." },
+      "privacy": { "title": "Privacy Policy", "description": "Learn how the Saburtalo urban transformation research website handles personal information, downloads and technical logs." },
+      "cookies": { "title": "Cookie Policy", "description": "Find out how the Saburtalo research website uses cookies and what choices you have when browsing its academic materials." },
+      "terms": { "title": "Terms of Use", "description": "Read the terms for using Saburtalo research materials, including attribution, non-commercial use and the limitations of historical sources." }
+    }
   },
   "header": {
     "home": "Home",
@@ -124,8 +135,8 @@
     "breadcrumb": "Media",
     "noArticles": "No articles available yet",
     "checkSoon": "Check back soon — new articles are on the way.",
-    "title": "Media Headline",
-    "description": "Lorem ipsum dolor sit amet consectetur. Ipsum egestas convallis sed fusce. Placerat nulla ac nisi eget ante. Eu mattis massa sit ultrices urna sapien sodales sit erat. Consectetur odio non potenti pellentesque vulputate semper. Dis libero nisi sollicitudin pellentesque cum lectus. Fermentum amet bibendum dictumst aliquet nulla a hendrerit in odio. In eget orci lacinia sed leo neque at sit. Dictum varius sed sagittis integer laoreet. Vitae cras id eget dui at amet sagittis. Facilisis id sapien ullamcorper eu faucibus diam quam. Lacus lorem vulputate in cras placerat sit scelerisque lobortis aenean.",
+    "title": "News and Media",
+    "description": "Read news, articles and media coverage about the Saburtalo urban transformation research project and its findings at Ilia State University.",
     "readMoreBtn": "Read More",
     "eachTitle": "Articles",
     "readNowBtn": "Read Now"

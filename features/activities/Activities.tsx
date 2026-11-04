@@ -1,5 +1,7 @@
 "use client";
 
+import { formatCalendarDate } from "@/lib/date";
+
 import Image from "next/image";
 import { Link } from "@/features/i18n/routing";
 import { useLocale, useTranslations } from "next-intl";
@@ -7,13 +9,6 @@ import { getAssetUrl } from "./api/activity.api";
 import { useActivities } from "./hooks/useActivities";
 import { useActivityCategories } from "./hooks/useActivityCategories";
 
-function formatDate(datetime: string) {
-  const date = new Date(datetime);
-  const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const year = date.getFullYear();
-  return `${day}.${month}.${year}`;
-}
 
 type ActivitiesProps = {
   categoryId?: number;
@@ -86,7 +81,7 @@ export default function Activities({ categoryId, categoryName }: ActivitiesProps
                   {activity.title}
                 </h2>
                 <time dateTime={activity.datetime} className="shrink-0 text-sm text-[#1E1E1E99]">
-                  {formatDate(activity.datetime)}
+                  {formatCalendarDate(activity.datetime)}
                 </time>
               </div>
 

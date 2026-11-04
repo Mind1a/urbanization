@@ -3,16 +3,11 @@ import Image from "next/image";
 import { Link } from "@/features/i18n/routing";
 import { useMedia } from "./hooks/useMedia";
 import { useLocale, useTranslations } from "next-intl";
+import { formatCalendarDate } from "@/lib/date";
 
 export default function Articles() {
   const locale = useLocale();
   const { data: mediaArticles, isLoading } = useMedia(locale);
-  // const mediaArticles = [];
-  // const isLoading = false;
-  const formatter = (date: string) => {
-    const newDate = new Date(date);
-    return newDate.toLocaleDateString().replaceAll("/", ".");
-  };
   const t = useTranslations("media");
 
   return (
@@ -53,9 +48,9 @@ export default function Articles() {
                   <h2 className="text-[15px] md:text-[20px] lg:text-[24px] font-bold text-[#1E1E1E]">
                     {article.title}
                   </h2>
-                  <span className="text-[12px] md:text-[15px] lg:text-[20px] text-[#1E1E1E99] whitespace-nowrap">
-                    {formatter(article.datetime)}
-                  </span>
+                  <time dateTime={article.datetime} className="text-[12px] md:text-[15px] lg:text-[20px] text-[#1E1E1E99] whitespace-nowrap">
+                    {formatCalendarDate(article.datetime)}
+                  </time>
                 </div>
                 <p className="text-[14px] md:text-[18px] lg:text-[20px] text-[#1E1E1ECC] line-clamp-3">
                   {article.description}

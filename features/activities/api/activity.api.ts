@@ -1,4 +1,5 @@
 import { Activity, ActivityCategory, ActivityDetail } from "../types/activity.types";
+import { safeFetch } from "@/lib/apiClient";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_URBAN_API_URL;
 
@@ -7,35 +8,17 @@ export function getAssetUrl(path: string) {
 }
 
 export async function getActivityCategories(locale: string): Promise<ActivityCategory[]> {
-  const res = await fetch(`${API_BASE_URL}/${locale}/api/activities/categories`);
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch activity categories");
-  }
-
-  return res.json();
+  return safeFetch<ActivityCategory[]>(`/${locale}/api/activities/categories`);
 }
 
 export async function getActivities(locale: string, categoryId?: number): Promise<Activity[]> {
   const query = categoryId === undefined ? "" : `?category_id=${categoryId}`;
-  const res = await fetch(`${API_BASE_URL}/${locale}/api/activities/${query}`);
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch activities");
-  }
-
-  return res.json();
+  return safeFetch<Activity[]>(`/${locale}/api/activities/${query}`);
 }
 
 export async function getActivityById(
   locale: string,
   id: string | number,
 ): Promise<ActivityDetail> {
-  const res = await fetch(`${API_BASE_URL}/${locale}/api/activities/${id}`);
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch activity");
-  }
-
-  return res.json();
+  return safeFetch<ActivityDetail>(`/${locale}/api/activities/${id}`);
 }

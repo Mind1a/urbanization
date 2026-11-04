@@ -1,3 +1,5 @@
+import { staticPageMetadata, type LocalePageProps } from "@/lib/seo";
+import { requireLocale } from "@/lib/server-data";
 import { useTranslations } from "next-intl";
 
 const TermsOfUsePage = () => {
@@ -73,3 +75,8 @@ const TermsOfUsePage = () => {
 };
 
 export default TermsOfUsePage;
+
+export async function generateMetadata({ params }: LocalePageProps) {
+  const { locale } = await params;
+  return staticPageMetadata(requireLocale(locale), "terms");
+}

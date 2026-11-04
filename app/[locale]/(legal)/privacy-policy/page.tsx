@@ -1,3 +1,5 @@
+import { staticPageMetadata, type LocalePageProps } from "@/lib/seo";
+import { requireLocale } from "@/lib/server-data";
 import { useTranslations } from "next-intl";
 
 const PrivacyPolicy = () => {
@@ -60,3 +62,8 @@ const PrivacyPolicy = () => {
 };
 
 export default PrivacyPolicy;
+
+export async function generateMetadata({ params }: LocalePageProps) {
+  const { locale } = await params;
+  return staticPageMetadata(requireLocale(locale), "privacy");
+}

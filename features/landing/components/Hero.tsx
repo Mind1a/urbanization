@@ -43,9 +43,9 @@ export default function Hero() {
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <div className="flex items-center justify-between">
-          <h2 className="text-[16px] md:text-[24px] lg:text-[32px] my-9 font-bold text-[#1E1E1E]">
+          <h1 className="text-[16px] md:text-[24px] lg:text-[32px] my-9 font-bold text-[#1E1E1E]">
             {t("title")}
-          </h2>
+          </h1>
           <div className="flex gap-5">
             <button
               onClick={() => emblaApi?.scrollPrev()}
@@ -82,13 +82,15 @@ export default function Hero() {
         ) : (
           <div className="overflow-hidden rounded-2xl" ref={emblaRef}>
             <div className="flex">
-              {slides.map((slide) => (
+              {slides.map((slide, index) => (
                 <div key={slide.id} className="flex-none w-full min-w-0">
                   <Image
                     src={`${process.env.NEXT_PUBLIC_URBAN_API_URL}/static/${slide.img}`}
                     alt={slide.alt}
                     width={1000}
                     height={500}
+                    preload={index === 0}
+                    sizes="(min-width: 1440px) 1280px, (min-width: 1280px) calc(100vw - 160px), (min-width: 768px) calc(100vw - 64px), calc(100vw - 48px)"
                     className="w-full md:h-118 h-72 object-cover"
                   />
                 </div>

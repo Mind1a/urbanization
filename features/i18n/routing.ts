@@ -6,6 +6,8 @@ export const routing = defineRouting({
   locales: ["en", "ka"],
 
   defaultLocale: "en",
+  // Page metadata checks the API before advertising translated detail URLs.
+  alternateLinks: false,
 });
 
 export type Locale = (typeof routing.locales)[number];
