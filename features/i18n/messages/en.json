@@ -3,6 +3,7 @@
     "title": "Urban Transformation",
     "description": "Explore Saburtalo’s urban and architectural transformation through historical maps, housing typologies and research at Ilia State University.",
     "pages": {
+      "blogs": {"title": "Blogs", "description": "Perspectives, stories and research on housing, architecture and the urban transformation of Saburtalo."},
       "home": { "title": "Saburtalo Urban Transformation | Ilia State University", "description": "Discover how Saburtalo became a central district of Tbilisi. Explore historical maps, architectural research, housing typologies and project results." },
       "about": { "title": "Architecture and Urban Studies Laboratory", "description": "Meet the Architecture and Urban Studies Laboratory, its research mission, archival collection and team studying the transformation of Tbilisi." },
       "project": { "title": "About the Saburtalo Research Project", "description": "Learn about the aims and methodology of the Ilia State University project investigating urban growth and residential architecture in Saburtalo, Tbilisi." },
@@ -15,6 +16,8 @@
     }
   },
   "header": {
+    "blogs": "Blogs",
+    "menu": "Open navigation menu",
     "home": "Home",
     "project": "About project",
     "team": "Team",
@@ -130,6 +133,19 @@
     "description": "This project examines one of Tbilisi’s districts, Saburtalo, from urban, geographical, and architectural perspectives, focusing on its transformation from a peripheral settlement to a central district during the late 19th century through the 1990s, and its ongoing evolution today.",
     "noArticles": "No articles available yet",
     "checkSoon": "Check back soon — new articles are on the way."
+  },
+  "blogs": {
+    "loadError": "Unable to load blogs",
+    "retry": "Try again",
+    "title": "Blogs",
+    "description": "Perspectives, stories and research on housing, architecture and the urban transformation of Saburtalo.",
+    "readMore": "Read more",
+    "empty": "No blogs available yet",
+    "checkSoon": "Check back soon for new stories.",
+    "recent": "Recent blogs",
+    "source": "Visit source",
+    "newTab": " (opens in a new tab)",
+    "breadcrumb": "Breadcrumb"
   },
   "media": {
     "breadcrumb": "Media",

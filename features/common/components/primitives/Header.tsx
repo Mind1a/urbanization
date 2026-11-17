@@ -14,7 +14,7 @@ type SubLinks = {
 };
 
 type LinkDataType = {
-  id: "home" | "project" | "team" | "results" | "activities" | "media";
+  id: "home" | "project" | "team" | "results" | "activities" | "media" | "blogs";
   href?: string;
   icon?: string;
   subLinks?: SubLinks[];
@@ -47,6 +47,7 @@ const LINKS_DATA: LinkDataType[] = [
     id: "media",
     href: "/media",
   },
+  { id: "blogs", href: "/blogs" },
 ];
 
 const Header = () => {
@@ -100,6 +101,8 @@ const Header = () => {
   };
 
   const cleanPathname = getCleanPathname(pathname);
+
+  const isActiveLink = (href?: string) => Boolean(href && (cleanPathname === href || (href !== "/" && cleanPathname.startsWith(`${href}/`))));
 
   const toggleSubMenu = (id: string) => {
     setIsOpenSubLinks((prev) => (prev === id ? null : id));
@@ -227,10 +230,11 @@ const Header = () => {
                   <Link
                     onClick={() => {
                       setIsOpenSubLinks(null);
+                      setIsOpenNavMenu(false);
                     }}
                     href={link.href || "/"}
                     className={`text-[16px] flex items-center justify-between leading-6 ${
-                      cleanPathname === link.href
+                      isActiveLink(link.href)
                         ? "text-[#ED6502] font-bold"
                         : "text-[#1E1E1E] font-normal"
                     }`}
@@ -279,7 +283,7 @@ const Header = () => {
         <nav className="hidden xl:flex items-center justify-between">
           <ul className="flex items-center gap-2">
             {linksData.map((link) => (
-              <li key={link.id} className="py-3 px-6">
+              <li key={link.id} className="py-3 px-3 2xl:px-5">
                 {link.subLinks ? (
                   <div className="relative">
                     <button
@@ -357,14 +361,14 @@ const Header = () => {
                     }}
                     href={link.href || "/"}
                     className={`capitalize text-[18px] leading-6 tracking-[4%] ${
-                      cleanPathname === link.href
+                      isActiveLink(link.href)
                         ? "text-[#ED6502]"
                         : "text-[#1E1E1E]"
                     }`}
                   >
                     <span className="inline-grid">
                       <span
-                        className={`[grid-area:1/1] ${cleanPathname === link.href ? "font-bold" : "font-normal"}`}
+                        className={`[grid-area:1/1] ${isActiveLink(link.href) ? "font-bold" : "font-normal"}`}
                       >
                         {tHeader(link.id)}
                       </span>
@@ -386,6 +390,8 @@ const Header = () => {
         <div className="flex items-center">
           <LocaleSwitcher />
           <button
+            aria-label={tHeader("menu")}
+            aria-expanded={isOpenNavMenu}
             onClick={() => setIsOpenNavMenu((prev) => !prev)}
             className="relative w-11 h-11 md:w-12 md:h-12 flex items-center justify-center z-50 xl:hidden"
           >

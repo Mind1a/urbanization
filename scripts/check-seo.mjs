@@ -22,7 +22,7 @@ const entries = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((match) => 
   const languages = [...match[1].matchAll(/<xhtml:link\s+[^>]*>/g)].map((tag) => attributes(tag[0]));
   return { url, languages };
 });
-assert(entries.length >= 18, "all nine static pages must exist in both languages");
+assert(entries.length >= 20, "all ten static pages must exist in both languages");
 assert.equal(new Set(entries.map(({ url }) => url)).size, entries.length, "sitemap must not contain duplicate URLs");
 const knownUrls = new Set(entries.map(({ url }) => url));
 const titles = new Set();
@@ -58,8 +58,8 @@ for (const { url, languages } of entries) {
   }
   const schemas = [...text.matchAll(/<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].map((match) => JSON.parse(match[1]));
   assert(schemas.some((schema) => schema["@graph"]?.some((entry) => entry["@type"] === "WebSite")), `${parsed.pathname}: website structured data`);
-  if (/\/(media|results|activities)\/\d+$/.test(parsed.pathname)) {
-    assert(schemas.some((schema) => ["Article", "CreativeWork"].includes(schema["@type"])), `${parsed.pathname}: content structured data`);
+  if (/\/(media|results|activities|blogs)\/\d+$/.test(parsed.pathname)) {
+    assert(schemas.some((schema) => ["Article", "CreativeWork", "BlogPosting"].includes(schema["@type"])), `${parsed.pathname}: content structured data`);
     assert(schemas.some((schema) => schema["@type"] === "BreadcrumbList"));
     assert.match(markup, /<article\b/, `${parsed.pathname}: content must exist without JavaScript`);
   }
@@ -73,7 +73,7 @@ assert(!/Disallow: \/_next\//.test(robots), "search engines must be able to load
 const image = await fetch(new URL("/og", base));
 assert.equal(image.status, 200);
 assert.match(image.headers.get("content-type"), /image\/png/);
-for (const path of ["/en/media/not-a-number", "/ka/results/0", "/en/activities/-1", "/en/activities/category/0", "/en/nonexistent-page", "/en/media/2147483647", "/ka/results/2147483647", "/en/activities/2147483647"]) {
+for (const path of ["/en/blogs/not-a-number", "/ka/blogs/0", "/en/blogs/2147483647", "/en/media/not-a-number", "/ka/results/0", "/en/activities/-1", "/en/activities/category/0", "/en/nonexistent-page", "/en/media/2147483647", "/ka/results/2147483647", "/en/activities/2147483647"]) {
   const { response, text } = await request(path);
   assert.equal(response.status, 404, `${path}: must return 404, not a successful empty page`);
   assert.match(text, /name="robots" content="[^"]*noindex/);

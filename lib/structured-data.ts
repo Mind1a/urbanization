@@ -48,7 +48,7 @@ export function contentSchema({ locale, path, title, description, image, date, a
   image?: string;
   date?: string;
   author?: string;
-  type?: "Article" | "CreativeWork";
+  type?: "Article" | "CreativeWork" | "BlogPosting";
   pdf?: string;
 }) {
   const url = localizedUrl(locale, path);
@@ -56,7 +56,7 @@ export function contentSchema({ locale, path, title, description, image, date, a
     "@context": "https://schema.org",
     "@type": type,
     "@id": `${url}#content`,
-    ...(type === "Article" ? { headline: plainText(title) } : {}),
+    ...(type !== "CreativeWork" ? { headline: plainText(title) } : {}),
     name: plainText(title),
     description: summarize(description),
     url,

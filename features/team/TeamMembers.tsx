@@ -168,7 +168,7 @@ export default function TeamMembers() {
 
             <p className="mt-3 text-[14px] text-[#1E1E1E] sm:text-[18px] lg:text-[20px]">
               <span className="text-[#1E1E1E]">{t("academicRank")}</span>{" "}
-              {selected.academic_rank}
+              {selected.academical_rank}
             </p>
 
             <p className="mt-8 text-[14px] leading-[20px] text-[#1E1E1E] sm:text-[18px] sm:leading-[32px] lg:mt-12 lg:text-[20px]">

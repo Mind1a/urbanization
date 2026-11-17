@@ -27,6 +27,7 @@ export default function Footer() {
                 <li><Link href="/aboutProject">{tHeader("project")}</Link></li>
                 <li><Link href="/team">{tHeader("team")}</Link></li>
                 <li><Link href="/activities">{tHeader("activities")}</Link></li>
+                <li><Link href="/blogs">{tHeader("blogs")}</Link></li>
               </ul>
             </div>
             <div>

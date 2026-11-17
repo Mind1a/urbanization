@@ -17,6 +17,7 @@ export const staticRoutes = {
   team: "/team",
   activities: "/activities",
   media: "/media",
+  blogs: "/blogs",
   privacy: "/privacy-policy",
   cookies: "/cookies",
   terms: "/terms-of-use",

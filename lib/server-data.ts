@@ -9,6 +9,7 @@ import { getMedia, getEachMedia } from "@/features/media/api/mediaApi";
 import { getResultsMenu, getResultDetails } from "@/features/results/api/resultsApi";
 import { getActivities, getActivityCategories, getActivityById } from "@/features/activities/api/activity.api";
 import { getMembers } from "@/features/team/api/membersApi";
+import { getBlogs, getBlog } from "@/features/blog/api/blogApi";
 import { getSlider } from "@/features/landing/api/sliderApi";
 
 export function requireLocale(locale: string): Locale {
@@ -32,6 +33,11 @@ async function contentOr404<T>(load: () => Promise<T>) {
   }
 }
 
+export const loadBlogs = cache(getBlogs);
+export const loadBlog = cache((locale: Locale, id: string) => {
+  const numericId = requireId(id);
+  return contentOr404(() => getBlog(locale, numericId));
+});
 export const loadMedia = cache(getMedia);
 export const loadResults = cache(getResultsMenu);
 export const loadActivities = cache(getActivities);

@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { routing, type Locale } from "@/features/i18n/routing";
 import { indexingEnabled, languageAlternates, localizedUrl, staticRoutes } from "@/lib/seo";
-import { loadActivities, loadCategories, loadMedia, loadResults } from "@/lib/server-data";
+import { loadActivities, loadBlogs, loadCategories, loadMedia, loadResults } from "@/lib/server-data";
 
 // Generate at request time so builds do not depend on the API being awake.
 export const dynamic = "force-dynamic";
@@ -13,10 +13,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     Object.values(staticRoutes).map((path) => [path, new Set(routing.locales)]),
   );
   const content = await Promise.all(routing.locales.map(async (locale) => {
-    const [media, activities, results, categories] = await Promise.all([
-      loadMedia(locale), loadActivities(locale), loadResults(locale), loadCategories(locale),
+    const [media, activities, results, categories, blogs] = await Promise.all([
+      loadMedia(locale), loadActivities(locale), loadResults(locale), loadCategories(locale), loadBlogs(locale),
     ]);
     return { locale, paths: [
+      ...blogs.map((item) => `/blogs/${item.id}`),
       ...media.map((item) => `/media/${item.id}`),
       ...activities.map((item) => `/activities/${item.id}`),
       ...results.map((item) => `/results/${item.id}`),
