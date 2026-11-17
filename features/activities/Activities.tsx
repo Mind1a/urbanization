@@ -1,5 +1,7 @@
 "use client";
 
+import Pagination from "@/features/common/components/Pagination";
+import { pageItems } from "@/lib/pagination";
 import { formatCalendarDate } from "@/lib/date";
 
 import Image from "next/image";
@@ -11,11 +13,12 @@ import { useActivityCategories } from "./hooks/useActivityCategories";
 
 
 type ActivitiesProps = {
+  page?: number;
   categoryId?: number;
   categoryName?: string;
 };
 
-export default function Activities({ categoryId, categoryName }: ActivitiesProps) {
+export default function Activities({ categoryId, categoryName, page = 1 }: ActivitiesProps) {
   const locale = useLocale();
   const t = useTranslations("activities");
   const { data: activities, isLoading, isError } = useActivities(locale, categoryId);
@@ -63,7 +66,7 @@ export default function Activities({ categoryId, categoryName }: ActivitiesProps
           ))}
         {isError && <p role="alert">{t("loadError")}</p>}
         {!isLoading && !isError && activities?.length === 0 && <p>{t("empty")}</p>}
-        {!isLoading && !isError && activities?.map((activity) => (
+        {!isLoading && !isError && activities && pageItems(activities, page).map((activity) => (
           <article key={activity.id} className="grid min-w-0 gap-4 sm:grid-cols-[180px_minmax(0,1fr)] sm:gap-6 md:grid-cols-[220px_minmax(0,1fr)]">
             <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl bg-gray-100 sm:aspect-square">
               <Image
@@ -98,6 +101,7 @@ export default function Activities({ categoryId, categoryName }: ActivitiesProps
           </article>
         ))}
       </div>
+      {!isLoading && !isError && activities && <Pagination path={categoryId === undefined ? "/activities" : `/activities/category/${categoryId}`} page={page} total={activities.length} />}
     </section>
   );
 }

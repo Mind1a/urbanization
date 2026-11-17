@@ -1,3 +1,4 @@
+import { paginationHref } from "@/lib/pagination";
 import type { Metadata } from "next";
 import { routing, type Locale } from "@/features/i18n/routing";
 import en from "@/features/i18n/messages/en.json";
@@ -111,10 +112,13 @@ type PageMetadataOptions = {
   image?: string;
   article?: { publishedTime?: string; author?: string };
   locales?: readonly Locale[];
+  page?: number;
 };
 
-export function createPageMetadata({ locale, path, title, description, image, article, locales }: PageMetadataOptions): Metadata {
+export function createPageMetadata({ locale, path, title, description, image, article, locales, page = 1 }: PageMetadataOptions): Metadata {
   const copy = seoCopy(locale);
+  path = paginationHref(path, page);
+  if (page > 1) title = `${title} — ${locale === "ka" ? "გვერდი" : "Page"} ${page}`;
   const fullTitle = path ? `${plainText(title)} | ${copy.title}` : copy.pages.home.title;
   const summary = summarize(description || copy.description);
   const url = localizedUrl(locale, path);
@@ -144,7 +148,7 @@ export function createPageMetadata({ locale, path, title, description, image, ar
   };
 }
 
-export function staticPageMetadata(locale: Locale, page: StaticPage) {
+export function staticPageMetadata(locale: Locale, page: StaticPage, pageNumber = 1) {
   const copy = seoCopy(locale).pages[page];
-  return createPageMetadata({ locale, path: staticRoutes[page], ...copy });
+  return createPageMetadata({ locale, path: staticRoutes[page], ...copy, page: pageNumber });
 }

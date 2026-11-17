@@ -4,6 +4,7 @@ import { cache } from "react";
 import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing, type Locale } from "@/features/i18n/routing";
+import { getPagination } from "@/lib/pagination";
 import { ApiError } from "@/lib/apiClient";
 import { getMedia, getEachMedia } from "@/features/media/api/mediaApi";
 import { getResultsMenu, getResultDetails } from "@/features/results/api/resultsApi";
@@ -68,4 +69,10 @@ export const loadCategory = cache(async (locale: Locale, id: string) => {
 export async function contentLocales<T>(locale: Locale, id: string, load: (locale: Locale, id: string) => Promise<T>) {
   const results = await Promise.allSettled(routing.locales.map((other) => load(other, id)));
   return routing.locales.filter((other, index) => other === locale || results[index].status === "fulfilled");
+}
+
+export function requirePagination(total: number, requestedPage?: string | string[]) {
+  const pagination = getPagination(total, requestedPage);
+  if (!pagination) notFound();
+  return pagination;
 }

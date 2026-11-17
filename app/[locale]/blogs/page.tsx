@@ -1,15 +1,22 @@
+import Pagination from "@/features/common/components/Pagination";
+import { pageItems } from "@/lib/pagination";
+import type { PaginationSearchParams } from "@/lib/pagination";
 import { getTranslations } from "next-intl/server";
 import BlogCard from "@/features/blog/components/BlogCard";
-import { loadBlogs, requireLocale } from "@/lib/server-data";
+import { loadBlogs, requireLocale, requirePagination } from "@/lib/server-data";
 import { staticPageMetadata, type LocalePageProps } from "@/lib/seo";
 
-export async function generateMetadata({ params }: LocalePageProps) {
-  return staticPageMetadata(requireLocale((await params).locale), "blogs");
+export async function generateMetadata({ params, searchParams }: LocalePageProps & PaginationSearchParams) {
+  const locale = requireLocale((await params).locale);
+  const items = await loadBlogs(locale);
+  const pagination = requirePagination(items.length, (await searchParams).page);
+  return staticPageMetadata(locale, "blogs", pagination.page);
 }
 
-export default async function BlogsPage({ params }: LocalePageProps) {
+export default async function BlogsPage({ params, searchParams }: LocalePageProps & PaginationSearchParams) {
   const locale = requireLocale((await params).locale);
   const [blogs, t] = await Promise.all([loadBlogs(locale), getTranslations({ locale, namespace: "blogs" })]);
+  const { page } = requirePagination(blogs.length, (await searchParams).page);
   return (
     <div className="px-6 pb-16 md:px-8 md:pb-20 xl:px-20">
       <div className="mx-auto max-w-7xl">
@@ -18,10 +25,11 @@ export default async function BlogsPage({ params }: LocalePageProps) {
           <p className="max-w-4xl text-base leading-relaxed text-[#1E1E1E] md:text-lg lg:text-xl">{t("description")}</p>
         </div>
         {blogs.length ? (
-          <div className="flex flex-col gap-6 md:gap-8">{blogs.map((blog) => <BlogCard key={blog.id} blog={blog} locale={locale} />)}</div>
+          <div className="flex flex-col gap-6 md:gap-8">{pageItems(blogs, page).map((blog) => <BlogCard key={blog.id} blog={blog} locale={locale} />)}</div>
         ) : (
           <div className="py-16 text-center"><p className="text-xl font-medium">{t("empty")}</p><p className="mt-2 text-[#1E1E1E99]">{t("checkSoon")}</p></div>
         )}
+        <Pagination path="/blogs" page={page} total={blogs.length} />
       </div>
     </div>
   );

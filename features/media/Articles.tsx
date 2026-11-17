@@ -1,11 +1,13 @@
 "use client";
+import Pagination from "@/features/common/components/Pagination";
+import { pageItems } from "@/lib/pagination";
 import Image from "next/image";
 import { Link } from "@/features/i18n/routing";
 import { useMedia } from "./hooks/useMedia";
 import { useLocale, useTranslations } from "next-intl";
 import { formatCalendarDate } from "@/lib/date";
 
-export default function Articles() {
+export default function Articles({ page = 1 }: { page?: number }) {
   const locale = useLocale();
   const { data: mediaArticles, isLoading } = useMedia(locale);
   const t = useTranslations("media");
@@ -26,9 +28,9 @@ export default function Articles() {
           </div>
         )}
         {mediaArticles &&
-          mediaArticles.map((article, i) => (
+          pageItems(mediaArticles, page).map((article) => (
             <div
-              key={i}
+              key={article.id}
               className="flex flex-col xs:flex-row gap-6 rounded-2xl transition-all duration-300 hover:ring-2 hover:ring-[#ED6502] group"
             >
               {/* Image */}
@@ -66,6 +68,7 @@ export default function Articles() {
             </div>
           ))}
       </div>
+      {!isLoading && mediaArticles && <Pagination path="/media" page={page} total={mediaArticles.length} />}
     </div>
   );
 }

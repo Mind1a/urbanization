@@ -1,6 +1,7 @@
 "use client";
 
 import ResultImage from "@/features/results/components/ResultImage";
+import TypologyContent from "@/features/results/components/TypologyContent";
 import { useResultDetails } from "@/features/results/hooks/useResultDetails";
 import type { ResultDetails } from "@/features/results/types/resultTypes";
 import { useLocale, useTranslations } from "next-intl";
@@ -29,6 +30,7 @@ function ResultContent({ result }: { result: ResultDetails }) {
     result.timelines[0];
   const imageSrc = activeTimeline?.img ? getAssetUrl(activeTimeline.img) : null;
   const imageAlt = activeTimeline ? `${result.title} — ${activeTimeline.year}` : "";
+  const hasTypologies = result.timelines.some((timeline) => (timeline.typologies?.length ?? 0) > 0);
   const paragraphs =
     activeTimeline?.description
       .split(/\r?\n\s*\r?\n/)
@@ -82,7 +84,11 @@ function ResultContent({ result }: { result: ResultDetails }) {
           </div>
         )}
 
-        {activeTimeline && (imageSrc || paragraphs.length > 0) && (
+        {activeTimeline && hasTypologies && (
+          <TypologyContent key={activeTimeline.id} timeline={activeTimeline} />
+        )}
+
+        {!hasTypologies && activeTimeline && (imageSrc || paragraphs.length > 0) && (
           <div
             key={`content-${activeTimeline.id}`}
             className="mt-8 flow-root text-sm leading-6 md:mt-10 md:text-lg md:leading-7 lg:mt-12 lg:text-xl lg:leading-8"

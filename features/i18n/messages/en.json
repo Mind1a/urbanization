@@ -15,6 +15,13 @@
       "terms": { "title": "Terms of Use", "description": "Read the terms for using Saburtalo research materials, including attribution, non-commercial use and the limitations of historical sources." }
     }
   },
+  "pagination": {
+    "label": "Pagination",
+    "showing": "Showing {from}–{to} of {total}",
+    "previous": "Previous page",
+    "next": "Next page",
+    "page": "Page {page}"
+  },
   "header": {
     "blogs": "Blogs",
     "menu": "Open navigation menu",

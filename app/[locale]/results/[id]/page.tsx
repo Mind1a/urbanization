@@ -4,6 +4,7 @@ import JsonLd from "@/features/seo/JsonLd";
 import { contentLocales, loadResult, requireLocale } from "@/lib/server-data";
 import { apiAssetUrl, createPageMetadata, type DetailPageProps } from "@/lib/seo";
 import { breadcrumbSchema, contentSchema } from "@/lib/structured-data";
+import { typologyPlainText } from "@/features/results/utils/typologyReferences";
 
 export async function generateMetadata({ params }: DetailPageProps) {
   const { locale: requestedLocale, id } = await params;
@@ -12,7 +13,7 @@ export async function generateMetadata({ params }: DetailPageProps) {
   const locales = await contentLocales(locale, id, loadResult);
   return createPageMetadata({
     locale, path: `/results/${result.id}`,
-    title: result.title, description: result.timelines[0]?.description || result.title,
+    title: result.title, description: typologyPlainText(result.timelines[0]?.description || result.title),
     image: apiAssetUrl(result.timelines[0]?.img), locales,
   });
 }
@@ -26,7 +27,7 @@ export default async function ResultPage({ params }: DetailPageProps) {
     <ServerHydration queries={[{ queryKey: ["result-details", locale, id], data: result }]}>
       <JsonLd data={contentSchema({
         locale, path, title: result.title,
-        description: result.timelines[0]?.description || result.title,
+        description: typologyPlainText(result.timelines[0]?.description || result.title),
         image: apiAssetUrl(result.timelines[0]?.img),
         pdf: apiAssetUrl(result.pdf), type: "CreativeWork",
       })} />
